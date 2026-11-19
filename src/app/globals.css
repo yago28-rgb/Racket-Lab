@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/*
+ * RACKET LAB design tokens.
+ * Apple-inspired neutral palette; the lime accent is reserved for small details
+ * (progress, focus, live indicators), never for large surfaces.
+ */
+@theme {
+  --color-ink: #111111;
+  --color-ink-soft: #1d1d1f;
+  --color-paper: #ffffff;
+  --color-mist: #f7f7f7;
+  --color-cloud: #f5f5f7;
+  --color-line: #eaeaea;
+  --color-muted: #86868b;
+  --color-accent: #c8f031;
+  --color-accent-ink: #4d6b00;
+  --color-night: #0a0a0b;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-card: 1.5rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@layer components {
+  .container-rl {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-rl {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .display {
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+
+  .hairline {
+    border-color: var(--color-line);
+  }
+
+  .studio-bg {
+    background:
+      radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #f5f5f7 55%, #ececee 100%);
+  }
+
+  .noir-bg {
+    background:
+      radial-gradient(90% 70% at 70% 20%, #1c1c1f 0%, #0a0a0b 60%);
+  }
+
+  /* Elegant placeholder for missing editorial photography */
+  .court-lines {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Range input */
+input[type="range"].rl-range {
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--color-ink) 0%, var(--color-ink) var(--val, 50%), var(--color-line) var(--val, 50%));
+}
+input[type="range"].rl-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  cursor: grab;
+}
+input[type="range"].rl-range::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  cursor: grab;
+}
