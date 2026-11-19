@@ -186,7 +186,7 @@ export default async function ProductPage({ params }: PageProps<"/raquetas/[slug
         <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((x) => (
             <li key={x.id}>
-              <ProductCard racket={x} uid="related" />
+              <ProductCard racket={x} />
             </li>
           ))}
         </ul>

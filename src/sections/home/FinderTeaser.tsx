@@ -4,7 +4,9 @@ import { emptyAnswers, type FinderAnswers } from "@/lib/recommendation/types";
 import { brands } from "@/data/brands";
 import { ButtonLink } from "@/components/ui/Button";
 import { Reveal, WordReveal } from "@/components/ui/Reveal";
-import { RacketArt } from "@/components/product/RacketArt";
+import { ProductMedia } from "@/components/product/ProductMedia";
+import { BackgroundVideo } from "@/components/ui/BackgroundVideo";
+import { videos } from "@/lib/media";
 
 /** A real engine run for a sample profile — the preview is computed, not mocked. */
 const sample: FinderAnswers = {
@@ -22,8 +24,12 @@ export function FinderTeaser() {
   const result = recommend(getAllRackets(), sample);
   const best = result.best!;
   return (
-    <section className="noir-bg relative overflow-hidden py-28 text-white md:py-40" aria-labelledby="finder-title">
-      <div className="container-rl grid items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
+    <section className="relative overflow-hidden bg-night py-28 text-white md:py-40" aria-labelledby="finder-title">
+      <div className="absolute inset-0">
+        <BackgroundVideo base={videos.aerialServe.base} label={videos.aerialServe.label} className="opacity-60" />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-night via-night/85 to-night/40" />
+      <div className="container-rl relative grid items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <p className="eyebrow !text-white/50">Racket Finder</p>
           <h2 id="finder-title" className="display mt-6 text-[clamp(2.6rem,6vw,5.5rem)]">
@@ -55,7 +61,7 @@ export function FinderTeaser() {
         </div>
 
         <Reveal delay={0.15}>
-          <div className="relative rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm md:p-8">
+          <div className="relative rounded-[2rem] border border-white/10 bg-night/60 p-6 backdrop-blur-md md:p-8">
             <div className="flex items-center justify-between">
               <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/50">Your perfect match</p>
               <span className="flex items-center gap-2 text-[11px] text-white/50">
@@ -74,8 +80,8 @@ export function FinderTeaser() {
                 </p>
                 <p className="text-xs text-white/50">compatibilidad calculada</p>
               </div>
-              <div className="h-44 w-28">
-                <RacketArt racket={best.racket} angle={-12} uid="teaser" showShadow={false} className="h-full w-full" />
+              <div className="relative h-48 w-36 overflow-hidden rounded-2xl bg-[radial-gradient(70%_60%_at_50%_45%,#3a3a3e,#151517)]">
+                <ProductMedia racket={best.racket} sizes="144px" label={false} />
               </div>
             </div>
             <ul className="mt-6 space-y-2 border-t border-white/10 pt-5 text-sm text-white/70">
@@ -87,7 +93,7 @@ export function FinderTeaser() {
               ))}
             </ul>
             <p className="mt-6 text-[11px] leading-relaxed text-white/40">
-              Ejemplo para un perfil intermedio, agresivo desde el fondo, que busca efecto en tierra batida.
+              Ejemplo para un perfil intermedio, agresivo desde el fondo, que busca efecto en tierra batida. Imagen: render 3D representativo.
             </p>
           </div>
         </Reveal>

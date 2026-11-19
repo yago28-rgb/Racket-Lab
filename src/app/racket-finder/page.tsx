@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FinderFlow } from "@/components/finder/FinderFlow";
+import { PhotoHeader } from "@/components/ui/PhotoHeader";
 
 export const metadata: Metadata = {
   title: "Racket Finder",
@@ -10,17 +11,17 @@ export const metadata: Metadata = {
 
 export default function RacketFinderPage() {
   return (
-    <div className="pt-14">
-      <header className="studio-bg border-b border-line">
-        <div className="container-rl py-14 md:py-20">
-          <p className="eyebrow">Racket Finder</p>
+    <div>
+      <PhotoHeader src="/media/photos/serve-sky.webp" alt="Tenista lanzando la bola en el saque, a contraluz" position="30% 30%">
+        <div className="pb-14 pt-36 md:pb-20 md:pt-48">
+          <p className="eyebrow !text-white/60">Racket Finder</p>
           <h1 className="display mt-5 text-[clamp(2.4rem,6vw,5rem)]">
             Your game has a signature.
             <br />
-            <span className="text-ink/35">Let’s find your racket.</span>
+            <span className="text-white/50">Let’s find your racket.</span>
           </h1>
         </div>
-      </header>
+      </PhotoHeader>
       <FinderFlow />
     </div>
   );

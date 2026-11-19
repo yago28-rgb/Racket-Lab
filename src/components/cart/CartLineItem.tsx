@@ -20,9 +20,7 @@ export function CartLineItem({ line, compact = false }: { line: PricedLine; comp
         onClick={close}
         className={`studio-bg relative shrink-0 overflow-hidden rounded-xl ${compact ? "h-24 w-20" : "h-32 w-28"}`}
       >
-        <div className="absolute inset-0 p-2">
-          <ProductMedia racket={r} uid={`cart-${line.key}`} angle={-20} sizes="112px" />
-        </div>
+        <ProductMedia racket={r} sizes="112px" label={false} />
       </Link>
       <div className="flex flex-1 flex-col">
         <div className="flex justify-between gap-3">

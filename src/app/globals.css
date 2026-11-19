@@ -93,13 +93,6 @@ body {
       radial-gradient(90% 70% at 70% 20%, #1c1c1f 0%, #0a0a0b 60%);
   }
 
-  /* Elegant placeholder for missing editorial photography */
-  .court-lines {
-    background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.14) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

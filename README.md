@@ -17,13 +17,17 @@ npm run dev                  # http://localhost:3000
 | `npm run typecheck` | Genera tipos de rutas y ejecuta `tsc` |
 | `npm run lint` | ESLint |
 | `npm run test:engine` | Pruebas del motor de recomendación |
+| `npm run doctor:swc` | Diagnóstico del binario nativo de Next.js en Windows (solo lectura) |
+| `npm run media:catalog` | Exporta las medidas del catálogo para Blender |
+| `npm run media:optimize` | Comprime los GLB (Meshopt) |
 
 ## Stack
 
-Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS 4 · Motion · Three.js + React Three Fiber + Drei · Zustand · Stripe · Lucide.
+Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS 4 · GSAP + ScrollTrigger · Motion · Three.js + React Three Fiber + Drei · Blender (generación de modelos) · Zustand · Stripe · Lucide.
 
 **Decisiones:**
-- **Solo Motion para animación** (no GSAP): cubre scroll-linked (`useScroll`), reveals, layout y transiciones. Mantener dos sistemas duplicaría peso y lógica.
+- **GSAP + ScrollTrigger** para las secuencias ligadas al scroll con cámara 3D (hero y tecnología); **Motion** para interfaz, reveals y transiciones. Cada uno tiene un papel distinto, sin duplicar.
+- **Reglas visuales permanentes** en `CLAUDE.md`: sin SVG para ilustraciones, productos ni fondos (solo logotipo e iconos funcionales).
 - **Sin Supabase por ahora**: el catálogo es estático y versionado en `src/data/products.ts`. La capa `src/lib/catalog.ts` aísla el acceso, así que migrar a una base de datos no toca la UI.
 - **Sin descarga de HDR**: la iluminación 3D se construye con `Lightformer`, sin dependencias de red.
 
@@ -58,8 +62,39 @@ scripts/engine.test.ts    Pruebas del motor
 - **Datos no verificados** = `null` → se muestran como «Pendiente» y el motor los excluye (bajando la confianza del resultado).
 - **Precios**: solo 3 modelos tienen un precio público en EUR localizado (Pure Drive 2025, Radical MP 2025, Gravity MP 2025). El resto figura como «Precio por confirmar» y **no se puede comprar** hasta que se fije en `products.ts`.
 - **Generaciones**: algunos modelos (p. ej. VCORE 100 2023, CX 200 2024) tienen ya sucesor; revisar disponibilidad antes de vender.
-- **Imágenes**: no hay fotografía oficial licenciada. Se usa una **ilustración generada a escala** a partir de cabeza, perfil y patrón reales de cada modelo, etiquetada como ilustración. Para usar fotos: añadirlas a `public/products/` y rellenar `image`/`gallery`.
-- **3D**: el modelo es **paramétrico** (cabeza, perfil y patrón a escala), no un escaneo del fabricante. Si hay un GLB licenciado, `ProductViewer` acepta `glbUrl`.
+- **Imágenes de producto**: no hay fotografía oficial licenciada. Cada raqueta tiene **renders 3D representativos** (Blender/Cycles) generados a partir de su cabeza, perfil, longitud y patrón reales, etiquetados como tales. Si se consigue fotografía oficial, se añade a `public/` y se indica en `image` (tiene prioridad sobre el render).
+- **3D**: modelos GLB representativos (no escaneos del fabricante, sin logotipos, colores aproximados).
+- **Fotografía y vídeo editorial**: clips de Mixkit con licencia gratuita comercial (verificada clip a clip) y fotogramas de esos clips. Créditos en `/creditos` y `public/media/CREDITS.md`.
+
+## Pipeline de medios 3D
+
+```
+npm run media:catalog                         # medidas reales → scripts/blender/catalog.json
+python scripts/blender/build_rackets.py \
+  --catalog scripts/blender/catalog.json \
+  --assets <dir con studio_small_09_2k.hdr y texturas leather_white_*> \
+  --out <dir de trabajo> --models public/models   # GLB + renders PNG (Cycles)
+npm run media:optimize                        # Meshopt sobre public/models
+node scripts/convert-renders.mjs <dir de trabajo>/renders   # → public/products/*.webp
+```
+
+- Requiere Blender 5.x como módulo de Python (`pip install bpy==5.3.0`, Python 3.13) o ejecutar el script con `blender -b -P`.
+- Modelado: marco continuo con perfil de sección redondeada, puente, protector, ojales, encordado entrelazado (cada vertical alterna por encima y por debajo), grip octogonal con overgrip en espiral, tapón y collarín.
+- Materiales PBR: pintura con clearcoat, grip de piel (Poly Haven, CC0) con normal y rugosidad, cuerdas de polímero, plásticos. El modelo «Studio» lleva un tejido de carbono generado proceduralmente.
+- Iluminación: HDRI de estudio (Poly Haven, CC0) servido en local, luz principal con sombras y sombras de contacto.
+
+## Solución de problemas (Windows)
+
+**`next-swc.win32-x64-msvc.node no es una aplicación Win32 válida`** al ejecutar `npm run dev`:
+
+1. Ejecuta `npm run doctor:swc` (solo lee archivos). Compara tamaño y huella SHA-256 con el paquete oficial y comprueba la arquitectura de Node.
+2. Si el archivo está incompleto o alterado, reinstala solo ese paquete. No hace falta borrar todo:
+   ```powershell
+   Remove-Item -Recurse -Force node_modules\@next\swc-win32-x64-msvc
+   npm install
+   ```
+3. Si vuelve a corromperse, revisa la cuarentena del antivirus (Seguridad de Windows → Historial de protección) o añade una exclusión para la carpeta del proyecto.
+4. Si `doctor:swc` indica que Node no es x64 (p. ej. Windows ARM), instala Node.js para tu arquitectura.
 
 ## Racket Finder
 

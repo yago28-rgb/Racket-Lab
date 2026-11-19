@@ -58,7 +58,7 @@ export function Header() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500",
-          scrolled || menu ? "border-b border-line/80 bg-white/75 backdrop-blur-xl backdrop-saturate-150" : "border-b border-transparent",
+          scrolled || menu || pathname !== "/" ? "border-b border-line/80 bg-white/75 backdrop-blur-xl backdrop-saturate-150" : "border-b border-transparent",
         )}
       >
         <div className="container-rl flex h-14 items-center justify-between gap-6">

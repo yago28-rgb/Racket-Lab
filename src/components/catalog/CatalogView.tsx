@@ -207,7 +207,7 @@ export function CatalogView() {
                     exit={{ opacity: 0, scale: 0.96 }}
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <ProductCard racket={r} uid="cat" />
+                    <ProductCard racket={r} />
                   </motion.li>
                 ))}
               </AnimatePresence>

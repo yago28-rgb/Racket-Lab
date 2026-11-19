@@ -3,17 +3,15 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Reveal, WordReveal } from "@/components/ui/Reveal";
+import { BackgroundVideo } from "@/components/ui/BackgroundVideo";
+import { videos } from "@/lib/media";
 
-/**
- * Editorial block. In place of stock photography (none licensed yet), the
- * visual is a macro study of a 16×19 string bed rendered in SVG.
- */
 export function Philosophy({ models, brandCount }: { models: number; brandCount: number }) {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const rotate = useTransform(scrollYProgress, [0, 1], [reduced ? -8 : -18, reduced ? -8 : 6]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.25, 1.05, 1.15]);
+  const y = useTransform(scrollYProgress, [0, 1], reduced ? ["0%", "0%"] : ["-8%", "8%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduced ? [1, 1, 1] : [1.18, 1.06, 1.12]);
 
   return (
     <section id="filosofia" ref={ref} className="bg-white py-28 md:py-40">
@@ -47,25 +45,14 @@ export function Philosophy({ models, brandCount }: { models: number; brandCount:
         </div>
 
         <Reveal className="relative">
-          <figure className="noir-bg relative aspect-[4/5] overflow-hidden rounded-[2rem]">
-            <motion.svg style={{ rotate, scale }} viewBox="0 0 400 500" className="absolute inset-0 h-full w-full" aria-hidden>
-              <defs>
-                <radialGradient id="ph-light" cx="65%" cy="30%" r="70%">
-                  <stop offset="0" stopColor="#fff" stopOpacity="0.9" />
-                  <stop offset="1" stopColor="#fff" stopOpacity="0.08" />
-                </radialGradient>
-              </defs>
-              {Array.from({ length: 16 }).map((_, i) => (
-                <rect key={`m${i}`} x={20 + i * 24} y={-40} width={3.2} height={580} rx={1.6} fill="url(#ph-light)" />
-              ))}
-              {Array.from({ length: 19 }).map((_, i) => (
-                <rect key={`c${i}`} x={-40} y={10 + i * 26} width={480} height={3.2} rx={1.6} fill="url(#ph-light)" opacity={0.75} />
-              ))}
-            </motion.svg>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+          <figure className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-night">
+            <motion.div style={{ y, scale }} className="absolute inset-0">
+              <BackgroundVideo base={videos.playerReady.base} label={videos.playerReady.label} />
+            </motion.div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
             <figcaption className="absolute bottom-6 left-6 right-6 text-white">
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/60">Estudio · patrón 16×19</p>
-              <p className="mt-2 text-sm text-white/80">16 cuerdas verticales, 19 horizontales. Cada cruce cuenta.</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/60">Posición de resto</p>
+              <p className="mt-2 text-sm text-white/85">Peso adelantado, raqueta preparada. La raqueta correcta empieza aquí.</p>
             </figcaption>
           </figure>
         </Reveal>

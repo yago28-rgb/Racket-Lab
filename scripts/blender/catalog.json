@@ -1,0 +1,354 @@
+[
+  {
+    "slug": "studio",
+    "name": "RACKET LAB Studio",
+    "headSizeSqIn": 100,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#1a1a1c",
+      "accent": "#232326",
+      "grip": "#121213",
+      "strings": "#e9e7e2"
+    },
+    "carbon": true
+  },
+  {
+    "slug": "babolat-pure-aero-2023",
+    "name": "babolat Pure Aero 2023",
+    "headSizeSqIn": 100,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#F2D21B",
+      "accent": "#111111",
+      "grip": "#111111",
+      "strings": "#E9E9E9"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "babolat-pure-drive-2025",
+    "name": "babolat Pure Drive 2025",
+    "headSizeSqIn": 100,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#1F5BD8",
+      "accent": "#0B1B3F",
+      "grip": "#111111",
+      "strings": "#F2F2F2"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "babolat-pure-strike-98-16x19-2024",
+    "name": "babolat Pure Strike 98 2024",
+    "headSizeSqIn": 98,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#F4F4F2",
+      "accent": "#D7262E",
+      "grip": "#111111",
+      "strings": "#DADADA"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "wilson-blade-98-16x19-v9",
+    "name": "wilson Blade 98 v9",
+    "headSizeSqIn": 98,
+    "beamMm": 21,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#2E4A3A",
+      "accent": "#9C7B4F",
+      "grip": "#111111",
+      "strings": "#E5E5E5"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "wilson-pro-staff-97-v14",
+    "name": "wilson Pro Staff 97 v14",
+    "headSizeSqIn": 97,
+    "beamMm": 21.5,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#141414",
+      "accent": "#7A1E25",
+      "grip": "#141414",
+      "strings": "#D9D9D9"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "wilson-clash-100-v3",
+    "name": "wilson Clash 100 v3",
+    "headSizeSqIn": 100,
+    "beamMm": 24.5,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#1B1B1F",
+      "accent": "#E4002B",
+      "grip": "#1B1B1F",
+      "strings": "#EDEDED"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "wilson-ultra-100-v5",
+    "name": "wilson Ultra 100 v5",
+    "headSizeSqIn": 100,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#2B2F8F",
+      "accent": "#7FD3F7",
+      "grip": "#111111",
+      "strings": "#EFEFEF"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "head-speed-mp-2024",
+    "name": "head Speed MP 2024",
+    "headSizeSqIn": 100,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#F1F1F1",
+      "accent": "#111111",
+      "grip": "#111111",
+      "strings": "#E3E3E3"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "head-radical-mp-2025",
+    "name": "head Radical MP 2025",
+    "headSizeSqIn": 98,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#E86A1C",
+      "accent": "#1C2B4A",
+      "grip": "#111111",
+      "strings": "#EDEDED"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "head-gravity-mp-2025",
+    "name": "head Gravity MP 2025",
+    "headSizeSqIn": 100,
+    "beamMm": 22,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 20,
+    "colorway": {
+      "frame": "#3A2A6B",
+      "accent": "#F28A2E",
+      "grip": "#111111",
+      "strings": "#E8E8E8"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "head-boom-mp-2024",
+    "name": "head Boom MP 2024",
+    "headSizeSqIn": 100,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#2FB7A7",
+      "accent": "#E8FF4F",
+      "grip": "#111111",
+      "strings": "#F2F2F2"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "head-prestige-mp-2023",
+    "name": "head Prestige MP 2023",
+    "headSizeSqIn": 99,
+    "beamMm": 21.5,
+    "lengthIn": 27,
+    "mains": 18,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#2A0F14",
+      "accent": "#C9A44C",
+      "grip": "#111111",
+      "strings": "#E2E2E2"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "yonex-ezone-100-2025",
+    "name": "yonex EZONE 100 8.ª gen. (2025)",
+    "headSizeSqIn": 100,
+    "beamMm": 26.5,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#1E4FD6",
+      "accent": "#9FD8FF",
+      "grip": "#111111",
+      "strings": "#F0F0F0"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "yonex-vcore-100-2023",
+    "name": "yonex VCORE 100 7.ª gen. (2023)",
+    "headSizeSqIn": 100,
+    "beamMm": 25.3,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#B3122E",
+      "accent": "#111111",
+      "grip": "#111111",
+      "strings": "#EDEDED"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "yonex-percept-97",
+    "name": "yonex PERCEPT 97 2023",
+    "headSizeSqIn": 97,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#1E3B35",
+      "accent": "#C9B98F",
+      "grip": "#111111",
+      "strings": "#E5E5E5"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "tecnifibre-tf40-305-16x19-v3",
+    "name": "tecnifibre TF40 305 V3",
+    "headSizeSqIn": 98,
+    "beamMm": 22,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#141414",
+      "accent": "#E0302B",
+      "grip": "#141414",
+      "strings": "#E0E0E0"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "tecnifibre-t-fight-300-2025",
+    "name": "tecnifibre T-Fight 300 2025",
+    "headSizeSqIn": 100,
+    "beamMm": 23.5,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#1A1A1A",
+      "accent": "#D7DCE2",
+      "grip": "#1A1A1A",
+      "strings": "#ECECEC"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "tecnifibre-tf-x1-300-v2",
+    "name": "tecnifibre TF-X1 300 V2",
+    "headSizeSqIn": 100,
+    "beamMm": 23,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#F5F5F5",
+      "accent": "#1F6FEB",
+      "grip": "#111111",
+      "strings": "#E6E6E6"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "dunlop-sx-300-2025",
+    "name": "dunlop SX 300 2025",
+    "headSizeSqIn": 100,
+    "beamMm": 26,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#F2C200",
+      "accent": "#0F0F0F",
+      "grip": "#0F0F0F",
+      "strings": "#EFEFEF"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "dunlop-cx-200-2024",
+    "name": "dunlop CX 200 2024",
+    "headSizeSqIn": 98,
+    "beamMm": 21.5,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 19,
+    "colorway": {
+      "frame": "#141414",
+      "accent": "#C8102E",
+      "grip": "#141414",
+      "strings": "#E4E4E4"
+    },
+    "carbon": false
+  },
+  {
+    "slug": "prince-phantom-100x-305-2024",
+    "name": "prince Phantom 100X 2024",
+    "headSizeSqIn": 100,
+    "beamMm": 22,
+    "lengthIn": 27,
+    "mains": 16,
+    "crosses": 18,
+    "colorway": {
+      "frame": "#6B6F73",
+      "accent": "#111111",
+      "grip": "#111111",
+      "strings": "#E8E8E8"
+    },
+    "carbon": false
+  }
+]

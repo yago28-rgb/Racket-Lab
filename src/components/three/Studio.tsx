@@ -1,24 +1,44 @@
 "use client";
 
-import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
+import { ContactShadows, Environment } from "@react-three/drei";
+import { HDRI } from "@/lib/media";
 
 /**
- * Studio lighting built from in-scene light formers: no HDR file is downloaded,
- * so the scene renders offline and adds nothing to the network waterfall.
+ * Photographic studio lighting: Poly Haven "Studio Small 09" HDRI (CC0, served
+ * locally) for reflections and ambient light, plus a shadow-casting key light
+ * and soft contact shadows.
  */
-export function Studio({ shadowY = -1.45, dark = false }: { shadowY?: number; dark?: boolean }) {
+export function Studio({
+  shadowY = -0.36,
+  dark = false,
+  envIntensity = 1,
+  contact = true,
+}: {
+  shadowY?: number;
+  dark?: boolean;
+  envIntensity?: number;
+  contact?: boolean;
+}) {
   return (
     <>
-      <ambientLight intensity={dark ? 0.25 : 0.5} />
-      <directionalLight position={[3, 5, 4]} intensity={dark ? 1.6 : 1.2} />
-      <directionalLight position={[-4, 2, -3]} intensity={0.5} color="#cfe3ff" />
-      <Environment resolution={256} frames={1}>
-        <Lightformer form="rect" intensity={4} position={[0, 4, 3]} scale={[8, 2, 1]} />
-        <Lightformer form="rect" intensity={2} position={[-5, 1, 1]} rotation-y={Math.PI / 2} scale={[6, 2, 1]} />
-        <Lightformer form="rect" intensity={2} position={[5, 1, 1]} rotation-y={-Math.PI / 2} scale={[6, 2, 1]} />
-        <Lightformer form="ring" intensity={1.5} position={[0, 0, -6]} scale={4} />
-      </Environment>
-      <ContactShadows position={[0, shadowY, 0]} opacity={dark ? 0.6 : 0.35} scale={6} blur={2.6} far={3} resolution={512} />
+      <Environment files={HDRI} environmentIntensity={envIntensity * (dark ? 0.7 : 1)} />
+      <directionalLight
+        position={[1.2, 2.2, 1.6]}
+        intensity={dark ? 1.4 : 1.1}
+        castShadow
+        shadow-mapSize={[1024, 1024]}
+        shadow-bias={-0.0004}
+        shadow-camera-near={0.5}
+        shadow-camera-far={6}
+        shadow-camera-left={-0.6}
+        shadow-camera-right={0.6}
+        shadow-camera-top={0.6}
+        shadow-camera-bottom={-0.6}
+      />
+      <directionalLight position={[-1.5, 0.8, -1.2]} intensity={dark ? 0.9 : 0.4} color="#dfe9ff" />
+      {contact && (
+        <ContactShadows position={[0, shadowY, 0]} opacity={dark ? 0.55 : 0.32} scale={1.6} blur={2.8} far={0.8} resolution={512} />
+      )}
     </>
   );
 }

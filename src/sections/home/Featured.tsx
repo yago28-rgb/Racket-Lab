@@ -31,7 +31,7 @@ export function Featured() {
         <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((r, i) => (
             <Reveal as="li" key={r.id} delay={(i % 3) * 0.08}>
-              <ProductCard racket={r} uid="featured" />
+              <ProductCard racket={r} />
             </Reveal>
           ))}
         </ul>

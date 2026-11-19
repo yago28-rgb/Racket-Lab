@@ -6,14 +6,14 @@ import { fmtBalance, fmtHead, fmtWeight, formatPrice, levelRange, typeLabels } f
 import { ProductMedia } from "./ProductMedia";
 import { CompareToggle } from "./CompareToggle";
 
-export function ProductCard({ racket, uid = "card" }: { racket: Racket; uid?: string }) {
+export function ProductCard({ racket }: { racket: Racket }) {
   const s = racket.specs;
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
       <Link href={`/raquetas/${racket.slug}`} className="absolute inset-0 z-10" aria-label={`Ver ${brands[racket.brand].name} ${racket.model} ${racket.generation}`} />
       <div className="studio-bg relative aspect-[4/5] overflow-hidden">
-        <div className="absolute inset-0 p-6 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]">
-          <ProductMedia racket={racket} uid={uid} angle={-22} />
+        <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]">
+          <ProductMedia racket={racket} sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw" label={false} />
         </div>
         <div className="absolute left-4 top-4 flex gap-2">
           <span className="rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-medium backdrop-blur">{typeLabels[racket.type]}</span>
@@ -22,7 +22,7 @@ export function ProductCard({ racket, uid = "card" }: { racket: Racket; uid?: st
           <CompareToggle id={racket.id} label={false} className="h-8 w-8 justify-center !p-0" />
         </div>
         {!racket.image && (
-          <span className="absolute bottom-3 left-4 text-[10px] uppercase tracking-[0.14em] text-muted">Ilustración</span>
+          <span className="absolute bottom-3 left-4 text-[10px] uppercase tracking-[0.14em] text-muted">Render 3D representativo</span>
         )}
       </div>
       <div className="flex flex-1 flex-col gap-4 p-5">

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { brandList } from "@/data/brands";
 import { getAllRackets } from "@/lib/catalog";
-import { RacketArt } from "@/components/product/RacketArt";
+import { ProductMedia } from "@/components/product/ProductMedia";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
@@ -41,9 +41,10 @@ export default function BrandsPage() {
                       <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </span>
                   </div>
-                  <div className="absolute -bottom-6 right-0 h-[115%] w-1/2 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-3 group-hover:scale-105">
-                    {items[0] && <RacketArt racket={items[0]} angle={-28} uid="brand" showShadow={false} className="h-full w-full" />}
+                  <div className="absolute -bottom-4 right-0 h-[112%] w-1/2 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-2 group-hover:scale-105">
+                    {items[0] && <ProductMedia racket={items[0]} sizes="(min-width: 768px) 25vw, 50vw" label={false} />}
                   </div>
+                  <span className="absolute bottom-3 right-5 text-[10px] uppercase tracking-[0.14em] text-muted">Render 3D representativo</span>
                 </Link>
               </Reveal>
             );
