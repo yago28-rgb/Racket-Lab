@@ -1,71 +1,71 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ButtonLink } from "@/components/ui/Button";
+import { BackgroundVideo } from "@/components/ui/BackgroundVideo";
 import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/format";
+import { videos } from "@/lib/media";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const HeroScene = dynamic(() => import("@/components/three/HeroScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-full w-full items-center justify-center">
-      <span className="h-px w-24 animate-pulse bg-ink/20" />
-    </div>
-  ),
-});
+export interface HeroRacket {
+  slug: string;
+  src: string;
+  brand: string;
+  model: string;
+}
 
-export function Hero() {
+/**
+ * Real footage full-bleed. On scroll (GSAP ScrollTrigger, scrubbed) the video
+ * frame contracts into a rounded card while the line-up of real racket photos
+ * rises in. Reduced motion: a single static screen.
+ */
+export function Hero({ rackets }: { rackets: HeroRacket[] }) {
   const section = useRef<HTMLElement>(null);
-  const progress = useRef(0);
   const reduced = usePrefersReducedMotion();
 
   useGSAP(
     () => {
       if (reduced) return;
-      const intro = gsap.timeline({ defaults: { ease: "expo.out" } });
-      intro
-        .from("[data-hero-eyebrow]", { y: 14, opacity: 0, duration: 1 }, 0.1)
-        .from("[data-hero-line]", { yPercent: 110, duration: 1.3, stagger: 0.12 }, 0.2)
-        .from("[data-hero-sub]", { y: 14, opacity: 0, duration: 1 }, 0.6)
-        .from("[data-hero-cta]", { y: 14, opacity: 0, duration: 1 }, 0.75)
-        .from("[data-hero-canvas]", { opacity: 0, scale: 0.94, duration: 2 }, 0.2);
+      gsap
+        .timeline({ defaults: { ease: "expo.out" } })
+        .from("[data-hero-eyebrow]", { y: 14, opacity: 0, duration: 1 }, 0.15)
+        .from("[data-hero-line]", { yPercent: 110, duration: 1.3, stagger: 0.12 }, 0.25)
+        .from("[data-hero-sub], [data-hero-cta]", { y: 14, opacity: 0, duration: 1, stagger: 0.1 }, 0.65);
 
       const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.6,
-          onUpdate: (self) => {
-            progress.current = self.progress;
-          },
-        },
+        scrollTrigger: { trigger: section.current, start: "top top", end: "bottom bottom", scrub: 0.6 },
       });
-      tl.to("[data-hero-a]", { yPercent: -18, opacity: 0, ease: "none", duration: 0.3 }, 0.05)
-        .to("[data-hero-scroll]", { opacity: 0, duration: 0.1 }, 0)
-        .fromTo("[data-hero-b]", { opacity: 0, y: 40 }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.2 }, 0.42)
-        .fromTo("[data-hero-spec]", { opacity: 0, x: -12 }, { opacity: 1, x: 0, stagger: 0.06, duration: 0.15 }, 0.5)
-        .to({}, { duration: 0.2 }, 0.8);
+      tl.to("[data-hero-frame]", { clipPath: "inset(9% 6% 31% 6% round 28px)", ease: "none", duration: 0.5 }, 0)
+        .to("[data-hero-video]", { scale: 1.12, ease: "none", duration: 0.5 }, 0)
+        .to("[data-hero-copy]", { yPercent: -30, opacity: 0, ease: "none", duration: 0.3 }, 0.02)
+        .to("[data-hero-scroll]", { opacity: 0, duration: 0.08 }, 0)
+        .fromTo("[data-hero-lineup]", { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, ease: "power2.out", duration: 0.35 }, 0.3)
+        .fromTo("[data-hero-card]", { y: 60, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.06, ease: "power2.out", duration: 0.25 }, 0.4)
+        .to({}, { duration: 0.15 }, 0.85);
     },
     { scope: section, dependencies: [reduced] },
   );
 
   return (
-    <section ref={section} className={cn("relative", reduced ? "h-[100svh]" : "h-[260svh]")} aria-labelledby="hero-title">
-      <div className="studio-bg sticky top-0 h-[100svh] overflow-hidden">
-        <div data-hero-canvas className="absolute inset-x-0 bottom-0 top-[55%] md:inset-y-0 md:left-[40%] md:right-0 md:top-0">
-          <HeroScene progress={progress} />
+    <section ref={section} className={cn("relative bg-white", reduced ? "h-[100svh]" : "h-[230svh]")} aria-labelledby="hero-title">
+      <div className="sticky top-0 h-[100svh] overflow-hidden">
+        {/* Real footage, framed by an animated clip-path */}
+        <div data-hero-frame className="absolute inset-0 overflow-hidden bg-night" style={{ clipPath: "inset(0% 0% 0% 0% round 0px)" }}>
+          <div data-hero-video className="absolute inset-0">
+            <BackgroundVideo base={videos.playerBacklit.base} label={videos.playerBacklit.label} priority />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/20" />
         </div>
 
-        {/* Phase A — headline */}
-        <div data-hero-a className="container-rl relative z-10 flex h-full flex-col justify-start pt-[13svh] md:justify-center md:pt-0">
-          <p data-hero-eyebrow className="eyebrow">
+        <div data-hero-copy className="container-rl relative z-10 flex h-full flex-col justify-end pb-[14svh] text-white md:pb-[16svh]">
+          <p data-hero-eyebrow className="eyebrow !text-white/70">
             Premium tennis equipment · España & Europa
           </p>
           <h1 id="hero-title" className="display mt-5 text-[clamp(3.1rem,8.6vw,8.2rem)]">
@@ -75,39 +75,51 @@ export function Hero() {
               </span>
             </span>
             <span className="block overflow-hidden pb-[0.06em]">
-              <span data-hero-line className="block text-ink/35">
+              <span data-hero-line className="block text-white/55">
                 YOUR RACKET.
               </span>
             </span>
           </h1>
-          <p data-hero-sub className="mt-6 max-w-sm text-lg text-ink/70 md:text-xl">
+          <p data-hero-sub className="mt-6 max-w-sm text-lg text-white/80 md:text-xl">
             Find the racket that plays like you.
           </p>
           <div data-hero-cta className="mt-9 flex flex-wrap gap-3">
-            <ButtonLink href="/raquetas" size="lg">
+            <ButtonLink href="/raquetas" size="lg" variant="inverted">
               Explore rackets
             </ButtonLink>
-            <ButtonLink href="/racket-finder" size="lg" variant="secondary">
+            <ButtonLink href="/racket-finder" size="lg" variant="outline-inverted">
               Find your racket
             </ButtonLink>
           </div>
         </div>
 
-        {/* Phase B — appears while the camera dives into the string bed */}
+        {/* Line-up: real product photos rise in as the frame contracts */}
         {!reduced && (
-          <div data-hero-b className="pointer-events-none absolute inset-x-0 top-0 z-10 opacity-0">
-            <div className="container-rl pt-[12svh] md:pt-[22svh]">
-              <p className="eyebrow">Engineered for your game</p>
-              <h2 className="display mt-5 max-w-md text-[clamp(2.2rem,5vw,4.4rem)]">Every detail, measured.</h2>
-              <ul className="mt-6 space-y-2.5 text-sm text-ink/70 md:mt-8 md:space-y-3">
-                {["Cordaje 16×19 entrelazado", "Lacado con clearcoat sobre carbono", "Grip de piel con overgrip en espiral"].map((t) => (
-                  <li key={t} data-hero-spec className="flex items-center gap-3">
-                    <span className="h-px w-6 bg-ink/40" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 text-[11px] uppercase tracking-[0.16em] text-muted md:mt-8">Render 3D · modelo RACKET LAB Studio</p>
+          <div data-hero-lineup className="absolute inset-x-0 bottom-0 z-10 h-[31%] opacity-0">
+            <div className="container-rl flex h-full items-center gap-4 md:gap-6">
+              <div className="hidden max-w-[16rem] shrink-0 md:block">
+                <p className="eyebrow">The line-up</p>
+                <p className="mt-3 text-2xl font-semibold leading-tight tracking-tight">Raquetas reales. Datos verificados.</p>
+                <Link href="/raquetas" className="mt-4 inline-block text-sm font-medium underline-offset-4 hover:underline">
+                  Ver catálogo →
+                </Link>
+              </div>
+              {rackets.length > 0 ? (
+                <ul className="flex h-[88%] flex-1 gap-3 md:gap-4">
+                  {rackets.map((r) => (
+                    <li key={r.slug} data-hero-card className="relative flex-1 overflow-hidden rounded-2xl bg-mist">
+                      <Link href={`/raquetas/${r.slug}`} className="absolute inset-0" aria-label={`${r.brand} ${r.model}`}>
+                        <Image src={r.src} alt={`${r.brand} ${r.model}`} fill sizes="(min-width: 768px) 22vw, 33vw" className="object-contain p-3 mix-blend-multiply" />
+                        <span className="absolute bottom-2 left-3 text-[11px] font-medium text-ink/70">{r.model}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div data-hero-card className="flex flex-1 items-center justify-center rounded-2xl border border-dashed border-line text-sm text-muted">
+                  Añade las fotos de las raquetas en public/fotos (ver FOTOS.md) para verlas aquí.
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -115,11 +127,11 @@ export function Hero() {
         <a
           href="#filosofia"
           data-hero-scroll
-          className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-muted md:flex"
+          className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-white/70 md:flex"
         >
           Scroll
-          <span className="flex h-9 w-5 justify-center rounded-full border border-ink/20 pt-1.5">
-            <span className="h-1.5 w-1 animate-bounce rounded-full bg-ink/60" />
+          <span className="flex h-9 w-5 justify-center rounded-full border border-white/30 pt-1.5">
+            <span className="h-1.5 w-1 animate-bounce rounded-full bg-white/80" />
           </span>
         </a>
       </div>

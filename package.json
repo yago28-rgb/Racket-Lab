@@ -7,16 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "next typegen && tsc --noEmit",
+    "typecheck": "node scripts/scan-photos.mjs && next typegen && tsc --noEmit",
     "test:engine": "tsx --test scripts/engine.test.ts",
-    "media:catalog": "tsx scripts/export-catalog.ts > scripts/blender/catalog.json",
-    "media:optimize": "node scripts/optimize-models.mjs",
-    "doctor:swc": "node scripts/check-swc.mjs"
+    "doctor:swc": "node scripts/check-swc.mjs",
+    "fotos": "node scripts/scan-photos.mjs",
+    "predev": "node scripts/scan-photos.mjs",
+    "prebuild": "node scripts/scan-photos.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@react-three/drei": "^10.7.9",
-    "@react-three/fiber": "^9.8.2",
     "gsap": "^3.15.1",
     "lucide-react": "^1.76.0",
     "motion": "^14.14.0",
@@ -25,21 +24,15 @@
     "react-dom": "19.3.0",
     "server-only": "^0.0.1",
     "stripe": "^23.2.0",
-    "three": "^0.187.0",
     "zustand": "^5.1.0"
   },
   "devDependencies": {
-    "@gltf-transform/core": "^4.5.1",
-    "@gltf-transform/extensions": "^4.5.1",
-    "@gltf-transform/functions": "^4.5.1",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/three": "^0.187.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
-    "meshoptimizer": "^1.3.0",
     "tailwindcss": "4.3.3",
     "tsx": "^4.23.15",
     "typescript": "^5"

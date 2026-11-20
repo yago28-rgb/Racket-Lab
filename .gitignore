@@ -41,3 +41,8 @@ yarn-error.log*
 next-env.d.ts
 
 !.env.example
+
+# Product photos saved locally by the owner (copyrighted, never committed)
+/public/fotos/*
+!/public/fotos/LEEME.md
+/src/data/photos.generated.json

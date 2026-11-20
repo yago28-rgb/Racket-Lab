@@ -23,29 +23,30 @@ Antes de terminar cualquier tarea: `grep -rn "<svg" src` y verificar que solo ap
 
 ## 2. Recursos visuales reales
 
-- Prioridad: fotografía profesional, vídeo, texturas fotográficas y modelos 3D (GLB/GLTF).
-- Fuentes permitidas: Unsplash, Pexels, Pixabay, Mixkit, Wikimedia Commons, Poly Haven, ambientCG y repositorios 3D con licencia compatible.
+- Prioridad: fotografía profesional y vídeo real.
+- Fuentes permitidas para material editorial: Unsplash, Pexels, Pixabay, Mixkit, Wikimedia Commons (con licencia verificada).
 - **Nunca inventar URLs.** Cada recurso se descarga, se comprueba que existe y se registra en `public/media/CREDITS.md` con autor, fuente, URL y licencia.
 - Solo recursos que correspondan a la temática de la sección. Nada de imágenes de relleno.
 - Los recursos se sirven desde `public/media/` (no hotlinking), optimizados:
   imágenes en AVIF/WebP con `next/image`; vídeo en MP4 (H.264) + WebM, `autoplay muted loop playsInline`, con póster y overlay.
 
-## 3. Productos y honestidad
+## 3. Productos: solo fotografía real
 
-- Sin fotografía oficial licenciada de un producto, se usa un **render 3D representativo** generado a partir de sus especificaciones reales.
-- Ese render **nunca se presenta como reproducción exacta** del producto: se etiqueta como «Render 3D representativo».
+- **Nada artificial**: prohibidos los renders, modelos 3D generados, ilustraciones o imágenes creadas por IA de los productos.
+- Las raquetas se muestran **solo con fotografías reales** del modelo exacto, guardadas por el propietario en `public/fotos/`
+  según `FOTOS.md`. Esa carpeta está excluida de git (copyright de fabricantes y tiendas): nunca se suben ni se publican.
+- Sin foto, se muestra un panel tipográfico neutro de «Foto pendiente», nunca una imagen sustituta.
 - No inventar especificaciones, precios ni disponibilidad (ver política de datos en `README.md`).
 
-## 4. 3D de calidad profesional
+## 4. Fotografía, vídeo y animación real
 
-- Three.js + React Three Fiber + Drei; modelos generados con Blender (`scripts/blender/`) y exportados a GLB.
-- Materiales **PBR** (color, rugosidad, metalicidad, clearcoat, mapas normales), iluminación HDRI realista, sombras y reflejos.
-- Geometría detallada (biseles, ojales, protector, encordado entrelazado, grip en espiral). Nada de primitivas que parezcan prototipos.
-- Interacción con el ratón, movimientos de cámara y animaciones vinculadas al scroll (GSAP ScrollTrigger) cuando aporten valor.
+- Vídeo y fotografía real de tenis (Mixkit con licencia comercial verificada clip a clip; créditos en `/creditos`).
+- Animaciones sobre material real: GSAP + ScrollTrigger para secuencias de scroll (p. ej. el vídeo del hero que se convierte en tarjeta);
+  Motion (Framer Motion) para interfaz, reveals y transiciones.
+- Visualizaciones de datos en HTML/CSS con datos reales del catálogo (sin SVG).
 
-## 5. Animación
+## 5. Accesibilidad del movimiento
 
-- GSAP + ScrollTrigger para secuencias de scroll y cámara 3D; Motion (Framer Motion) para interfaz, reveals y transiciones.
 - Respetar siempre `prefers-reduced-motion`.
 - Evitar animaciones exageradas o que dificulten la navegación.
 
@@ -56,9 +57,9 @@ Antes de terminar cualquier tarea: `grep -rn "<svg" src` y verificar que solo ap
 
 ## 7. Rendimiento
 
-- Lazy loading y carga bajo demanda de 3D y vídeo; pausar WebGL fuera de pantalla.
-- Modelos optimizados (geometría razonable, texturas comprimidas); imágenes AVIF/WebP.
-- La experiencia móvil debe ser fluida: DPR limitado y escenas simplificadas en móvil.
+- Lazy loading y carga bajo demanda del vídeo; pausar vídeos fuera de pantalla.
+- Imágenes servidas en AVIF/WebP con `next/image`.
+- La experiencia móvil debe ser fluida.
 
 ## 8. Funcionalidad
 
@@ -69,7 +70,7 @@ Antes de terminar cualquier tarea: `grep -rn "<svg" src` y verificar que solo ap
 
 1. `npm run lint`, `npm run typecheck`, `npm run test:engine`, `npm run build`.
 2. Ejecutar la app y revisar en navegador todas las secciones (escritorio y móvil).
-3. Comprobar que no hay errores de consola y que todas las imágenes, vídeos y modelos cargan.
+3. Comprobar que no hay errores de consola y que todas las imágenes y vídeos cargan, con y sin fotos en `public/fotos/`.
 4. Comprobar la regla de SVG (punto 1).
 5. No se considera terminado sin revisión visual del resultado.
 

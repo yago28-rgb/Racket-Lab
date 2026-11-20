@@ -23,7 +23,7 @@ const cols = [
       { href: "/contacto", label: "Contacto" },
       { href: "/envios", label: "Envíos y devoluciones" },
       { href: "/privacidad", label: "Política de privacidad" },
-      { href: "/creditos", label: "Créditos de imágenes y 3D" },
+      { href: "/creditos", label: "Créditos de imágenes y vídeo" },
       { href: "/#tecnologia", label: "Guía técnica" },
     ],
   },

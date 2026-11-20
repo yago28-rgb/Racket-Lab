@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { LegalPage } from "@/components/ui/Prose";
 import { credits } from "@/data/credits";
 
-export const metadata: Metadata = { title: "Créditos de imágenes y 3D", alternates: { canonical: "/creditos" } };
+export const metadata: Metadata = { title: "Créditos de imágenes y vídeo", alternates: { canonical: "/creditos" } };
 
 export default function CreditsPage() {
   return (
-    <LegalPage eyebrow="Créditos" title="Imágenes, vídeo y 3D.">
+    <LegalPage eyebrow="Créditos" title="Imágenes y vídeo.">
       <p>
-        <strong>Productos.</strong> Las imágenes y modelos 3D de las raquetas son <strong>renders representativos</strong> generados por RACKET LAB
-        en Blender a partir de las especificaciones publicadas de cada modelo (tamaño de cabeza, perfil, longitud y patrón de encordado). Los
-        colores son aproximados y no incluyen logotipos: no son fotografías ni reproducciones exactas de los productos de los fabricantes.
+        <strong>Fotografías de producto.</strong> Las fotos de las raquetas pertenecen a sus fabricantes o a las tiendas de donde se han
+        guardado. Se usan solo en local, en la copia privada de esta tienda: la carpeta <code>public/fotos/</code> está excluida del repositorio
+        y no se publica.
       </p>
       <h2>Recursos de terceros</h2>
       <ul className="!ml-0 space-y-6">

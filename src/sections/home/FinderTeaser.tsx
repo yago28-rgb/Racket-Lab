@@ -80,8 +80,8 @@ export function FinderTeaser() {
                 </p>
                 <p className="text-xs text-white/50">compatibilidad calculada</p>
               </div>
-              <div className="relative h-48 w-36 overflow-hidden rounded-2xl bg-[radial-gradient(70%_60%_at_50%_45%,#3a3a3e,#151517)]">
-                <ProductMedia racket={best.racket} sizes="144px" label={false} />
+              <div className="relative h-48 w-36 overflow-hidden rounded-2xl bg-[#f3f3f5]">
+                <ProductMedia racket={best.racket} sizes="144px" />
               </div>
             </div>
             <ul className="mt-6 space-y-2 border-t border-white/10 pt-5 text-sm text-white/70">
@@ -93,7 +93,7 @@ export function FinderTeaser() {
               ))}
             </ul>
             <p className="mt-6 text-[11px] leading-relaxed text-white/40">
-              Ejemplo para un perfil intermedio, agresivo desde el fondo, que busca efecto en tierra batida. Imagen: render 3D representativo.
+              Ejemplo para un perfil intermedio, agresivo desde el fondo, que busca efecto en tierra batida.
             </p>
           </div>
         </Reveal>

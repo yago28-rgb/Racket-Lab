@@ -67,7 +67,7 @@ function AltCard({ title, s, note }: { title: string; s: ScoredRacket | null; no
       <p className="eyebrow">{title}</p>
       <div className="mt-4 flex items-center gap-4">
         <div className="studio-bg relative h-28 w-20 shrink-0 overflow-hidden rounded-xl p-1">
-          <ProductMedia racket={r} sizes="80px" label={false} />
+          <ProductMedia racket={r} sizes="80px" />
         </div>
         <div className="min-w-0">
           <p className="text-xs text-muted">{brands[r.brand].name}</p>
@@ -169,9 +169,9 @@ export function FinderResults({ result, answers, onEdit }: { result: Recommendat
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="absolute inset-0 rounded-[2rem] bg-[radial-gradient(60%_50%_at_50%_45%,rgba(255,255,255,0.16),transparent)]" />
-            <ProductMedia racket={r} priority sizes="(min-width: 1024px) 40vw, 90vw" label={false} />
-            <span className="absolute bottom-0 left-0 text-[10px] uppercase tracking-[0.14em] text-white/40">Render 3D representativo</span>
+            <div className="absolute inset-0 overflow-hidden rounded-[2rem] bg-[#f3f3f5]">
+              <ProductMedia racket={r} priority sizes="(min-width: 1024px) 40vw, 90vw" />
+            </div>
           </motion.div>
         </div>
       </section>

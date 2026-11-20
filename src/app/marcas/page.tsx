@@ -42,9 +42,8 @@ export default function BrandsPage() {
                     </span>
                   </div>
                   <div className="absolute -bottom-4 right-0 h-[112%] w-1/2 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-2 group-hover:scale-105">
-                    {items[0] && <ProductMedia racket={items[0]} sizes="(min-width: 768px) 25vw, 50vw" label={false} />}
+                    {items[0] && <ProductMedia racket={items[0]} sizes="(min-width: 768px) 25vw, 50vw" />}
                   </div>
-                  <span className="absolute bottom-3 right-5 text-[10px] uppercase tracking-[0.14em] text-muted">Render 3D representativo</span>
                 </Link>
               </Reveal>
             );

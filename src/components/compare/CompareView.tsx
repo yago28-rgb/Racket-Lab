@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { useState } from "react";
 import { Plus, X } from "lucide-react";
 import { useCompare, MAX_COMPARE } from "@/store/compare";
 import { getAllRackets, getRacketById } from "@/lib/catalog";
@@ -18,10 +16,7 @@ import type { Racket } from "@/types/product";
 
 const profiles = catalogueProfiles(getAllRackets());
 
-const CompareScene = dynamic(() => import("@/components/three/CompareScene"), {
-  ssr: false,
-  loading: () => <div className="h-full w-full animate-pulse" />,
-});
+
 
 /** Numeric spec extractors used to highlight the extreme value in each row. */
 const numeric: Record<string, (r: Racket) => number | null> = {
@@ -37,7 +32,6 @@ export function CompareView() {
   const ids = useCompare((s) => s.ids);
   const toggle = useCompare((s) => s.toggle);
   const remove = useCompare((s) => s.remove);
-  const [overlay, setOverlay] = useState(false);
   const items = hydrated ? ids.map(getRacketById).filter((r): r is Racket => r != null) : [];
   const candidates = getAllRackets().filter((r) => !ids.includes(r.id));
 
@@ -54,31 +48,8 @@ export function CompareView() {
 
       {items.length > 0 && (
         <>
-          {/* Visual frame comparison: real head-size scale */}
-          <section className="noir-bg relative mt-2 overflow-hidden rounded-[2rem] p-6 text-white md:p-10">
-            <div className="flex items-center justify-between">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/50">Modelos 3D a escala real · arrastra para girar</p>
-              {items.length > 1 && (
-                <button onClick={() => setOverlay((o) => !o)} className="rounded-full border border-white/20 px-3 py-1 text-xs hover:border-white">
-                  {overlay ? "Ver por separado" : "Superponer"}
-                </button>
-              )}
-            </div>
-            <div className="relative mx-auto mt-4 h-[420px] max-w-4xl md:h-[520px]">
-              <CompareScene rackets={items} overlay={overlay && items.length > 1} />
-            </div>
-            <ul className="mt-6 flex flex-wrap justify-center gap-4 text-xs text-white/60">
-              {items.map((r) => (
-                <li key={r.id} className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full" style={{ background: r.colorway.frame }} />
-                  {r.model} · {r.specs.headSizeSqIn ?? "?"} in²
-                </li>
-              ))}
-            </ul>
-          </section>
-
           {/* Table */}
-          <div className="mt-12 overflow-x-auto">
+          <div className="mt-2 overflow-x-auto">
             <table className="w-full min-w-[640px] border-collapse text-sm">
               <caption className="sr-only">Comparativa de especificaciones</caption>
               <thead>
@@ -87,7 +58,7 @@ export function CompareView() {
                   {items.map((r) => (
                     <th key={r.id} scope="col" className="p-3 text-left align-top font-normal">
                       <div className="studio-bg relative aspect-[4/5] overflow-hidden rounded-2xl">
-                        <ProductMedia racket={r} sizes="240px" label={false} />
+                        <ProductMedia racket={r} sizes="240px" />
                         <button onClick={() => remove(r.id)} className="absolute right-3 top-3 rounded-full bg-white/80 p-1.5 backdrop-blur hover:bg-white" aria-label={`Quitar ${r.model}`}>
                           <X size={14} />
                         </button>

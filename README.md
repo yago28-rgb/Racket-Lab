@@ -1,6 +1,6 @@
 # RACKET LAB
 
-Tienda online premium de raquetas de tenis (España y UE) con catálogo verificado, **Racket Finder** con recomendación explicada, comparador técnico, visor 3D y checkout preparado para Stripe.
+Tienda online premium de raquetas de tenis (España y UE) con catálogo verificado, **Racket Finder** con recomendación explicada, comparador técnico, fotografía y vídeo reales, y checkout preparado para Stripe.
 
 ## Inicio rápido
 
@@ -18,18 +18,16 @@ npm run dev                  # http://localhost:3000
 | `npm run lint` | ESLint |
 | `npm run test:engine` | Pruebas del motor de recomendación |
 | `npm run doctor:swc` | Diagnóstico del binario nativo de Next.js en Windows (solo lectura) |
-| `npm run media:catalog` | Exporta las medidas del catálogo para Blender |
-| `npm run media:optimize` | Comprime los GLB (Meshopt) |
+| `npm run fotos` | Detecta las fotos guardadas en `public/fotos/` |
 
 ## Stack
 
-Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS 4 · GSAP + ScrollTrigger · Motion · Three.js + React Three Fiber + Drei · Blender (generación de modelos) · Zustand · Stripe · Lucide.
+Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS 4 · GSAP + ScrollTrigger · Motion · Zustand · Stripe · Lucide.
 
 **Decisiones:**
-- **GSAP + ScrollTrigger** para las secuencias ligadas al scroll con cámara 3D (hero y tecnología); **Motion** para interfaz, reveals y transiciones. Cada uno tiene un papel distinto, sin duplicar.
-- **Reglas visuales permanentes** en `CLAUDE.md`: sin SVG para ilustraciones, productos ni fondos (solo logotipo e iconos funcionales).
+- **GSAP + ScrollTrigger** para las secuencias ligadas al scroll (vídeo del hero que se convierte en tarjeta, capítulos de tecnología); **Motion** para interfaz, reveals y transiciones.
+- **Reglas visuales permanentes** en `CLAUDE.md`: solo fotografía y vídeo reales; nada de renders, 3D generado ni ilustraciones; SVG solo para logotipo e iconos funcionales.
 - **Sin Supabase por ahora**: el catálogo es estático y versionado en `src/data/products.ts`. La capa `src/lib/catalog.ts` aísla el acceso, así que migrar a una base de datos no toca la UI.
-- **Sin descarga de HDR**: la iluminación 3D se construye con `Lightformer`, sin dependencias de red.
 
 ## Arquitectura
 
@@ -38,7 +36,7 @@ src/
   app/                    Rutas (home, /raquetas, /raquetas/[slug], /racket-finder, /comparar,
                           /carrito, /checkout, /pedidos, /marcas, /contacto, legales, API, SEO)
   sections/home/          Secciones de la homepage
-  components/             UI, layout, producto, catálogo, finder, carrito, checkout, 3D
+  components/             UI, layout, producto, catálogo, finder, carrito, checkout
   data/                   products.ts (catálogo + fuentes), brands.ts
   lib/
     catalog.ts            Consultas y filtros
@@ -50,7 +48,7 @@ src/
       strings.ts          Consejo de cuerda/tensión/empuñadura
     pricing.ts            Cálculo de carrito (cliente y servidor)
     shipping.ts           Tarifas de envío
-    racket-geometry.ts    Geometría paramétrica compartida (SVG + 3D)
+    media.ts              Fotos locales (manifiesto) y vídeos
   store/                  Zustand: carrito, comparador, pedidos
   types/                  Modelo de dominio
 scripts/engine.test.ts    Pruebas del motor
@@ -62,26 +60,17 @@ scripts/engine.test.ts    Pruebas del motor
 - **Datos no verificados** = `null` → se muestran como «Pendiente» y el motor los excluye (bajando la confianza del resultado).
 - **Precios**: solo 3 modelos tienen un precio público en EUR localizado (Pure Drive 2025, Radical MP 2025, Gravity MP 2025). El resto figura como «Precio por confirmar» y **no se puede comprar** hasta que se fije en `products.ts`.
 - **Generaciones**: algunos modelos (p. ej. VCORE 100 2023, CX 200 2024) tienen ya sucesor; revisar disponibilidad antes de vender.
-- **Imágenes de producto**: no hay fotografía oficial licenciada. Cada raqueta tiene **renders 3D representativos** (Blender/Cycles) generados a partir de su cabeza, perfil, longitud y patrón reales, etiquetados como tales. Si se consigue fotografía oficial, se añade a `public/` y se indica en `image` (tiene prioridad sobre el render).
-- **3D**: modelos GLB representativos (no escaneos del fabricante, sin logotipos, colores aproximados).
+- **Imágenes de producto**: fotografías reales guardadas en local por el propietario (ver «Fotos de las raquetas»). Nunca se generan imágenes sustitutas.
 - **Fotografía y vídeo editorial**: clips de Mixkit con licencia gratuita comercial (verificada clip a clip) y fotogramas de esos clips. Créditos en `/creditos` y `public/media/CREDITS.md`.
 
-## Pipeline de medios 3D
+## Fotos de las raquetas (solo en local)
 
-```
-npm run media:catalog                         # medidas reales → scripts/blender/catalog.json
-python scripts/blender/build_rackets.py \
-  --catalog scripts/blender/catalog.json \
-  --assets <dir con studio_small_09_2k.hdr y texturas leather_white_*> \
-  --out <dir de trabajo> --models public/models   # GLB + renders PNG (Cycles)
-npm run media:optimize                        # Meshopt sobre public/models
-node scripts/convert-renders.mjs <dir de trabajo>/renders   # → public/products/*.webp
-```
+Las fotos de producto tienen copyright de fabricantes y tiendas, así que **no están en el repositorio**.
+Sigue [`FOTOS.md`](FOTOS.md): guarda 1–3 fotos por raqueta en `public/fotos/` con el nombre indicado (`<slug>-1.jpg`, `-2`, `-3`).
 
-- Requiere Blender 5.x como módulo de Python (`pip install bpy==5.3.0`, Python 3.13) o ejecutar el script con `blender -b -P`.
-- Modelado: marco continuo con perfil de sección redondeada, puente, protector, ojales, encordado entrelazado (cada vertical alterna por encima y por debajo), grip octogonal con overgrip en espiral, tapón y collarín.
-- Materiales PBR: pintura con clearcoat, grip de piel (Poly Haven, CC0) con normal y rugosidad, cuerdas de polímero, plásticos. El modelo «Studio» lleva un tejido de carbono generado proceduralmente.
-- Iluminación: HDRI de estudio (Poly Haven, CC0) servido en local, luz principal con sombras y sombras de contacto.
+- `public/fotos/*` y el manifiesto `src/data/photos.generated.json` están en `.gitignore`.
+- `scripts/scan-photos.mjs` detecta las fotos automáticamente antes de `npm run dev` y `npm run build` (o con `npm run fotos`).
+- Sin foto, cada raqueta muestra un panel neutro de «Foto pendiente»; la tienda funciona igual.
 
 ## Solución de problemas (Windows)
 

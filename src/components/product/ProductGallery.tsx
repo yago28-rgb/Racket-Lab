@@ -1,84 +1,74 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Box } from "lucide-react";
 import type { Racket } from "@/types/product";
 import { ProductMedia } from "./ProductMedia";
 import { cn, fullRacketName } from "@/lib/format";
-import { renderSrc, type RenderView } from "@/lib/media";
+import { productPhotos } from "@/lib/media";
 
-const ProductViewer = dynamic(() => import("@/components/three/ProductViewer"), {
-  ssr: false,
-  loading: () => <div className="flex h-full items-center justify-center text-sm text-muted">Cargando modelo 3D…</div>,
-});
-
-type Mode = RenderView | "3d";
-
-const views: { id: RenderView; label: string }[] = [
-  { id: "hero", label: "Tres cuartos" },
-  { id: "front", label: "Frontal" },
-  { id: "detail", label: "Detalle del puente" },
-];
-
+/** Real product photos with thumbnails and a hover/tap loupe for detail. */
 export function ProductGallery({ racket }: { racket: Racket }) {
-  const [mode, setMode] = useState<Mode>("hero");
+  const photos = productPhotos(racket);
+  const [index, setIndex] = useState(0);
+  const [zoom, setZoom] = useState<{ x: number; y: number } | null>(null);
+
+  const onMove = (e: MouseEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    setZoom({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 });
+  };
+
   return (
     <div>
-      <div className="studio-bg relative aspect-square overflow-hidden rounded-[2rem] md:aspect-[4/5]">
+      <div
+        className={cn("studio-bg relative aspect-square overflow-hidden rounded-[2rem] md:aspect-[4/5]", photos.length > 0 && "cursor-zoom-in")}
+        onMouseMove={photos.length ? onMove : undefined}
+        onMouseLeave={() => setZoom(null)}
+      >
         <AnimatePresence mode="wait">
-          {mode === "3d" ? (
-            <motion.div key="3d" className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <ProductViewer racket={racket} />
-            </motion.div>
-          ) : (
-            <motion.div
-              key={mode}
-              className="absolute inset-0"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.01 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <ProductMedia racket={racket} view={mode} priority={mode === "hero"} sizes="(min-width: 1024px) 50vw, 100vw" label={false} />
-            </motion.div>
-          )}
+          <motion.div
+            key={index}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.01 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            style={
+              zoom
+                ? { transform: "scale(2)", transformOrigin: `${zoom.x}% ${zoom.y}%`, transition: "transform-origin 60ms linear" }
+                : undefined
+            }
+          >
+            <ProductMedia racket={racket} index={index} priority={index === 0} sizes="(min-width: 1024px) 50vw, 100vw" />
+          </motion.div>
         </AnimatePresence>
-        <p className="pointer-events-none absolute bottom-4 left-4 max-w-[80%] rounded-full bg-white/75 px-3 py-1.5 text-[10px] uppercase leading-relaxed tracking-[0.12em] text-ink/60 backdrop-blur">
-          {mode === "3d" ? "Modelo 3D representativo · arrastra para girar" : "Render 3D representativo · no es una foto del producto"}
-        </p>
+        {photos.length === 0 && (
+          <p className="absolute inset-x-6 bottom-6 text-center text-xs text-muted">
+            Añade las fotos de esta raqueta en <code>public/fotos/</code> siguiendo <code>FOTOS.md</code>.
+          </p>
+        )}
       </div>
 
-      <div className="mt-4 grid grid-cols-4 gap-3" role="tablist" aria-label="Vistas del producto">
-        {views.map((v) => (
-          <button
-            key={v.id}
-            role="tab"
-            aria-selected={mode === v.id}
-            aria-label={v.label}
-            onClick={() => setMode(v.id)}
-            className={cn(
-              "studio-bg relative aspect-square overflow-hidden rounded-2xl border transition-colors",
-              mode === v.id ? "border-ink" : "border-transparent hover:border-line",
-            )}
-          >
-            <Image src={renderSrc(racket.slug, v.id)} alt={`${fullRacketName(racket)} · ${v.label}`} fill sizes="120px" className="object-contain" />
-          </button>
-        ))}
-        <button
-          role="tab"
-          aria-selected={mode === "3d"}
-          onClick={() => setMode("3d")}
-          className={cn(
-            "flex aspect-square flex-col items-center justify-center gap-1.5 rounded-2xl border text-xs font-medium transition-colors",
-            mode === "3d" ? "border-ink bg-ink text-white" : "border-line bg-white hover:border-ink/50",
-          )}
-        >
-          <Box size={18} /> 3D
-        </button>
-      </div>
+      {photos.length > 1 && (
+        <div className="mt-4 grid grid-cols-4 gap-3" role="tablist" aria-label="Fotos del producto">
+          {photos.map((src, i) => (
+            <button
+              key={src}
+              role="tab"
+              aria-selected={index === i}
+              aria-label={`Foto ${i + 1}`}
+              onClick={() => setIndex(i)}
+              className={cn(
+                "studio-bg relative aspect-square overflow-hidden rounded-2xl border transition-colors",
+                index === i ? "border-ink" : "border-transparent hover:border-line",
+              )}
+            >
+              <Image src={src} alt={`${fullRacketName(racket)} · foto ${i + 1}`} fill sizes="120px" className="object-contain p-2 mix-blend-multiply" />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

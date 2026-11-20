@@ -21,19 +21,11 @@ const nav = [
 
 export function Header() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState(false);
   const hydrated = useHydrated();
   const count = useCart((s) => s.lines.reduce((n, l) => n + l.quantity, 0));
   const openCart = useCart((s) => s.open);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -58,7 +50,7 @@ export function Header() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500",
-          scrolled || menu || pathname !== "/" ? "border-b border-line/80 bg-white/75 backdrop-blur-xl backdrop-saturate-150" : "border-b border-transparent",
+          "border-b border-line/80 bg-white/75 backdrop-blur-xl backdrop-saturate-150",
         )}
       >
         <div className="container-rl flex h-14 items-center justify-between gap-6">

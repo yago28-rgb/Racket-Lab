@@ -13,7 +13,7 @@ export function ProductCard({ racket }: { racket: Racket }) {
       <Link href={`/raquetas/${racket.slug}`} className="absolute inset-0 z-10" aria-label={`Ver ${brands[racket.brand].name} ${racket.model} ${racket.generation}`} />
       <div className="studio-bg relative aspect-[4/5] overflow-hidden">
         <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]">
-          <ProductMedia racket={racket} sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw" label={false} />
+          <ProductMedia racket={racket} sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw" />
         </div>
         <div className="absolute left-4 top-4 flex gap-2">
           <span className="rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-medium backdrop-blur">{typeLabels[racket.type]}</span>
@@ -21,9 +21,6 @@ export function ProductCard({ racket }: { racket: Racket }) {
         <div className="absolute right-4 top-4 z-20">
           <CompareToggle id={racket.id} label={false} className="h-8 w-8 justify-center !p-0" />
         </div>
-        {!racket.image && (
-          <span className="absolute bottom-3 left-4 text-[10px] uppercase tracking-[0.14em] text-muted">Render 3D representativo</span>
-        )}
       </div>
       <div className="flex flex-1 flex-col gap-4 p-5">
         <div className="flex items-start justify-between gap-3">
