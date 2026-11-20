@@ -3,17 +3,30 @@
 Las fotos de producto tienen copyright de las tiendas y los fabricantes. Por eso **no se guardan en el repositorio**:
 la carpeta `public/fotos/` está excluida de git y las fotos nunca salen de tu ordenador.
 
-## Cómo añadirlas (≈ 15 minutos)
+## Opción rápida: descarga automática (recomendada)
 
-1. Abre el enlace de cada raqueta (o la web oficial de la marca).
+En la terminal, dentro del proyecto:
+
+```powershell
+npm run fotos:descargar
+```
+
+Descarga **47 fotos oficiales de 16 raquetas** (Merchant of Tennis) a `public/fotos/` y las activa. Después reinicia la web (`Ctrl + C` y `npm run dev`).
+Las URLs están comprobadas en `scripts/photo-sources.json`. Si una foto ya existe, no se vuelve a descargar.
+
+**Sin fuente automática** (no están en esa tienda o solo tienen una imagen genérica): Pure Strike 98 16×19 2024, Pro Staff 97 v14,
+Prestige MP 2023, TF-X1 300 V2 y Phantom 100X 305. Para esas, usa la opción manual.
+
+## Opción manual
+
+1. Abre el enlace de la raqueta en la tabla (o la web oficial de la marca).
 2. Abre la foto en grande, **clic derecho → «Guardar imagen como…»**.
 3. Guárdala en `public/fotos/` con el nombre exacto de la tabla:
-   - `-1` → **la raqueta completa de frente** (foto principal, obligatoria).
+   - `-1` → **la raqueta completa de frente** (foto principal).
    - `-2` → otro ángulo (lateral o tres cuartos). Opcional.
    - `-3` → un detalle (garganta, encordado o grip). Opcional.
-4. Vale `.jpg`, `.jpeg`, `.png`, `.webp` o `.avif`. Mejor fotos de al menos 1000 px y fondo blanco o neutro.
-5. Reinicia la web (`Ctrl + C` y `npm run dev`). Las fotos se detectan solas.
-   Para comprobar cuántas ha encontrado: `npm run fotos`.
+4. Vale `.jpg`, `.jpeg`, `.png`, `.webp` o `.avif`.
+5. Reinicia la web (`Ctrl + C` y `npm run dev`). Para comprobar cuántas detecta: `npm run fotos`.
 
 Las raquetas sin foto muestran un recuadro de «Foto pendiente»; la tienda funciona igual.
 

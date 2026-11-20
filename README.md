@@ -18,6 +18,7 @@ npm run dev                  # http://localhost:3000
 | `npm run lint` | ESLint |
 | `npm run test:engine` | Pruebas del motor de recomendación |
 | `npm run doctor:swc` | Diagnóstico del binario nativo de Next.js en Windows (solo lectura) |
+| `npm run fotos:descargar` | Descarga las fotos oficiales a `public/fotos/` (solo en local) |
 | `npm run fotos` | Detecta las fotos guardadas en `public/fotos/` |
 
 ## Stack
@@ -66,7 +67,7 @@ scripts/engine.test.ts    Pruebas del motor
 ## Fotos de las raquetas (solo en local)
 
 Las fotos de producto tienen copyright de fabricantes y tiendas, así que **no están en el repositorio**.
-Sigue [`FOTOS.md`](FOTOS.md): guarda 1–3 fotos por raqueta en `public/fotos/` con el nombre indicado (`<slug>-1.jpg`, `-2`, `-3`).
+Ejecuta `npm run fotos:descargar` (47 fotos oficiales de 16 raquetas, URLs verificadas en `scripts/photo-sources.json`) y completa el resto a mano siguiendo [`FOTOS.md`](FOTOS.md) (`<slug>-1.jpg`, `-2`, `-3` en `public/fotos/`).
 
 - `public/fotos/*` y el manifiesto `src/data/photos.generated.json` están en `.gitignore`.
 - `scripts/scan-photos.mjs` detecta las fotos automáticamente antes de `npm run dev` y `npm run build` (o con `npm run fotos`).

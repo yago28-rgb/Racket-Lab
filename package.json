@@ -12,7 +12,8 @@
     "doctor:swc": "node scripts/check-swc.mjs",
     "fotos": "node scripts/scan-photos.mjs",
     "predev": "node scripts/scan-photos.mjs",
-    "prebuild": "node scripts/scan-photos.mjs"
+    "prebuild": "node scripts/scan-photos.mjs",
+    "fotos:descargar": "node scripts/download-photos.mjs && node scripts/scan-photos.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
