@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ButtonLink } from "@/components/ui/Button";
+import { Magnetic } from "@/components/ui/motion-kit";
 import { BackgroundVideo } from "@/components/ui/BackgroundVideo";
 import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/format";
@@ -84,12 +85,16 @@ export function Hero({ rackets }: { rackets: HeroRacket[] }) {
             Find the racket that plays like you.
           </p>
           <div data-hero-cta className="mt-9 flex flex-wrap gap-3">
-            <ButtonLink href="/raquetas" size="lg" variant="inverted">
-              Explore rackets
-            </ButtonLink>
-            <ButtonLink href="/racket-finder" size="lg" variant="outline-inverted">
-              Find your racket
-            </ButtonLink>
+            <Magnetic>
+              <ButtonLink href="/raquetas" size="lg" variant="inverted">
+                Explore rackets
+              </ButtonLink>
+            </Magnetic>
+            <Magnetic>
+              <ButtonLink href="/racket-finder" size="lg" variant="outline-inverted">
+                Find your racket
+              </ButtonLink>
+            </Magnetic>
           </div>
         </div>
 

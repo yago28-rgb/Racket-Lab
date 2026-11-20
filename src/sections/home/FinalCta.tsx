@@ -2,6 +2,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Reveal, WordReveal } from "@/components/ui/Reveal";
 import { BackgroundVideo } from "@/components/ui/BackgroundVideo";
 import { videos } from "@/lib/media";
+import { Magnetic } from "@/components/ui/motion-kit";
 
 export function FinalCta() {
   return (
@@ -17,9 +18,11 @@ export function FinalCta() {
         <Reveal delay={0.25}>
           <p className="mx-auto mt-8 max-w-md text-lg text-white/70">Tres minutos. Once preguntas. Una recomendación que puedes entender.</p>
           <div className="mt-10 flex justify-center">
-            <ButtonLink href="/racket-finder" size="lg" variant="inverted">
-              Find your racket
-            </ButtonLink>
+            <Magnetic strength={0.35}>
+              <ButtonLink href="/racket-finder" size="lg" variant="inverted">
+                Find your racket
+              </ButtonLink>
+            </Magnetic>
           </div>
         </Reveal>
       </div>

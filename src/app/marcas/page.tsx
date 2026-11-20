@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { brandList } from "@/data/brands";
 import { getAllRackets } from "@/lib/catalog";
 import { ProductMedia } from "@/components/product/ProductMedia";
+import { mainPhoto } from "@/lib/media";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function BrandsPage() {
         <ul className="grid gap-5 md:grid-cols-2">
           {brandList.map((b, i) => {
             const items = all.filter((r) => r.brand === b.id);
+            const cover = items.find((r) => mainPhoto(r)) ?? items[0];
             const families = [...new Set(items.map((r) => r.family))];
             return (
               <Reveal as="li" key={b.id} delay={(i % 2) * 0.08}>
@@ -42,7 +44,7 @@ export default function BrandsPage() {
                     </span>
                   </div>
                   <div className="absolute -bottom-4 right-0 h-[112%] w-1/2 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-2 group-hover:scale-105">
-                    {items[0] && <ProductMedia racket={items[0]} sizes="(min-width: 768px) 25vw, 50vw" />}
+                    {cover && <ProductMedia racket={cover} sizes="(min-width: 768px) 25vw, 50vw" />}
                   </div>
                 </Link>
               </Reveal>

@@ -12,6 +12,7 @@ import { SpecTable } from "@/components/product/SpecTable";
 import { ProfileBars } from "@/components/product/ProfileBars";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/ui/Reveal";
+import { BlurInText } from "@/components/ui/motion-kit";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -114,7 +115,9 @@ export default async function ProductPage({ params }: PageProps<"/raquetas/[slug
             ))}
           </div>
 
-          <p className="mt-8 text-lg leading-relaxed text-ink/75">{r.description}</p>
+          <p className="mt-8 text-lg leading-relaxed text-ink/75">
+            <BlurInText text={r.description} delay={0.15} />
+          </p>
 
           <div className="mt-10">
             <AddToCart racket={r} />

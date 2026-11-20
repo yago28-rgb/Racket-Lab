@@ -7,6 +7,7 @@ import { Reveal, WordReveal } from "@/components/ui/Reveal";
 import { ProductMedia } from "@/components/product/ProductMedia";
 import { BackgroundVideo } from "@/components/ui/BackgroundVideo";
 import { videos } from "@/lib/media";
+import { NumberTicker } from "@/components/ui/motion-kit";
 
 /** A real engine run for a sample profile — the preview is computed, not mocked. */
 const sample: FinderAnswers = {
@@ -75,7 +76,7 @@ export function FinderTeaser() {
                   {best.racket.model} <span className="text-white/40">{best.racket.generation}</span>
                 </p>
                 <p className="mt-6 text-6xl font-semibold tracking-tighter tabular-nums">
-                  {best.compatibility}
+                  <NumberTicker value={best.compatibility} />
                   <span className="text-2xl text-white/40">%</span>
                 </p>
                 <p className="text-xs text-white/50">compatibilidad calculada</p>

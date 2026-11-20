@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { Reveal, WordReveal } from "@/components/ui/Reveal";
 import { BackgroundVideo } from "@/components/ui/BackgroundVideo";
 import { videos } from "@/lib/media";
+import { NumberTicker } from "@/components/ui/motion-kit";
 
 export function Philosophy({ models, brandCount }: { models: number; brandCount: number }) {
   const ref = useRef<HTMLElement>(null);
@@ -29,14 +30,18 @@ export function Philosophy({ models, brandCount }: { models: number; brandCount:
           </Reveal>
           <Reveal delay={0.3}>
             <dl className="mt-10 grid max-w-md grid-cols-3 gap-6 border-t border-line pt-6">
-              {[
-                [String(models), "modelos verificados"],
-                [String(brandCount), "marcas"],
-                ["10", "factores en el Racket Finder"],
-              ].map(([n, l]) => (
+              {(
+                [
+                  [models, "modelos verificados"],
+                  [brandCount, "marcas"],
+                  [10, "factores en el Racket Finder"],
+                ] as const
+              ).map(([n, l]) => (
                 <div key={l}>
                   <dt className="sr-only">{l}</dt>
-                  <dd className="text-3xl font-semibold tracking-tight">{n}</dd>
+                  <dd className="text-3xl font-semibold tracking-tight">
+                    <NumberTicker value={n} />
+                  </dd>
                   <dd className="mt-1 text-xs text-muted">{l}</dd>
                 </div>
               ))}

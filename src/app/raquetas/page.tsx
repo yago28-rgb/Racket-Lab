@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { CatalogView } from "@/components/catalog/CatalogView";
 import { getAllRackets } from "@/lib/catalog";
 import { PhotoHeader } from "@/components/ui/PhotoHeader";
+import { BlurInText } from "@/components/ui/motion-kit";
 
 export const metadata: Metadata = {
   title: "Raquetas de tenis",
@@ -33,8 +34,7 @@ export default function CatalogPage() {
           <p className="eyebrow !text-white/60">Catálogo · {count} modelos</p>
           <h1 className="display mt-5 text-[clamp(2.6rem,7vw,6rem)]">Raquetas.</h1>
           <p className="mt-5 max-w-xl text-lg text-white/75">
-            Especificaciones verificadas con fuentes. Cuando un dato no se ha podido confirmar, lo indicamos como pendiente en
-            lugar de inventarlo.
+            <BlurInText text="Especificaciones verificadas con fuentes. Cuando un dato no se ha podido confirmar, lo indicamos como pendiente en lugar de inventarlo." delay={0.2} />
           </p>
         </div>
       </PhotoHeader>

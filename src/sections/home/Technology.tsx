@@ -301,7 +301,7 @@ export function Technology() {
 
         <div className="relative">
           {chapters.map((c) => (
-            <article key={c.id} data-chapter={c.id} className="flex min-h-[70svh] flex-col justify-center py-12 lg:min-h-[85svh]">
+            <article key={c.id} data-chapter={c.id} className="flex min-h-[60svh] flex-col justify-center py-10 lg:min-h-[70svh]">
               <p data-reveal className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
                 {c.kicker}
               </p>

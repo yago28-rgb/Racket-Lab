@@ -1,5 +1,6 @@
 import { Hero, type HeroRacket } from "@/sections/home/Hero";
 import { Philosophy } from "@/sections/home/Philosophy";
+import { Parade } from "@/sections/home/Parade";
 import { Featured } from "@/sections/home/Featured";
 import { FinderTeaser } from "@/sections/home/FinderTeaser";
 import { Technology } from "@/sections/home/Technology";
@@ -23,6 +24,7 @@ export default function HomePage() {
   return (
     <>
       <Hero rackets={heroLineup()} />
+      <Parade />
       <Philosophy models={getAllRackets().length} brandCount={brandList.length} />
       <Featured />
       <FinderTeaser />
