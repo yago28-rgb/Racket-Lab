@@ -6,21 +6,15 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ArrowRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const points = [
-  ["Manejabilidad", "Un balance hacia el puño y un swingweight contenido ayudan a reaccionar a tiempo en la red."],
-  ["Estabilidad", "Algo más de peso estático sostiene los golpes planos y los restos a saques rápidos."],
-  ["Control", "Un patrón de cuerdas más cerrado y una cabeza de 95–98 in² favorecen la precisión con bolas bajas."],
-] as const;
-
 /**
- * Editorial spread on grass-court play. The photograph opens from a narrow
- * slit to full width as it scrolls in (clip-path, scrubbed) while the copy
- * column settles on the cream page.
+ * Editorial spread. The ivy façade is pinned while the headline slides over
+ * it; then the match photograph opens from a narrow slit, its own camera
+ * pushing in.
  */
 export function GrassCourt() {
   const root = useRef<HTMLElement>(null);
@@ -29,78 +23,82 @@ export function GrassCourt() {
   useGSAP(
     () => {
       if (reduced) return;
+      gsap.fromTo("[data-ivy]", { scale: 1.18, yPercent: -4 }, { scale: 1, yPercent: 4, ease: "none", scrollTrigger: { trigger: "[data-ivy-wrap]", start: "top bottom", end: "bottom top", scrub: true } });
+      gsap.fromTo(
+        "[data-ivy-line]",
+        { yPercent: 120 },
+        { yPercent: 0, stagger: 0.12, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: "[data-ivy-wrap]", start: "top 55%" } },
+      );
       gsap.fromTo(
         "[data-gc-photo]",
-        { clipPath: "inset(18% 38% 18% 38% round 2px)" },
-        {
-          clipPath: "inset(0% 0% 0% 0% round 28px)",
-          ease: "none",
-          scrollTrigger: { trigger: "[data-gc-photo]", start: "top 85%", end: "center 55%", scrub: 0.8 },
-        },
+        { clipPath: "inset(30% 44% 30% 44%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: "[data-gc-photo]", start: "top 90%", end: "top 30%", scrub: 0.8 } },
       );
-      gsap.fromTo(
-        "[data-gc-img]",
-        { scale: 1.3 },
-        { scale: 1.02, ease: "none", scrollTrigger: { trigger: "[data-gc-photo]", start: "top bottom", end: "bottom top", scrub: true } },
-      );
-      gsap.from("[data-gc-point]", {
-        y: 40,
-        opacity: 0,
-        stagger: 0.12,
-        duration: 1.1,
-        ease: "expo.out",
-        scrollTrigger: { trigger: "[data-gc-points]", start: "top 80%" },
-      });
+      gsap.fromTo("[data-gc-img]", { scale: 1.35 }, { scale: 1, ease: "none", scrollTrigger: { trigger: "[data-gc-photo]", start: "top bottom", end: "bottom 40%", scrub: true } });
     },
     { scope: root, dependencies: [reduced] },
   );
 
   return (
-    <section ref={root} className="overflow-hidden bg-mist py-28 md:py-40" aria-labelledby="gc-title">
-      <div className="container-rl grid gap-12 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-5 lg:pt-10">
-          <p className="eyebrow">Sobre hierba</p>
-          <h2 id="gc-title" className="display mt-6 text-[clamp(2.6rem,5.4vw,4.9rem)] text-club">
-            Donde el tiempo se mide <em className="text-accent-ink">en milésimas.</em>
-          </h2>
-          <p className="mt-8 max-w-md text-lg leading-relaxed text-ink/70">
-            La hierba es la superficie más rápida del circuito: la bola bota bajo y patina. Premia el saque, la volea y el golpe
-            cortado, y no perdona una preparación tardía.
+    <section ref={root} className="bg-night text-cream" aria-labelledby="gc-title">
+      <div data-ivy-wrap className="relative h-[92svh] overflow-hidden md:h-[110svh]">
+        <Image
+          data-ivy
+          src="/media/photos/centre-court-ivy.webp"
+          alt="Fachada del Centre Court cubierta de hiedra"
+          fill
+          quality={90}
+          sizes="100vw"
+          className="object-cover object-[50%_30%]"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(13,34,25,0.92)_0%,rgba(13,34,25,0.4)_40%,rgba(13,34,25,0.05)_70%)]" />
+        <h2 id="gc-title" className="absolute inset-x-0 bottom-0 px-5 pb-[10svh] font-serif text-[clamp(3rem,9vw,9.5rem)] font-medium leading-[0.88] tracking-[-0.03em] md:px-[6vw]">
+          <span className="block overflow-hidden pb-[0.08em]">
+            <span data-ivy-line className="block">
+              Sobre hierba,
+            </span>
+          </span>
+          <span className="block overflow-hidden pb-[0.08em]">
+            <span data-ivy-line className="block italic text-gold">
+              el tiempo no espera.
+            </span>
+          </span>
+        </h2>
+        <p className="absolute right-5 top-24 max-w-[14rem] text-right text-[11px] text-cream/55 md:right-[6vw]">
+          Centre Court, fachada de hiedra. Foto: Gabinho, CC BY-SA 4.0, vía Wikimedia Commons.
+        </p>
+      </div>
+
+      <div className="grid gap-14 px-5 py-24 md:grid-cols-12 md:gap-8 md:px-[6vw] md:py-36">
+        <div className="md:col-span-4 md:pt-6">
+          <p className="text-[19px] leading-relaxed text-cream/85">
+            La hierba es la superficie más rápida del circuito. La bola bota bajo y patina, y premia el saque, la volea y el golpe
+            cortado.
           </p>
-          <Link
-            href="/racket-finder"
-            className="group mt-10 inline-flex items-center gap-3 border-b border-club/30 pb-1.5 text-[15px] font-medium text-club transition-colors hover:border-gold"
-          >
-            Encuentra la raqueta para tu juego
-            <ArrowRight size={16} className="transition-transform duration-500 group-hover:translate-x-1" />
+          <p className="mt-6 text-[17px] leading-relaxed text-cream/60">
+            Ahí se nota un balance hacia el puño para reaccionar en la red, algo más de masa para sostener el resto y un patrón
+            más cerrado para controlar bolas que llegan bajas. Es orientación general: el Racket Finder lo pondera con tu nivel y tu
+            forma de jugar.
+          </p>
+          <Link href="/racket-finder" className="group mt-10 inline-flex items-center gap-0.5 text-[17px] font-medium text-cream hover:text-gold">
+            Encontrar la mía <ChevronRight size={18} className="transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
-
-        <figure className="lg:col-span-7">
-          <div data-gc-photo className="relative aspect-[4/3] overflow-hidden rounded-[28px] bg-night">
+        <figure className="md:col-span-7 md:col-start-6">
+          <div data-gc-photo className="relative aspect-[4/3] overflow-hidden">
             <Image
               data-gc-img
               src="/media/photos/centre-court-match.webp"
               alt="Partido sobre la hierba del Centre Court con las gradas llenas"
               fill
-              sizes="(min-width: 1024px) 58vw, 100vw"
+              quality={90}
+              sizes="(min-width: 768px) 58vw, 100vw"
               className="object-cover"
             />
           </div>
-          <figcaption className="mt-4 text-right text-[11px] text-muted">Centre Court, 2026. Foto: Daniel Cooper, CC BY-SA 4.0, vía Wikimedia Commons.</figcaption>
+          <figcaption className="mt-4 text-[11px] text-cream/50">Centre Court, 2026. Foto: Daniel Cooper, CC BY-SA 4.0, vía Wikimedia Commons.</figcaption>
         </figure>
       </div>
-
-      <ol data-gc-points className="container-rl mt-20 grid gap-10 border-t border-line pt-12 md:grid-cols-3 md:gap-12">
-        {points.map(([title, text], i) => (
-          <li key={title} data-gc-point>
-            <span className="font-serif text-4xl italic text-gold">0{i + 1}</span>
-            <h3 className="mt-3 text-lg font-semibold tracking-tight text-club">{title}</h3>
-            <p className="mt-2 text-[15px] leading-relaxed text-ink/65">{text}</p>
-          </li>
-        ))}
-      </ol>
-      <p className="container-rl mt-8 text-xs text-muted">Orientación general. El Racket Finder pondera estos factores según tu nivel y tu forma de jugar.</p>
     </section>
   );
 }

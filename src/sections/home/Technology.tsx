@@ -31,7 +31,7 @@ interface Chapter {
 const chapters: Chapter[] = [
   {
     id: "frame",
-    kicker: "Frame technology",
+    kicker: "Perfil del marco",
     title: "El perfil decide la potencia.",
     body: "Un marco más ancho (perfil o beam) y más rígido se deforma menos en el impacto y devuelve más energía a la bola. Un perfil fino flexa más: menos potencia gratuita, más sensación y control.",
     facts: [
@@ -42,7 +42,7 @@ const chapters: Chapter[] = [
   },
   {
     id: "pattern",
-    kicker: "String pattern",
+    kicker: "Patrón de cordaje",
     title: "Más espacio, más efecto.",
     body: "En un patrón abierto (16×19, 16×18) las cuerdas verticales se desplazan y vuelven a su sitio, lo que ayuda a generar efecto. Un patrón denso (18×19, 18×20) da una respuesta más predecible y precisa.",
     facts: [
@@ -52,7 +52,7 @@ const chapters: Chapter[] = [
   },
   {
     id: "weight",
-    kicker: "Weight distribution",
+    kicker: "Reparto del peso",
     title: "Masa es estabilidad.",
     body: "Más peso estático resiste mejor el impacto de bolas rápidas y transmite menos vibración, pero exige más al brazo. El peso se mide sin encordar: cordaje y grip añaden unos 15–20 g.",
     facts: [
@@ -63,7 +63,7 @@ const chapters: Chapter[] = [
   },
   {
     id: "head",
-    kicker: "Head size",
+    kicker: "Tamaño de cabeza",
     title: "Tolerancia frente a precisión.",
     body: "Una cabeza mayor amplía el punto dulce y añade potencia; una menor concentra la respuesta y premia la técnica.",
     facts: [
@@ -103,7 +103,7 @@ const chapters: Chapter[] = [
   },
   {
     id: "materials",
-    kicker: "Materials",
+    kicker: "Materiales",
     title: "Grafito, y lo que lo acompaña.",
     body: "El grafito es la base de casi todos los marcos actuales. Los fabricantes añaden fibras (basalto, aramida, lino) o estructuras propias para filtrar vibraciones o ajustar la flexión. Solo mostramos las tecnologías que hemos podido verificar.",
     facts: [
@@ -146,7 +146,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
     }
     return (
       <div className="space-y-6">
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/45">Patrones en el catálogo</p>
+        <p className="text-[13px] text-cream/50">Patrones en el catálogo</p>
         {[...groups.entries()]
           .sort((a, b) => b[1].length - a[1].length)
           .map(([k, list]) => (
@@ -174,7 +174,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
     const withTech = all.filter((r) => r.technologies.length);
     return (
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/45">Tecnologías verificadas</p>
+        <p className="text-[13px] text-cream/50">Tecnologías verificadas</p>
         <ul className="mt-5 space-y-3">
           {withTech.map((r) => (
             <li key={r.id} className="flex items-center gap-3">
@@ -202,7 +202,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
   const m = chapter.metric!;
   return (
     <div>
-      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/45">
+      <p className="text-[13px] text-cream/50">
         {m.label} · {rows.length} de {all.length} modelos con dato verificado
       </p>
       <ul className="mt-5 space-y-2">
@@ -268,18 +268,17 @@ export function Technology() {
   const chapter = chapters.find((c) => c.id === current)!;
 
   return (
-    <section ref={section} id="tecnologia" className="noir-bg relative scroll-mt-14 text-white" aria-labelledby="tech-title">
+    <section ref={section} id="tecnologia" className="relative scroll-mt-14 bg-club text-cream" aria-labelledby="tech-title">
       <div className="container-rl pt-24 md:pt-32">
-        <p className="eyebrow !text-white/50">Tecnología</p>
-        <h2 id="tech-title" className="display mt-6 max-w-3xl text-[clamp(2.4rem,5.5vw,4.75rem)]">
-          Siete números que explican una raqueta.
+        <h2 id="tech-title" className="max-w-4xl font-serif text-[clamp(2.8rem,6.4vw,6.2rem)] font-medium leading-[0.92] tracking-[-0.025em]">
+          Cómo se lee <em className="text-gold">una raqueta.</em>
         </h2>
-        <p className="mt-6 max-w-xl text-white/55">Cada capítulo muestra los datos reales de nuestro catálogo, raqueta por raqueta.</p>
+        <p className="mt-8 max-w-xl text-[17px] leading-relaxed text-cream/60">Siete números, con los datos reales del catálogo raqueta por raqueta.</p>
       </div>
 
       <div className="container-rl grid pb-24 lg:grid-cols-2 lg:gap-16">
         <div className="sticky top-14 z-20 order-first -mx-5 h-[46svh] md:-mx-10 lg:order-last lg:mx-0 lg:top-[12svh] lg:z-0 lg:h-[76svh]">
-          <div className="relative h-full overflow-y-auto overscroll-contain border border-white/10 bg-night/95 p-6 backdrop-blur lg:rounded-[2rem] lg:p-8">
+          <div className="relative h-full overflow-y-auto overscroll-contain bg-night p-6 lg:rounded-[4px] lg:p-10">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current}
@@ -294,28 +293,28 @@ export function Technology() {
           </div>
           <ol className="pointer-events-none absolute right-5 top-5 flex gap-1.5" aria-hidden>
             {chapters.map((c) => (
-              <li key={c.id} className={cn("h-1 rounded-full transition-all duration-500", c.id === current ? "w-6 bg-accent" : "w-1.5 bg-paper/25")} />
+              <li key={c.id} className={cn("h-1 rounded-full transition-all duration-500", c.id === current ? "w-6 bg-gold" : "w-1.5 bg-cream/25")} />
             ))}
           </ol>
         </div>
 
         <div className="relative">
-          {chapters.map((c) => (
+          {chapters.map((c, i) => (
             <article key={c.id} data-chapter={c.id} className="flex min-h-[60svh] flex-col justify-center py-10 lg:min-h-[70svh]">
-              <p data-reveal className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-                {c.kicker}
+              <p data-reveal className="font-serif text-xl italic text-gold">
+                {["I", "II", "III", "IV", "V", "VI", "VII", "VIII"][i]}. <span className="text-cream/60">{c.kicker}</span>
               </p>
               <h3 data-reveal className="display mt-4 text-4xl md:text-6xl">
                 {c.title}
               </h3>
-              <p data-reveal className="mt-6 max-w-lg text-lg leading-relaxed text-white/60">
+              <p data-reveal className="mt-6 max-w-lg text-lg leading-relaxed text-cream/65">
                 {c.body}
               </p>
               <dl data-reveal className="mt-8 flex gap-10">
                 {c.facts.map(([k, v]) => (
                   <div key={k}>
-                    <dt className="text-2xl font-semibold tracking-tight">{k}</dt>
-                    <dd className="text-sm text-white/50">{v}</dd>
+                    <dt className="font-serif text-3xl font-medium">{k}</dt>
+                    <dd className="text-sm text-cream/50">{v}</dd>
                   </div>
                 ))}
               </dl>

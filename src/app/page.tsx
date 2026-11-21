@@ -1,11 +1,9 @@
 import { Hero } from "@/sections/home/Hero";
-import { Philosophy } from "@/sections/home/Philosophy";
-import { Parade } from "@/sections/home/Parade";
+import { Statement } from "@/sections/home/Statement";
+import { Showcase } from "@/sections/home/Showcase";
 import { GrassCourt } from "@/sections/home/GrassCourt";
-import { Featured } from "@/sections/home/Featured";
 import { FinderTeaser } from "@/sections/home/FinderTeaser";
 import { Technology } from "@/sections/home/Technology";
-import { FinalCta } from "@/sections/home/FinalCta";
 import { getAllRackets } from "@/lib/catalog";
 import { brandList } from "@/data/brands";
 
@@ -13,13 +11,11 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Philosophy models={getAllRackets().length} brandCount={brandList.length} />
-      <Parade />
+      <Statement models={getAllRackets().length} brands={brandList.length} />
+      <Showcase />
       <GrassCourt />
-      <Featured />
-      <FinderTeaser />
       <Technology />
-      <FinalCta />
+      <FinderTeaser />
     </>
   );
 }

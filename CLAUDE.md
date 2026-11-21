@@ -44,9 +44,13 @@ Antes de terminar cualquier tarea: `grep -rn "<svg" src` y verificar que solo ap
 - Animaciones sobre material real: GSAP + ScrollTrigger para secuencias de scroll (p. ej. el vídeo del hero que se convierte en tarjeta);
   Motion (Framer Motion) para interfaz, reveals y transiciones.
 - Visualizaciones de datos en HTML/CSS con datos reales del catálogo (sin SVG).
-- Hero de inicio: escena WebGL en tiempo real (`src/components/hero/court-scene.ts`, Three.js) construida con fotografías reales
-  del Centre Court con licencia CC (Wikimedia Commons, créditos en `/creditos` y en el propio hero). Cada foto se proyecta sobre una
-  malla desplazada por un mapa de profundidad propio; desenfoque de campo por píxel; partículas de luz. Sin imágenes generadas.
+- Hero de inicio: escena WebGL en tiempo real (`src/components/hero/court-scene.ts`, Three.js) construida con una fotografía real
+  del Centre Court a 3840 px con licencia CC (Wikimedia Commons, créditos en `/creditos` y en el propio hero), proyectada sobre una
+  malla desplazada por un mapa de profundidad propio; sombras de nubes procedurales, desenfoque solo durante el movimiento (el plano
+  final es nítido), partículas de luz. Sin imágenes generadas.
+- Estructura editorial, no de plantilla: sin etiquetas en mayúsculas monoespaciadas sobre cada título, sin filas de cifras, sin listas
+  01/02/03 ni carruseles de marcas; enlaces de texto con chevron en lugar de botones de píldora repetidos; productos en escaparates
+  a toda anchura.
   Paleta y tipografía: verde club, verde hierba, crema, blanco roto y detalles dorados; serif Cormorant Garamond para titulares.
 
 ## 5. Accesibilidad del movimiento

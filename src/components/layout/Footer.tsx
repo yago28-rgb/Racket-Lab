@@ -48,7 +48,7 @@ export function Footer() {
         </div>
         {cols.map((c) => (
           <nav key={c.title} aria-label={c.title}>
-            <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">{c.title}</h3>
+            <h3 className="font-serif text-lg italic text-gold">{c.title}</h3>
             <ul className="mt-4 space-y-2.5">
               {c.links.map((l) => (
                 <li key={l.href}>
