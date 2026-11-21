@@ -26,15 +26,15 @@ export function CompareBar() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4"
         >
-          <div className="flex w-full max-w-2xl items-center gap-3 rounded-full border border-white/10 bg-ink/90 py-2 pl-5 pr-2 text-white shadow-2xl backdrop-blur-xl">
+          <div className="flex w-full max-w-2xl items-center gap-3 rounded-full border border-cream/10 bg-club/95 py-2 pl-5 pr-2 text-white shadow-2xl backdrop-blur-xl">
             <span className="hidden text-xs text-white/60 sm:inline">
               Comparar {items.length}/{MAX_COMPARE}
             </span>
             <ul className="flex flex-1 gap-2 overflow-x-auto">
               {items.map((r) => (
-                <li key={r.id} className="flex shrink-0 items-center gap-1 rounded-full bg-white/10 py-1 pl-3 pr-1 text-xs">
+                <li key={r.id} className="flex shrink-0 items-center gap-1 rounded-full bg-paper/10 py-1 pl-3 pr-1 text-xs">
                   {r.model}
-                  <button onClick={() => remove(r.id)} aria-label={`Quitar ${r.model}`} className="rounded-full p-1 hover:bg-white/15">
+                  <button onClick={() => remove(r.id)} aria-label={`Quitar ${r.model}`} className="rounded-full p-1 hover:bg-paper/15">
                     <X size={12} />
                   </button>
                 </li>

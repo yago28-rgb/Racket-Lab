@@ -116,7 +116,7 @@ const chapters: Chapter[] = [
 function Thumb({ r }: { r: Racket }) {
   const src = mainPhoto(r);
   return (
-    <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-white/90">
+    <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-paper/90">
       {src ? (
         <Image src={src} alt="" fill sizes="36px" className="object-contain p-0.5 mix-blend-multiply" />
       ) : (
@@ -158,7 +158,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
               <ul className="mt-3 flex flex-wrap gap-2">
                 {list.map((r) => (
                   <li key={r.id}>
-                    <Link href={`/raquetas/${r.slug}`} className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] py-1 pl-1 pr-3 text-xs hover:border-white/40">
+                    <Link href={`/raquetas/${r.slug}`} className="flex items-center gap-2 rounded-full border border-white/10 bg-paper/[0.04] py-1 pl-1 pr-3 text-xs hover:border-white/40">
                       <Thumb r={r} /> {r.model}
                     </Link>
                   </li>
@@ -184,7 +184,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
               </span>
               <span className="flex flex-wrap gap-1.5">
                 {r.technologies.map((t) => (
-                  <span key={t} className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-white/80">
+                  <span key={t} className="rounded-full bg-paper/10 px-2.5 py-1 text-[11px] text-white/80">
                     {t}
                   </span>
                 ))}
@@ -218,7 +218,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
             <Link href={`/raquetas/${r.slug}`} className="truncate text-white/80 hover:text-white">
               {r.model} <span className="text-white/40">{r.generation}</span>
             </Link>
-            <span className="h-1.5 overflow-hidden rounded-full bg-white/10">
+            <span className="h-1.5 overflow-hidden rounded-full bg-paper/10">
               <motion.span
                 className="block h-full rounded-full bg-accent"
                 initial={{ width: 0 }}
@@ -279,7 +279,7 @@ export function Technology() {
 
       <div className="container-rl grid pb-24 lg:grid-cols-2 lg:gap-16">
         <div className="sticky top-14 z-20 order-first -mx-5 h-[46svh] md:-mx-10 lg:order-last lg:mx-0 lg:top-[12svh] lg:z-0 lg:h-[76svh]">
-          <div className="relative h-full overflow-y-auto overscroll-contain border border-white/10 bg-[#0d0d0f]/95 p-6 backdrop-blur lg:rounded-[2rem] lg:p-8">
+          <div className="relative h-full overflow-y-auto overscroll-contain border border-white/10 bg-night/95 p-6 backdrop-blur lg:rounded-[2rem] lg:p-8">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current}
@@ -294,7 +294,7 @@ export function Technology() {
           </div>
           <ol className="pointer-events-none absolute right-5 top-5 flex gap-1.5" aria-hidden>
             {chapters.map((c) => (
-              <li key={c.id} className={cn("h-1 rounded-full transition-all duration-500", c.id === current ? "w-6 bg-accent" : "w-1.5 bg-white/25")} />
+              <li key={c.id} className={cn("h-1 rounded-full transition-all duration-500", c.id === current ? "w-6 bg-accent" : "w-1.5 bg-paper/25")} />
             ))}
           </ol>
         </div>
@@ -305,7 +305,7 @@ export function Technology() {
               <p data-reveal className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
                 {c.kicker}
               </p>
-              <h3 data-reveal className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+              <h3 data-reveal className="display mt-4 text-4xl md:text-6xl">
                 {c.title}
               </h3>
               <p data-reveal className="mt-6 max-w-lg text-lg leading-relaxed text-white/60">

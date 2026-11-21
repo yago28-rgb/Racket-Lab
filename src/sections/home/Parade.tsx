@@ -12,7 +12,7 @@ export function Parade() {
     .filter((x): x is { r: (typeof x)["r"]; src: string } => x.src != null);
 
   return (
-    <section aria-label="Raquetas y marcas" className="border-y border-line bg-white py-10 md:py-14">
+    <section aria-label="Raquetas y marcas" className="border-y border-line bg-paper py-10 md:py-14">
       {withPhoto.length > 0 && (
         <VelocityMarquee baseSpeed={34}>
           {withPhoto.map(({ r, src }) => (
@@ -40,7 +40,7 @@ export function Parade() {
           <Link
             key={b.id}
             href={`/raquetas?brand=${b.id}`}
-            className="mx-6 text-[clamp(2.2rem,5vw,4rem)] font-semibold tracking-tight text-ink/15 transition-colors hover:text-ink md:mx-10"
+            className="mx-6 font-serif text-[clamp(2.4rem,5.4vw,4.4rem)] italic text-club/20 transition-colors hover:text-club md:mx-10"
           >
             {b.name}
           </Link>

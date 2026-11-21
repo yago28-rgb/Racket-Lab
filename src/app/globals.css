@@ -1,24 +1,29 @@
 @import "tailwindcss";
 
 /*
- * RACKET LAB design tokens.
- * Apple-inspired neutral palette; the lime accent is reserved for small details
- * (progress, focus, live indicators), never for large surfaces.
+ * RACKET LAB design tokens — "The Art of Tennis".
+ * British grass-court luxury: off-white and cream surfaces, deep club green,
+ * natural grass green and small gold details. No neon, no tech gradients.
  */
 @theme {
-  --color-ink: #111111;
-  --color-ink-soft: #1d1d1f;
-  --color-paper: #ffffff;
-  --color-mist: #f7f7f7;
-  --color-cloud: #f5f5f7;
-  --color-line: #eaeaea;
-  --color-muted: #86868b;
-  --color-accent: #c8f031;
-  --color-accent-ink: #4d6b00;
-  --color-night: #0a0a0b;
+  --color-ink: #14140f;
+  --color-ink-soft: #23231c;
+  --color-paper: #fbf9f4;
+  --color-mist: #f4efe4;
+  --color-cloud: #ebe4d4;
+  --color-line: #e2dac8;
+  --color-muted: #847e6e;
+  --color-accent: #b89255;
+  --color-accent-ink: #7a5d2c;
+  --color-night: #0d2219;
+  --color-club: #123526;
+  --color-grass: #3d6b3a;
+  --color-cream: #efe6d2;
+  --color-gold: #c4a265;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-serif-display), "Iowan Old Style", Georgia, serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --radius-card: 1.5rem;
@@ -70,12 +75,13 @@ body {
     font-size: 0.72rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-muted);
+    color: var(--color-accent-ink);
   }
 
   .display {
-    font-weight: 600;
-    letter-spacing: -0.045em;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
     line-height: 0.95;
   }
 
@@ -85,14 +91,20 @@ body {
 
   .studio-bg {
     background:
-      radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #f5f5f7 55%, #ececee 100%);
+      radial-gradient(120% 80% at 50% 0%, #fdfbf6 0%, #f4efe4 55%, #ebe4d4 100%);
   }
 
   .noir-bg {
     background:
-      radial-gradient(90% 70% at 70% 20%, #1c1c1f 0%, #0a0a0b 60%);
+      radial-gradient(90% 70% at 70% 20%, #1a3a2b 0%, #0d2219 60%);
   }
 
+}
+
+/* Hero copy waits for the cinematic intro (see Hero.tsx). */
+[data-intro="pending"] :is([data-hero-eyebrow], [data-hero-char], [data-hero-sub], [data-hero-cta], [data-hero-caption]),
+[data-intro="playing"] :is([data-hero-eyebrow], [data-hero-char], [data-hero-sub], [data-hero-cta], [data-hero-caption]) {
+  opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

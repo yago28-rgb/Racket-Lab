@@ -15,7 +15,7 @@ export function Philosophy({ models, brandCount }: { models: number; brandCount:
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduced ? [1, 1, 1] : [1.18, 1.06, 1.12]);
 
   return (
-    <section id="filosofia" ref={ref} className="bg-white py-28 md:py-40">
+    <section id="filosofia" ref={ref} className="bg-paper py-28 md:py-40">
       <div className="container-rl grid items-center gap-16 md:grid-cols-2">
         <div>
           <p className="eyebrow">Filosofía</p>

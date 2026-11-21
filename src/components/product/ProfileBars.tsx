@@ -16,9 +16,9 @@ export function ProfileBars({ profile, dark = false }: { profile: RacketProfile;
       {labels.map(([k, l]) => (
         <li key={k} className="grid grid-cols-[110px_1fr_36px] items-center gap-3 text-sm">
           <span className={dark ? "text-white/60" : "text-muted"}>{l}</span>
-          <span className={`h-1.5 overflow-hidden rounded-full ${dark ? "bg-white/10" : "bg-line"}`}>
+          <span className={`h-1.5 overflow-hidden rounded-full ${dark ? "bg-paper/10" : "bg-line"}`}>
             <span
-              className={`block h-full rounded-full ${dark ? "bg-white" : "bg-ink"}`}
+              className={`block h-full rounded-full ${dark ? "bg-paper" : "bg-ink"}`}
               style={{ width: `${Math.round(8 + profile[k] * 92)}%` }}
             />
           </span>

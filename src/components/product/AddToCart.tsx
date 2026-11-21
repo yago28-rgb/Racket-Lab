@@ -58,7 +58,7 @@ export function AddToCart({ racket }: { racket: Racket }) {
               onClick={() => setGrip(g)}
               className={cn(
                 "h-11 rounded-xl border text-sm font-medium transition-colors",
-                grip === g ? "border-ink bg-ink text-white" : "border-line hover:border-ink/50",
+                grip === g ? "border-club bg-club text-cream" : "border-line hover:border-ink/50",
               )}
             >
               {g}

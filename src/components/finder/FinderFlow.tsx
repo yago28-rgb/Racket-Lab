@@ -34,7 +34,7 @@ function OptionButton({
       onClick={onClick}
       className={cn(
         "group flex min-h-16 w-full items-center justify-between gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-300",
-        selected ? "border-ink bg-ink text-white shadow-[0_12px_30px_-14px_rgba(0,0,0,0.5)]" : "border-line bg-white hover:border-ink/40",
+        selected ? "border-club bg-club text-cream shadow-[0_12px_30px_-14px_rgba(0,0,0,0.5)]" : "border-line bg-paper hover:border-ink/40",
       )}
     >
       <span>
@@ -45,7 +45,7 @@ function OptionButton({
         className={cn(
           "flex h-6 w-6 shrink-0 items-center justify-center border transition-colors",
           multi ? "rounded-md" : "rounded-full",
-          selected ? "border-white bg-white text-ink" : "border-line",
+          selected ? "border-white bg-paper text-ink" : "border-line",
         )}
       >
         {selected && <Check size={14} strokeWidth={3} />}
@@ -90,7 +90,7 @@ function QuestionBody({ q, a, set }: { q: Question; a: FinderAnswers; set: (patc
     }
     case "slider":
       return (
-        <div className="rounded-3xl border border-line bg-white p-6 md:p-10">
+        <div className="rounded-3xl border border-line bg-paper p-6 md:p-10">
           <div className="flex items-end justify-between">
             <span className={cn("text-sm transition-colors", a.powerControl < 40 ? "font-semibold text-ink" : "text-muted")}>Máxima potencia</span>
             <span className="text-5xl font-semibold tracking-tighter tabular-nums">{a.powerControl}</span>
@@ -153,7 +153,7 @@ function QuestionBody({ q, a, set }: { q: Question; a: FinderAnswers; set: (patc
       );
     case "personal":
       return (
-        <div className="grid gap-6 rounded-3xl border border-line bg-white p-6 md:p-8">
+        <div className="grid gap-6 rounded-3xl border border-line bg-paper p-6 md:p-8">
           <label className="grid gap-2">
             <span className="text-sm font-medium">Edad (opcional)</span>
             <input
@@ -238,13 +238,13 @@ export function FinderFlow() {
   return (
     <div>
       {/* Progress */}
-      <div className="sticky top-14 z-30 border-b border-line bg-white/85 backdrop-blur-xl">
+      <div className="sticky top-14 z-30 border-b border-line bg-paper/85 backdrop-blur-xl">
         <div className="container-rl flex h-12 items-center gap-4">
           <span className="font-mono text-xs tabular-nums text-muted">
             {done ? "Resultado" : `${String(step + 1).padStart(2, "0")} / ${questions.length}`}
           </span>
           <div className="h-1 flex-1 overflow-hidden rounded-full bg-line" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} aria-label="Progreso del cuestionario">
-            <motion.div className="h-full rounded-full bg-ink" animate={{ width: `${progress * 100}%` }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} />
+            <motion.div className="h-full rounded-full bg-club" animate={{ width: `${progress * 100}%` }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} />
           </div>
           {(done || step > 0) && (
             <button onClick={restart} className="text-xs text-muted hover:text-ink">
@@ -271,7 +271,7 @@ export function FinderFlow() {
                 Pregunta {step + 1}
                 {q.optional && " · opcional"}
               </p>
-              <h2 className="mt-4 text-[clamp(1.9rem,4.5vw,3.2rem)] font-semibold leading-[1.05] tracking-tight">{q.title}</h2>
+              <h2 className="display mt-4 text-[clamp(2.1rem,4.8vw,3.6rem)] !leading-[1.02]">{q.title}</h2>
               {q.subtitle && <p className="mt-3 text-ink/60">{q.subtitle}</p>}
               {q.note && <p className="mt-3 rounded-xl bg-mist px-4 py-3 text-sm text-ink/70">{q.note}</p>}
               <div className="mt-10">

@@ -16,7 +16,7 @@ export function ContactForm() {
   if (state === "sent") {
     return (
       <div className="rounded-[var(--radius-card)] bg-mist p-8" role="status">
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-white">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-club text-cream">
           <Check size={18} />
         </span>
         <p className="mt-5 text-lg font-medium">Mensaje enviado.</p>
@@ -57,7 +57,7 @@ export function ContactForm() {
       </div>
       <label>
         <span className="text-sm font-medium">Asunto</span>
-        <select name="topic" defaultValue={product ? "producto" : "general"} className="mt-2 h-12 w-full rounded-xl border border-line bg-white px-4 outline-none focus:border-ink">
+        <select name="topic" defaultValue={product ? "producto" : "general"} className="mt-2 h-12 w-full rounded-xl border border-line bg-paper px-4 outline-none focus:border-ink">
           <option value="general">Consulta general</option>
           <option value="producto">Información de producto</option>
           <option value="pedido">Mi pedido</option>

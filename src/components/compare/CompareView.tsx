@@ -59,7 +59,7 @@ export function CompareView() {
                     <th key={r.id} scope="col" className="p-3 text-left align-top font-normal">
                       <div className="studio-bg relative aspect-[4/5] overflow-hidden rounded-2xl">
                         <ProductMedia racket={r} sizes="240px" />
-                        <button onClick={() => remove(r.id)} className="absolute right-3 top-3 rounded-full bg-white/80 p-1.5 backdrop-blur hover:bg-white" aria-label={`Quitar ${r.model}`}>
+                        <button onClick={() => remove(r.id)} className="absolute right-3 top-3 rounded-full bg-paper/80 p-1.5 backdrop-blur hover:bg-paper" aria-label={`Quitar ${r.model}`}>
                           <X size={14} />
                         </button>
                       </div>

@@ -61,7 +61,7 @@ export function FeaturedRail({ rackets, more }: { rackets: Racket[]; more: numbe
           <div className="hidden items-center gap-3 lg:flex" aria-hidden>
             <span className="font-mono text-xs tabular-nums text-muted">{String(Math.min(rackets.length, Math.floor(progress * rackets.length) + 1)).padStart(2, "0")}</span>
             <span className="h-px w-24 overflow-hidden bg-line">
-              <span className="block h-full bg-ink" style={{ width: `${Math.max(4, progress * 100)}%` }} />
+              <span className="block h-full bg-gold" style={{ width: `${Math.max(4, progress * 100)}%` }} />
             </span>
             <span className="font-mono text-xs tabular-nums text-muted">{String(rackets.length).padStart(2, "0")}</span>
           </div>
@@ -83,7 +83,7 @@ export function FeaturedRail({ rackets, more }: { rackets: Racket[]; more: numbe
         ))}
         <Link
           href="/raquetas"
-          className="flex w-[60vw] shrink-0 snap-center flex-col justify-end rounded-[var(--radius-card)] bg-ink p-8 text-white transition-colors hover:bg-black sm:w-[30vw] lg:w-[300px]"
+          className="flex w-[60vw] shrink-0 snap-center flex-col justify-end rounded-[var(--radius-card)] bg-club p-8 text-cream transition-colors hover:bg-night sm:w-[30vw] lg:w-[300px]"
         >
           <span className="text-5xl font-semibold tracking-tight">+{more}</span>
           <span className="mt-2 text-white/60">modelos más en el catálogo</span>

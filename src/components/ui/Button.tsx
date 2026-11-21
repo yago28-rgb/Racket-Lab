@@ -9,11 +9,11 @@ const base =
   "group/btn relative inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-[transform,background-color,color,box-shadow,border-color] duration-300 ease-[var(--ease-out-expo)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40 whitespace-nowrap";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-ink text-white hover:bg-black hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]",
-  secondary: "border border-line bg-white text-ink hover:border-ink",
+  primary: "bg-club text-cream hover:bg-night hover:shadow-[0_12px_30px_-12px_rgba(13,34,25,0.6)]",
+  secondary: "border border-line bg-paper text-ink hover:border-club hover:text-club",
   ghost: "text-ink hover:bg-cloud",
-  inverted: "bg-white text-ink hover:bg-accent",
-  "outline-inverted": "border border-white/25 text-white hover:border-white hover:bg-white/5",
+  inverted: "bg-cream text-club hover:bg-paper hover:shadow-[0_12px_40px_-12px_rgba(196,162,101,0.55)]",
+  "outline-inverted": "border border-cream/30 text-cream hover:border-gold hover:text-paper",
 };
 const sizes: Record<Size, string> = {
   sm: "h-9 px-4 text-sm",

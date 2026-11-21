@@ -44,7 +44,7 @@ export function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl"
+            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-paper shadow-2xl"
           >
             <div className="flex items-center justify-between border-b border-line px-6 py-5">
               <h2 className="text-lg font-semibold tracking-tight">Tu carrito</h2>
@@ -100,7 +100,7 @@ function subtotalHint(subtotal: number, free: number) {
     <div className="py-4">
       <p className="text-xs text-muted">{left > 0 ? `Te faltan ${formatEUR(left)} para el envío gratuito.` : "Tienes envío gratuito."}</p>
       <div className="mt-2 h-1 overflow-hidden rounded-full bg-line">
-        <div className="h-full rounded-full bg-ink transition-[width] duration-700" style={{ width: `${pct}%` }} />
+        <div className="h-full rounded-full bg-club transition-[width] duration-700" style={{ width: `${pct}%` }} />
       </div>
     </div>
   );

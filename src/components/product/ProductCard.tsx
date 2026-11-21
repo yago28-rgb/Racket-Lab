@@ -11,14 +11,14 @@ export function ProductCard({ racket }: { racket: Racket }) {
   const s = racket.specs;
   return (
     <SpotlightTilt className="h-full rounded-[var(--radius-card)]">
-      <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
+      <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-paper transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
         <Link href={`/raquetas/${racket.slug}`} className="absolute inset-0 z-10" aria-label={`Ver ${brands[racket.brand].name} ${racket.model} ${racket.generation}`} />
         <div className="studio-bg relative aspect-[4/5] overflow-hidden">
           <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]">
             <ProductMedia racket={racket} sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw" />
           </div>
           <div className="absolute left-4 top-4 flex gap-2">
-            <span className="rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-medium backdrop-blur">{typeLabels[racket.type]}</span>
+            <span className="rounded-full bg-paper/80 px-2.5 py-1 text-[11px] font-medium backdrop-blur">{typeLabels[racket.type]}</span>
           </div>
           <div className="absolute right-4 top-4 z-20">
             <CompareToggle id={racket.id} label={false} className="h-8 w-8 justify-center !p-0" />

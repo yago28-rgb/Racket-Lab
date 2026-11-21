@@ -10,7 +10,7 @@ export function FinalCta() {
       <div className="absolute inset-0">
         <BackgroundVideo base={videos.aerialCourt.base} label={videos.aerialCourt.label} className="opacity-70" />
       </div>
-      <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_50%,rgba(10,10,11,0.55),rgba(10,10,11,0.9))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_50%,rgba(13,34,25,0.55),rgba(13,34,25,0.9))]" />
       <div className="container-rl relative text-center">
         <h2 id="cta-title" className="display mx-auto max-w-4xl text-[clamp(2.8rem,7.5vw,7rem)]">
           <WordReveal text={"Play your game.\nNot someone else's."} />

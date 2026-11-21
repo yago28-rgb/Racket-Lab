@@ -36,7 +36,7 @@ export default function BrandsPage() {
                 >
                   <div className="relative z-10 flex flex-col">
                     <p className="text-xs text-muted">{b.country}</p>
-                    <h2 className="mt-1 text-3xl font-semibold tracking-tight">{b.name}</h2>
+                    <h2 className="display mt-1 text-4xl text-club">{b.name}</h2>
                     <p className="mt-3 max-w-[16rem] text-sm text-ink/60">{families.join(" · ")}</p>
                     <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium">
                       {items.length} {items.length === 1 ? "modelo" : "modelos"}

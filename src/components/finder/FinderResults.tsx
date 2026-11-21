@@ -36,9 +36,9 @@ function FactorBreakdown({ s, dark }: { s: ScoredRacket; dark?: boolean }) {
             </span>
             <span className={cn("tabular-nums", dark ? "text-white/60" : "text-muted")}>{f.score == null ? "sin datos" : `${Math.round(f.score * 100)}`}</span>
           </div>
-          <div className={cn("mt-1.5 h-1 overflow-hidden rounded-full", dark ? "bg-white/10" : "bg-line")}>
+          <div className={cn("mt-1.5 h-1 overflow-hidden rounded-full", dark ? "bg-paper/10" : "bg-line")}>
             <motion.div
-              className={cn("h-full rounded-full", f.score == null ? "bg-transparent" : dark ? "bg-accent" : "bg-ink")}
+              className={cn("h-full rounded-full", f.score == null ? "bg-transparent" : dark ? "bg-gold" : "bg-club")}
               initial={{ width: 0 }}
               whileInView={{ width: `${(f.score ?? 0) * 100}%` }}
               viewport={{ once: true }}
@@ -63,7 +63,7 @@ function AltCard({ title, s, note }: { title: string; s: ScoredRacket | null; no
   }
   const r = s.racket;
   return (
-    <Link href={`/raquetas/${r.slug}`} className="group flex flex-col rounded-[var(--radius-card)] border border-line bg-white p-6 transition-shadow hover:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.35)]">
+    <Link href={`/raquetas/${r.slug}`} className="group flex flex-col rounded-[var(--radius-card)] border border-line bg-paper p-6 transition-shadow hover:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.35)]">
       <p className="eyebrow">{title}</p>
       <div className="mt-4 flex items-center gap-4">
         <div className="studio-bg relative h-28 w-20 shrink-0 overflow-hidden rounded-xl p-1">
@@ -122,7 +122,7 @@ export function FinderResults({ result, answers, onEdit }: { result: Recommendat
               {r.model} <span className="text-white/35">{r.generation}</span>
             </h2>
             <div className="mt-8 flex items-end gap-6">
-              <p className="text-[clamp(4.5rem,10vw,8rem)] font-semibold leading-none tracking-tighter tabular-nums">
+              <p className="font-serif text-[clamp(4.8rem,11vw,8.6rem)] font-medium leading-none tabular-nums">
                 <CountUp value={best.compatibility} />
                 <span className="text-[0.35em] text-white/40">%</span>
               </p>
@@ -133,7 +133,7 @@ export function FinderResults({ result, answers, onEdit }: { result: Recommendat
               </div>
             </div>
             {best.insufficientData && (
-              <p className="mt-4 flex items-start gap-2 rounded-xl bg-white/5 p-3 text-sm text-white/70">
+              <p className="mt-4 flex items-start gap-2 rounded-xl bg-paper/5 p-3 text-sm text-white/70">
                 <AlertTriangle size={16} className="mt-0.5 shrink-0 text-accent" />
                 Datos insuficientes: solo se ha podido evaluar el {Math.round(best.confidence * 100)}% del peso del modelo.
               </p>
@@ -169,7 +169,7 @@ export function FinderResults({ result, answers, onEdit }: { result: Recommendat
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="absolute inset-0 overflow-hidden rounded-[2rem] bg-[#f3f3f5]">
+            <div className="absolute inset-0 overflow-hidden rounded-[2rem] bg-mist">
               <ProductMedia racket={r} priority sizes="(min-width: 1024px) 40vw, 90vw" />
             </div>
           </motion.div>
@@ -263,7 +263,7 @@ export function FinderResults({ result, answers, onEdit }: { result: Recommendat
             Ranking completo ({result.ranked.length}) <ChevronDown size={15} className={cn("transition-transform", showAll && "rotate-180")} />
           </button>
           {showAll && (
-            <ol className="mt-6 divide-y divide-line rounded-2xl border border-line bg-white">
+            <ol className="mt-6 divide-y divide-line rounded-2xl border border-line bg-paper">
               {result.ranked.map((s, i) => (
                 <li key={s.racket.id}>
                   <Link href={`/raquetas/${s.racket.slug}`} className="flex items-center gap-4 px-5 py-3.5 hover:bg-mist">

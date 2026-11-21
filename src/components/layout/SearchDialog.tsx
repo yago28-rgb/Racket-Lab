@@ -53,7 +53,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: -12, scale: 0.98, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-xl overflow-hidden rounded-2xl border border-line bg-white shadow-2xl"
+            className="w-full max-w-xl overflow-hidden rounded-2xl border border-line bg-paper shadow-2xl"
           >
             <form
               onSubmit={(e) => {

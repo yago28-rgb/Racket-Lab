@@ -109,7 +109,7 @@ export function CatalogView() {
                   onClick={() => toggle(g.key, value)}
                   className={cn(
                     "rounded-full border px-3 py-1.5 text-[13px] transition-colors",
-                    on ? "border-ink bg-ink text-white" : "border-line bg-white hover:border-ink/40",
+                    on ? "border-club bg-club text-cream" : "border-line bg-paper hover:border-ink/40",
                   )}
                 >
                   {label}
@@ -125,7 +125,7 @@ export function CatalogView() {
   return (
     <div className="container-rl pb-28">
       {/* Toolbar */}
-      <div className="sticky top-14 z-30 -mx-5 mb-8 flex flex-wrap items-center gap-3 border-b border-line bg-white/85 px-5 py-3 backdrop-blur-xl md:-mx-10 md:px-10">
+      <div className="sticky top-14 z-30 -mx-5 mb-8 flex flex-wrap items-center gap-3 border-b border-line bg-paper/85 px-5 py-3 backdrop-blur-xl md:-mx-10 md:px-10">
         <label className="relative flex min-w-0 flex-1 items-center">
           <Search size={16} className="pointer-events-none absolute left-3.5 text-muted" />
           <input
@@ -141,7 +141,7 @@ export function CatalogView() {
               }, 250);
             }}
             placeholder="Buscar modelo o marca"
-            className="h-10 w-full rounded-full border border-line bg-white pl-10 pr-4 text-sm outline-none focus:border-ink"
+            className="h-10 w-full rounded-full border border-line bg-paper pl-10 pr-4 text-sm outline-none focus:border-ink"
             aria-label="Buscar en el catálogo"
           />
         </label>
@@ -155,7 +155,7 @@ export function CatalogView() {
         <select
           value={filters.sort}
           onChange={(e) => update({ ...filters, sort: e.target.value as SortKey })}
-          className="h-10 rounded-full border border-line bg-white px-4 text-sm outline-none focus:border-ink"
+          className="h-10 rounded-full border border-line bg-paper px-4 text-sm outline-none focus:border-ink"
           aria-label="Ordenar"
         >
           {Object.entries(sorts).map(([k, v]) => (
@@ -229,7 +229,7 @@ export function CatalogView() {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-x-0 bottom-0 flex max-h-[88vh] flex-col rounded-t-3xl bg-white"
+              className="absolute inset-x-0 bottom-0 flex max-h-[88vh] flex-col rounded-t-3xl bg-paper"
             >
               <div className="flex items-center justify-between border-b border-line px-6 py-4">
                 <h2 className="font-semibold">Filtros</h2>

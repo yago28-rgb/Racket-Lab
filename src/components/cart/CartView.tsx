@@ -48,7 +48,7 @@ export function CartView() {
             {(Object.keys(shippingConfig.zones) as ShippingZone[]).map((z) => {
               const conf = shippingConfig.zones[z];
               return (
-                <label key={z} className={cn("flex cursor-pointer items-center justify-between rounded-xl border bg-white px-4 py-3 text-sm", zone === z ? "border-ink" : "border-line")}>
+                <label key={z} className={cn("flex cursor-pointer items-center justify-between rounded-xl border bg-paper px-4 py-3 text-sm", zone === z ? "border-ink" : "border-line")}>
                   <span className="flex items-center gap-3">
                     <input type="radio" name="zone" checked={zone === z} onChange={() => setZone(z)} className="accent-[#111]" />
                     <span>

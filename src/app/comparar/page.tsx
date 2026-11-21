@@ -13,7 +13,7 @@ export default function ComparePage() {
       <section className="container-rl pb-10 pt-32 md:pt-40">
         <p className="eyebrow">Comparador</p>
         <h1 className="display mt-5 text-[clamp(2.6rem,7vw,6rem)]">Find your perfect match.</h1>
-        <p className="mt-5 max-w-xl text-lg text-ink/60">Hasta tres raquetas, lado a lado: especificaciones y modelos 3D a escala real.</p>
+        <p className="mt-5 max-w-xl text-lg text-ink/60">Hasta tres raquetas, lado a lado: fotos reales y especificaciones verificadas.</p>
       </section>
       <CompareView />
     </>

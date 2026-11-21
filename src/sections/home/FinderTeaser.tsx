@@ -43,7 +43,7 @@ export function FinderTeaser() {
             </p>
           </Reveal>
           <Reveal delay={0.3}>
-            <ol className="mt-10 grid max-w-lg gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-3">
+            <ol className="mt-10 grid max-w-lg gap-px overflow-hidden rounded-2xl bg-paper/10 sm:grid-cols-3">
               {["Tu juego en 11 pasos", "10 factores técnicos", "Resultado explicado"].map((t, i) => (
                 <li key={t} className="bg-night/80 p-5">
                   <span className="font-mono text-xs text-accent">0{i + 1}</span>
@@ -81,7 +81,7 @@ export function FinderTeaser() {
                 </p>
                 <p className="text-xs text-white/50">compatibilidad calculada</p>
               </div>
-              <div className="relative h-48 w-36 overflow-hidden rounded-2xl bg-[#f3f3f5]">
+              <div className="relative h-48 w-36 overflow-hidden rounded-2xl bg-mist">
                 <ProductMedia racket={best.racket} sizes="144px" />
               </div>
             </div>

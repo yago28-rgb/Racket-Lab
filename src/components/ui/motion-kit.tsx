@@ -19,6 +19,7 @@ import {
 } from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/format";
+import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 
 /** Thin accent bar showing reading progress (top of the viewport). */
 export function ScrollProgress() {
@@ -31,8 +32,9 @@ export function ScrollProgress() {
 export function NumberTicker({ value, className, duration = 1.6 }: { value: number; className?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
-  const reduced = useReducedMotion();
-  const [n, setN] = useState(reduced ? value : 0);
+  // SSR-safe: hydrates with the server value, then jumps to the final number.
+  const reduced = usePrefersReducedMotion();
+  const [n, setN] = useState(0);
   useEffect(() => {
     if (!inView || reduced) return;
     const c = animate(0, value, { duration, ease: [0.16, 1, 0.3, 1], onUpdate: (v) => setN(Math.round(v)) });
@@ -147,7 +149,7 @@ export function SpotlightTilt({ children, className, tilt = 6 }: { children: Rea
         className="pointer-events-none absolute inset-0 z-20 rounded-[inherit] transition-opacity duration-300"
         style={{
           opacity: spot ? 1 : 0,
-          background: spot ? `radial-gradient(420px circle at ${spot.x}% ${spot.y}%, rgba(200,240,49,0.14), transparent 45%)` : undefined,
+          background: spot ? `radial-gradient(420px circle at ${spot.x}% ${spot.y}%, rgba(196,162,101,0.18), transparent 45%)` : undefined,
         }}
       />
     </motion.div>

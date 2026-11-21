@@ -56,7 +56,7 @@ export function ConfirmationView() {
         initial={{ scale: 0.6, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 200, damping: 16 }}
-        className={`flex h-16 w-16 items-center justify-center rounded-full ${pending ? "bg-amber-100" : "bg-ink"} text-white`}
+        className={`flex h-16 w-16 items-center justify-center rounded-full ${pending ? "bg-amber-100" : "bg-club"} text-cream`}
       >
         {pending ? <AlertTriangle className="text-amber-700" /> : <Check size={28} />}
       </motion.div>
