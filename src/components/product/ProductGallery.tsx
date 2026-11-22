@@ -21,8 +21,11 @@ export function ProductGallery({ racket }: { racket: Racket }) {
 
   return (
     <div>
-      <div
-        className={cn("studio-bg relative aspect-square overflow-hidden rounded-[2rem] md:aspect-[4/5]", photos.length > 0 && "cursor-zoom-in")}
+      <motion.div
+        initial={{ clipPath: "inset(100% 0% 0% 0% round 28px)" }}
+        animate={{ clipPath: "inset(0% 0% 0% 0% round 28px)" }}
+        transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+        className={cn("relative aspect-square overflow-hidden rounded-[28px] bg-mist md:aspect-[4/5]", photos.length > 0 && "cursor-zoom-in")}
         onMouseMove={photos.length ? onMove : undefined}
         onMouseLeave={() => setZoom(null)}
       >
@@ -40,7 +43,9 @@ export function ProductGallery({ racket }: { racket: Racket }) {
                 : undefined
             }
           >
-            <ProductMedia racket={racket} index={index} priority={index === 0} sizes="(min-width: 1024px) 50vw, 100vw" />
+            {/* Card colour inside the transformed layer keeps the multiply blend working. */}
+            <div className="absolute inset-0 bg-mist" />
+            <ProductMedia racket={racket} index={index} priority={index === 0} sizes="(min-width: 1024px) 55vw, 100vw" className="!p-[3%]" />
           </motion.div>
         </AnimatePresence>
         {photos.length === 0 && (
@@ -48,7 +53,7 @@ export function ProductGallery({ racket }: { racket: Racket }) {
             Añade las fotos de esta raqueta en <code>public/fotos/</code> siguiendo <code>FOTOS.md</code>.
           </p>
         )}
-      </div>
+      </motion.div>
 
       {photos.length > 1 && (
         <div className="mt-4 grid grid-cols-4 gap-3" role="tablist" aria-label="Fotos del producto">
@@ -60,7 +65,7 @@ export function ProductGallery({ racket }: { racket: Racket }) {
               aria-label={`Foto ${i + 1}`}
               onClick={() => setIndex(i)}
               className={cn(
-                "studio-bg relative aspect-square overflow-hidden rounded-2xl border transition-colors",
+                "relative aspect-square overflow-hidden rounded-2xl border bg-mist transition-colors",
                 index === i ? "border-ink" : "border-transparent hover:border-line",
               )}
             >

@@ -170,3 +170,17 @@ export function sortRackets(list: Racket[], sort: SortKey): Racket[] {
       return arr.sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
   }
 }
+
+/** Real min/max of the catalogue, used as the scale of every spec visual. */
+export function getSpecRanges() {
+  const range = (vals: (number | null)[]): [number, number] => {
+    const v = vals.filter((x): x is number => x != null);
+    return [Math.min(...v), Math.max(...v)];
+  };
+  return {
+    weight: range(products.map((p) => p.specs.weightUnstrungG)),
+    head: range(products.map((p) => p.specs.headSizeSqIn)),
+    stiffness: range(products.map((p) => p.specs.stiffnessRA)),
+    swingweight: range(products.map((p) => p.specs.swingweight)),
+  };
+}

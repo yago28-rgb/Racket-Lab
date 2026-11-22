@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink } from "lucide-react";
-import { getAllRackets, getRacketBySlug, getRelatedRackets } from "@/lib/catalog";
+import { ExternalLink } from "lucide-react";
+import { getAllRackets, getRacketBySlug, getRelatedRackets, getSpecRanges } from "@/lib/catalog";
+import { SpecVisual } from "@/components/product/SpecVisual";
 import { catalogueProfiles } from "@/lib/recommendation/profile";
 import { brands } from "@/data/brands";
 import { formatPrice, fullRacketName, levelRange, styleLabels, typeLabels } from "@/lib/format";
@@ -13,7 +13,8 @@ import { ProfileBars } from "@/components/product/ProfileBars";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { BlurInText } from "@/components/ui/motion-kit";
-import { site } from "@/lib/site";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { JsonLd, breadcrumbLd, productLd } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getAllRackets().map((r) => ({ slug: r.slug }));
@@ -23,12 +24,17 @@ export async function generateMetadata({ params }: PageProps<"/raquetas/[slug]">
   const { slug } = await params;
   const r = getRacketBySlug(slug);
   if (!r) return {};
-  const title = fullRacketName(r);
+  const name = fullRacketName(r);
+  const specs = [r.specs.weightUnstrungG && `${r.specs.weightUnstrungG} g`, r.specs.headSizeSqIn && `${r.specs.headSizeSqIn} in²`, r.specs.balanceUnstrungMm && `balance ${r.specs.balanceUnstrungMm} mm`, r.specs.pattern && `patrón ${r.specs.pattern.mains}×${r.specs.pattern.crosses}`]
+    .filter(Boolean)
+    .join(", ");
+  const title = `${name}: especificaciones y precio`;
+  const description = `Raqueta de tenis ${name}. ${specs}. ${r.description}`.slice(0, 300);
   return {
     title,
-    description: `${title}: ${r.specs.weightUnstrungG ?? "?"} g, ${r.specs.headSizeSqIn ?? "?"} in². ${r.description}`,
+    description,
     alternates: { canonical: `/raquetas/${r.slug}` },
-    openGraph: { title: `${title} · ${site.name}`, description: r.description, type: "website" },
+    openGraph: { title: `${name} · RACKET LAB`, description: r.description, type: "website", url: `/raquetas/${r.slug}` },
   };
 }
 
@@ -57,59 +63,43 @@ export default async function ProductPage({ params }: PageProps<"/raquetas/[slug
   const related = getRelatedRackets(r);
   const brand = brands[r.brand];
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: fullRacketName(r),
-    brand: { "@type": "Brand", name: brand.name },
-    description: r.description,
-    sku: r.id,
-    category: "Raquetas de tenis",
-    ...(r.price.amount != null && {
-      offers: {
-        "@type": "Offer",
-        priceCurrency: "EUR",
-        price: r.price.amount,
-        availability: r.availability === "in-stock" ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
-        url: `${site.url}/raquetas/${r.slug}`,
-      },
-    }),
-    additionalProperty: [
-      r.specs.weightUnstrungG && { "@type": "PropertyValue", name: "Peso sin encordar", value: r.specs.weightUnstrungG, unitCode: "GRM" },
-      r.specs.headSizeSqIn && { "@type": "PropertyValue", name: "Tamaño de cabeza", value: r.specs.headSizeSqIn, unitText: "in²" },
-    ].filter(Boolean),
-  };
+  const crumbs = [
+    { name: "Inicio", path: "/" },
+    { name: "Raquetas", path: "/raquetas" },
+    { name: brand.name, path: `/marcas/${r.brand}` },
+    { name: `${r.model} ${r.generation}`, path: `/raquetas/${r.slug}` },
+  ];
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <div className="container-rl pt-20 md:pt-24">
-        <Link href="/raquetas" className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink">
-          <ArrowLeft size={15} /> Catálogo
-        </Link>
+      <JsonLd data={productLd(r)} />
+      <JsonLd data={breadcrumbLd(crumbs)} />
+      <div className="container-rl pt-16 md:pt-20">
+        <Breadcrumbs items={crumbs} />
       </div>
 
-      <section className="container-rl grid gap-10 pb-20 pt-6 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+      <section className="container-rl grid gap-10 pb-24 pt-6 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
         <div className="lg:sticky lg:top-20 lg:self-start">
           <ProductGallery racket={r} />
         </div>
 
         <div>
-          <p className="eyebrow">
+          <p className="text-[12px] uppercase tracking-[0.2em] text-stone">
             {brand.name} · {r.family}
           </p>
-          <h1 className="display mt-4 text-[clamp(2.4rem,5vw,4rem)]">
-            {r.model} <span className="text-ink/35">{r.generation}</span>
+          <h1 className="mt-4 text-[clamp(3rem,6vw,5.6rem)] font-semibold leading-[0.9] tracking-[-0.05em]">
+            {r.model}
+            <span className="block font-serif text-[0.6em] font-normal italic leading-tight tracking-[-0.01em] text-muted">{r.generation}</span>
           </h1>
           <p className="mt-2 text-muted">{r.variant}</p>
           <p className={`mt-6 text-2xl ${r.price.amount == null ? "text-muted" : "font-semibold"}`}>{formatPrice(r.price.amount)}</p>
           {r.price.amount != null && <p className="text-xs text-muted">IVA incluido</p>}
 
           <div className="mt-6 flex flex-wrap gap-2 text-xs">
-            <span className="rounded-full bg-cloud px-3 py-1.5">{typeLabels[r.type]}</span>
-            <span className="rounded-full bg-cloud px-3 py-1.5">{levelRange(r.levels)}</span>
+            <span className="rounded-full border border-line px-3 py-1.5">{typeLabels[r.type]}</span>
+            <span className="rounded-full border border-line px-3 py-1.5">{levelRange(r.levels)}</span>
             {r.styles.slice(0, 2).map((s) => (
-              <span key={s} className="rounded-full bg-cloud px-3 py-1.5">
+              <span key={s} className="rounded-full border border-line px-3 py-1.5">
                 {styleLabels[s]}
               </span>
             ))}
@@ -123,12 +113,31 @@ export default async function ProductPage({ params }: PageProps<"/raquetas/[slug
             <AddToCart racket={r} />
           </div>
 
-          <div className="mt-14">
-            <h2 className="text-lg font-semibold tracking-tight">Especificaciones</h2>
-            <div className="mt-4">
-              <SpecTable racket={r} />
-            </div>
+        </div>
+      </section>
+
+      <section className="bg-night py-24 text-paper md:py-32" aria-labelledby="numbers-title">
+        <div className="container-rl grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <h2 id="numbers-title" className="text-[clamp(2.6rem,5vw,5rem)] font-semibold leading-[0.92] tracking-[-0.05em]">
+              Los números <span className="font-serif font-normal italic tracking-[-0.01em] text-silver">de la {r.model}.</span>
+            </h2>
+            <p className="mt-6 max-w-sm text-[17px] leading-relaxed text-paper/65">
+              Cada escala va del mínimo al máximo de las {getAllRackets().length} raquetas del catálogo, para que veas dónde se sitúa esta.
+            </p>
           </div>
+          <div className="lg:col-span-6 lg:col-start-7">
+            <SpecVisual racket={r} ranges={getSpecRanges()} tone="dark" />
+          </div>
+        </div>
+      </section>
+
+      <section className="container-rl grid gap-12 py-20 lg:grid-cols-12" aria-labelledby="sheet-title">
+        <h2 id="sheet-title" className="text-[clamp(1.8rem,3vw,2.6rem)] font-semibold tracking-[-0.04em] lg:col-span-4">
+          Ficha técnica <span className="font-serif font-normal italic text-muted">completa.</span>
+        </h2>
+        <div className="lg:col-span-7 lg:col-start-6">
+          <SpecTable racket={r} />
         </div>
       </section>
 
@@ -185,11 +194,11 @@ export default async function ProductPage({ params }: PageProps<"/raquetas/[slug
       </section>
 
       <section className="container-rl py-24">
-        <h2 className="display text-[clamp(1.8rem,4vw,3rem)]">También te puede interesar</h2>
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <h2 className="text-[clamp(2rem,4vw,3.4rem)] font-semibold tracking-[-0.045em]">También te puede <span className="font-serif font-normal italic text-muted">interesar.</span></h2>
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((x) => (
             <li key={x.id}>
-              <ProductCard racket={x} />
+              <ProductCard racket={x} index={related.indexOf(x)} />
             </li>
           ))}
         </ul>

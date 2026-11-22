@@ -196,18 +196,19 @@ export function CatalogView() {
               </div>
             </div>
           ) : (
-            <motion.ul layout className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <motion.ul layout className="grid gap-4 sm:grid-cols-2">
               <AnimatePresence mode="popLayout">
-                {results.map((r) => (
+                {results.map((r, i) => (
                   <motion.li
                     key={r.id}
                     layout
+                    className={i % 5 === 0 ? "sm:col-span-2" : undefined}
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.96 }}
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <ProductCard racket={r} />
+                    <ProductCard racket={r} index={i} size={i % 5 === 0 ? "lg" : "md"} />
                   </motion.li>
                 ))}
               </AnimatePresence>

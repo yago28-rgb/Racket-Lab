@@ -30,9 +30,17 @@ export function Header() {
   // Transparent over the cinematic hero, compact glass bar once scrolled.
   const [scrolled, setScrolled] = useState(false);
   const [onDark, setOnDark] = useState(false);
+  const [hidden, setHidden] = useState(false);
   useEffect(() => {
+    let lastY = window.scrollY;
     const update = () => {
-      setScrolled(window.scrollY > 24);
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      // Animated navigation: tucks away while reading down, returns on the way up.
+      if (Math.abs(y - lastY) > 6) {
+        setHidden(y > lastY && y > 240);
+        lastY = y;
+      }
       const hero = document.querySelector<HTMLElement>("[data-dark-hero]");
       setOnDark(!!hero && hero.dataset.headerLight !== "1" && hero.getBoundingClientRect().bottom > 72);
     };
@@ -69,18 +77,19 @@ export function Header() {
       <header
         data-dark={dark || undefined}
         className={cn(
-          "group/header fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter,color] duration-700 ease-[var(--ease-out-expo)]",
+          "group/header fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter,color,transform] duration-700 ease-[var(--ease-out-expo)]",
+          hidden && !menu && !search ? "-translate-y-full" : "translate-y-0",
           dark
             ? scrolled
-              ? "border-cream/10 bg-night/35 text-cream backdrop-blur-md"
-              : "border-transparent bg-transparent text-cream"
-            : "border-line/70 bg-paper/80 text-ink backdrop-blur-xl backdrop-saturate-150",
+              ? "border-white/10 bg-night/70 text-paper backdrop-blur-xl backdrop-saturate-150"
+              : "border-transparent bg-transparent text-paper"
+            : "border-ink/[0.08] bg-paper/80 text-ink backdrop-blur-xl backdrop-saturate-150",
         )}
       >
         <div
           className={cn(
             "container-rl flex items-center justify-between gap-6 transition-[height] duration-700 ease-[var(--ease-out-expo)]",
-            scrolled ? "h-14" : "h-20",
+            "h-12",
           )}
         >
           <Link href="/" aria-label="RACKET LAB, inicio" className="shrink-0">
@@ -94,17 +103,11 @@ export function Header() {
                   key={n.href}
                   href={n.href}
                   className={cn(
-                    "group/nav relative px-3 py-2 text-[13px] tracking-[0.02em] transition-opacity duration-300",
-                    active ? "opacity-100" : "opacity-70 hover:opacity-100",
+                    "relative px-3.5 py-2 text-[13px] transition-opacity duration-300",
+                    active ? "opacity-100" : "opacity-75 hover:opacity-100",
                   )}
                 >
                   {n.label}
-                  <span
-                    className={cn(
-                      "absolute inset-x-3 -bottom-0.5 h-px origin-left bg-gold transition-transform duration-500 ease-[var(--ease-out-expo)]",
-                      active ? "scale-x-100" : "scale-x-0 group-hover/nav:scale-x-100",
-                    )}
-                  />
                 </Link>
               );
             })}
@@ -127,7 +130,7 @@ export function Header() {
             >
               <ShoppingBag size={18} />
               {hydrated && count > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-gold px-1 text-[10px] font-semibold text-night">
+                <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-club px-1 text-[10px] font-semibold text-white">
                   {count}
                 </span>
               )}
@@ -150,15 +153,15 @@ export function Header() {
               id="mobile-menu"
               aria-label="Móvil"
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
+              animate={{ height: "calc(100svh - 3rem)", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden lg:hidden"
+              className="overflow-hidden bg-paper text-ink lg:hidden"
             >
-              <ul className="container-rl flex flex-col pb-8 pt-2">
+              <ul className="container-rl flex flex-col pb-8 pt-6">
                 {nav.map((n, i) => (
-                  <motion.li key={n.href} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * i }}>
-                    <Link href={n.href} className="display block border-b border-line py-4 text-3xl">
+                  <motion.li key={n.href} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + 0.06 * i, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
+                    <Link href={n.href} className="block border-b border-line py-5 text-4xl font-semibold tracking-[-0.04em]">
                       {n.label}
                     </Link>
                   </motion.li>

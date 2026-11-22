@@ -27,4 +27,7 @@ export const videos = {
   aerialServe: { base: "/media/video/finder-aerial-serve", label: "Vista cenital de un saque" },
   aerialCourt: { base: "/media/video/aerial-court", label: "Vista cenital de un partido de dobles" },
   playerBacklit: { base: "/media/video/player-backlit", label: "Jugadora golpeando a contraluz" },
+  heroAerial: { base: "/media/video/hero-aerial", label: "Vista cenital de un jugador sacando" },
+  heroForehand: { base: "/media/video/hero-forehand", label: "Primer plano de una derecha a contraluz" },
+  heroStadium: { base: "/media/video/hero-stadium", label: "Jugador sacando en una pista de estadio" },
 } as const;

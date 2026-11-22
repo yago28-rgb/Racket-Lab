@@ -23,7 +23,7 @@ export function Statement({ models, brands }: { models: number; brands: number }
       if (reduced) return;
       gsap.fromTo(
         "[data-word]",
-        { opacity: 0.14 },
+        { opacity: 0.18 },
         {
           opacity: 1,
           stagger: 0.08,
@@ -40,7 +40,7 @@ export function Statement({ models, brands }: { models: number; brands: number }
       <p
         data-statement
         aria-label={TEXT}
-        className="max-w-[22ch] font-serif text-[clamp(2.3rem,5.6vw,5.6rem)] font-medium leading-[1.02] tracking-[-0.02em] text-club"
+        className="mx-auto max-w-[20ch] text-center text-[clamp(2.2rem,5.4vw,5rem)] font-semibold leading-[1.06] tracking-[-0.035em] text-ink"
       >
         {TEXT.split(" ").map((w, i) => (
           <span key={i} data-word aria-hidden className="inline">
@@ -48,12 +48,12 @@ export function Statement({ models, brands }: { models: number; brands: number }
           </span>
         ))}
       </p>
-      <div className="mt-14 flex flex-col gap-4 md:ml-[38%] md:mt-20 md:max-w-md">
-        <p className="text-[17px] leading-relaxed text-ink/70">
+      <div className="mx-auto mt-12 flex max-w-xl flex-col items-center gap-4 text-center md:mt-16">
+        <p className="text-[17px] leading-relaxed text-muted">
           {models} raquetas de {brands} marcas. Cada peso, balance y patrón está contrastado con su fuente; lo que no hemos podido
           confirmar aparece como pendiente.
         </p>
-        <Link href="/#tecnologia" className="group inline-flex items-center gap-1 text-[17px] font-medium text-club hover:text-accent-ink">
+        <Link href="/#tecnologia" className="group inline-flex items-center gap-0.5 text-[17px] text-club hover:underline">
           Cómo leemos una raqueta <ChevronRight size={18} className="transition-transform group-hover:translate-x-0.5" />
         </Link>
       </div>

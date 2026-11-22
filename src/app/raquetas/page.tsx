@@ -4,9 +4,10 @@ import { CatalogView } from "@/components/catalog/CatalogView";
 import { getAllRackets } from "@/lib/catalog";
 import { PhotoHeader } from "@/components/ui/PhotoHeader";
 import { BlurInText } from "@/components/ui/motion-kit";
+import { JsonLd, itemListLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Raquetas de tenis",
+  title: "Raquetas de tenis: catálogo con especificaciones verificadas",
   description:
     "Catálogo de raquetas Wilson, Babolat, HEAD, Yonex, Tecnifibre, Dunlop y Prince con especificaciones verificadas: peso, balance, cabeza, rigidez y swingweight.",
   alternates: { canonical: "/raquetas" },
@@ -29,10 +30,11 @@ export default function CatalogPage() {
   const count = getAllRackets().length;
   return (
     <>
-      <PhotoHeader src="/media/photos/aerial-serve.webp" alt="Vista cenital de un jugador sacando en pista dura" position="center 30%">
+      <JsonLd data={itemListLd(getAllRackets(), "Raquetas de tenis")} />
+      <PhotoHeader src="/media/video/hero-aerial-poster.webp" alt="Vista cenital de un jugador sacando en pista dura" position="center 20%">
         <div className="pb-14 pt-40 md:pb-20 md:pt-52">
           <p className="eyebrow !text-white/60">Catálogo · {count} modelos</p>
-          <h1 className="display mt-5 text-[clamp(2.6rem,7vw,6rem)]">Raquetas.</h1>
+          <h1 className="display mt-5 text-[clamp(2.6rem,7vw,6rem)]">Raquetas de tenis.</h1>
           <p className="mt-5 max-w-xl text-lg text-white/75">
             <BlurInText text="Especificaciones verificadas con fuentes. Cuando un dato no se ha podido confirmar, lo indicamos como pendiente en lugar de inventarlo." delay={0.2} />
           </p>

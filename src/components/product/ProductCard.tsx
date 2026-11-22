@@ -1,61 +1,44 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import type { Racket } from "@/types/product";
 import { brands } from "@/data/brands";
-import { fmtBalance, fmtHead, fmtWeight, formatPrice, levelRange, typeLabels } from "@/lib/format";
-import { ProductMedia } from "./ProductMedia";
+import { formatPrice, levelRange, typeLabels } from "@/lib/format";
 import { CompareToggle } from "./CompareToggle";
+import { CardMedia } from "./CardMedia";
 import { SpotlightTilt } from "@/components/ui/motion-kit";
+import { cn } from "@/lib/format";
 
-export function ProductCard({ racket }: { racket: Racket }) {
-  const s = racket.specs;
+function specs(r: Racket) {
+  const s = r.specs;
+  return [s.weightUnstrungG && `${s.weightUnstrungG} g`, s.headSizeSqIn && `${s.headSizeSqIn} in²`, s.balanceUnstrungMm && `${s.balanceUnstrungMm} mm`, s.pattern && `${s.pattern.mains}×${s.pattern.crosses}`]
+    .filter(Boolean)
+    .join("  ·  ");
+}
+
+/**
+ * Product card: the racket is the composition. Stone background, the frame
+ * on the diagonal, type set like a magazine caption underneath.
+ */
+export function ProductCard({ racket, index = 0, size = "md" }: { racket: Racket; index?: number; size?: "md" | "lg" }) {
   return (
-    <SpotlightTilt className="h-full rounded-[var(--radius-card)]">
-      <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-paper transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
+    <SpotlightTilt className="h-full rounded-[24px]" tilt={5}>
+      <article className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-mist">
         <Link href={`/raquetas/${racket.slug}`} className="absolute inset-0 z-10" aria-label={`Ver ${brands[racket.brand].name} ${racket.model} ${racket.generation}`} />
-        <div className="studio-bg relative aspect-[4/5] overflow-hidden">
-          <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]">
-            <ProductMedia racket={racket} sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw" />
-          </div>
-          <div className="absolute left-4 top-4 flex gap-2">
-            <span className="rounded-full bg-paper/80 px-2.5 py-1 text-[11px] font-medium backdrop-blur">{typeLabels[racket.type]}</span>
-          </div>
+        <div className={cn("relative overflow-hidden", size === "lg" ? "aspect-[1/1] sm:aspect-[2/1]" : "aspect-[1/1]")}>
+          <CardMedia racket={racket} index={index} wide={size === "lg"} sizes={size === "lg" ? "(min-width: 1024px) 70vw, 100vw" : "(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw"} />
+          <span className="absolute left-5 top-5 text-[11px] uppercase tracking-[0.18em] text-muted">{typeLabels[racket.type]}</span>
           <div className="absolute right-4 top-4 z-20">
-            <CompareToggle id={racket.id} label={false} className="h-8 w-8 justify-center !p-0" />
+            <CompareToggle id={racket.id} label={false} className="h-9 w-9 justify-center !border-transparent !bg-paper/80 !p-0 backdrop-blur" />
           </div>
         </div>
-        <div className="flex flex-1 flex-col gap-4 p-5">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="eyebrow !text-[10px]">{brands[racket.brand].name}</p>
-              <h3 className="mt-1 text-lg font-semibold tracking-tight">
-                {racket.model} <span className="font-normal text-muted">{racket.generation}</span>
-              </h3>
-            </div>
-            <ArrowUpRight className="mt-1 shrink-0 text-muted transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" size={18} />
-          </div>
-          <dl className="grid grid-cols-3 gap-2 text-xs">
-            <div>
-              <dt className="text-muted">Peso</dt>
-              <dd className="mt-0.5 font-medium">{fmtWeight(s.weightUnstrungG)}</dd>
-            </div>
-            <div>
-              <dt className="text-muted">Cabeza</dt>
-              <dd className="mt-0.5 font-medium">{fmtHead(s.headSizeSqIn)}</dd>
-            </div>
-            <div>
-              <dt className="text-muted">Balance</dt>
-              <dd className="mt-0.5 font-medium">{s.balanceUnstrungMm ? `${s.balanceUnstrungMm} mm` : fmtBalance(null)}</dd>
-            </div>
-          </dl>
-          <div className="mt-auto flex items-end justify-between gap-3 border-t border-line pt-4">
-            <div>
-              <p className="text-[11px] text-muted">{levelRange(racket.levels)}</p>
-              <p className={racket.price.amount == null ? "mt-0.5 text-sm text-muted" : "mt-0.5 text-base font-semibold"}>
-                {formatPrice(racket.price.amount)}
-              </p>
-            </div>
-            <span className="relative z-20 text-sm font-medium underline-offset-4 group-hover:underline">Detalles</span>
+        <div className="flex flex-1 flex-col px-6 pb-6 pt-2">
+          <p className="text-[12px] uppercase tracking-[0.18em] text-stone">{brands[racket.brand].name}</p>
+          <h3 className={cn("mt-1 font-semibold leading-[1] tracking-[-0.035em]", size === "lg" ? "text-[clamp(2.2rem,3.4vw,3.4rem)]" : "text-[clamp(1.7rem,2.3vw,2.2rem)]")}>
+            {racket.model} <span className="font-serif font-normal italic tracking-[-0.01em] text-muted">{racket.generation}</span>
+          </h3>
+          <p className="mt-3 text-[13px] tabular-nums text-muted">{specs(racket)}</p>
+          <div className="mt-auto flex items-end justify-between gap-4 pt-6">
+            <p className="text-[13px] text-muted">{levelRange(racket.levels)}</p>
+            <p className={racket.price.amount == null ? "text-[14px] text-muted" : "text-[17px] font-semibold tabular-nums"}>{formatPrice(racket.price.amount)}</p>
           </div>
         </div>
       </article>

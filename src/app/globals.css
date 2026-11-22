@@ -1,29 +1,32 @@
 @import "tailwindcss";
 
 /*
- * RACKET LAB design tokens — "The Art of Tennis".
- * British grass-court luxury: off-white and cream surfaces, deep club green,
- * natural grass green and small gold details. No neon, no tech gradients.
+ * RACKET LAB design tokens — sport, technology, luxury.
+ * Off-white paper, charcoal ink, one deep court green, stone greys and a
+ * silver detail colour. No lavender/blue-tinted greys: every neutral is warm.
  */
 @theme {
-  --color-ink: #14140f;
-  --color-ink-soft: #23231c;
-  --color-paper: #fbf9f4;
-  --color-mist: #f4efe4;
-  --color-cloud: #ebe4d4;
-  --color-line: #e2dac8;
-  --color-muted: #847e6e;
-  --color-accent: #b89255;
-  --color-accent-ink: #7a5d2c;
-  --color-night: #0d2219;
-  --color-club: #123526;
+  --color-ink: #1c1c1a;
+  --color-ink-soft: #3a3a37;
+  --color-paper: #f6f5f1;
+  --color-mist: #ecebe6;
+  --color-cloud: #e2e0d9;
+  --color-line: #d8d5cc;
+  --color-muted: #77746c;
+  --color-stone: #8f8a80;
+  --color-silver: #b9bcbf;
+  --color-accent: #1f4a36;
+  --color-accent-ink: #1f4a36;
+  --color-accent-dark: #a9cdb2;
+  --color-night: #121211;
+  --color-club: #1f4a36;
   --color-grass: #3d6b3a;
-  --color-cream: #efe6d2;
-  --color-gold: #c4a265;
+  --color-cream: #f6f5f1;
+  --color-gold: #b9bcbf;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --font-serif: var(--font-serif-display), "Iowan Old Style", Georgia, serif;
+  --font-serif: var(--font-instrument), "Times New Roman", serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --radius-card: 1.5rem;
@@ -43,11 +46,12 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--color-accent);
+  background: #cfe0d3;
   color: var(--color-ink);
 }
 
@@ -79,10 +83,9 @@ body {
   }
 
   .display {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 0.95;
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    line-height: 1.04;
   }
 
   .hairline {
@@ -91,12 +94,12 @@ body {
 
   .studio-bg {
     background:
-      radial-gradient(120% 80% at 50% 0%, #fdfbf6 0%, #f4efe4 55%, #ebe4d4 100%);
+      #f5f5f7;
   }
 
   .noir-bg {
     background:
-      radial-gradient(90% 70% at 70% 20%, #1a3a2b 0%, #0d2219 60%);
+      #000;
   }
 
 }

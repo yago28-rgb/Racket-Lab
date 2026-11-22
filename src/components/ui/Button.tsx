@@ -6,19 +6,19 @@ type Variant = "primary" | "secondary" | "ghost" | "inverted" | "outline-inverte
 type Size = "md" | "lg" | "sm";
 
 const base =
-  "group/btn relative inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-[transform,background-color,color,box-shadow,border-color] duration-300 ease-[var(--ease-out-expo)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40 whitespace-nowrap";
+  "group/btn relative inline-flex items-center justify-center gap-2 rounded-full font-normal transition-[transform,background-color,color,box-shadow,border-color] duration-300 ease-[var(--ease-out-expo)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40 whitespace-nowrap";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-club text-cream hover:bg-night hover:shadow-[0_12px_30px_-12px_rgba(13,34,25,0.6)]",
-  secondary: "border border-line bg-paper text-ink hover:border-club hover:text-club",
-  ghost: "text-ink hover:bg-cloud",
-  inverted: "bg-cream text-club hover:bg-paper hover:shadow-[0_12px_40px_-12px_rgba(196,162,101,0.55)]",
-  "outline-inverted": "border border-cream/30 text-cream hover:border-gold hover:text-paper",
+  primary: "bg-ink text-paper hover:bg-club",
+  secondary: "border border-ink/25 text-ink hover:border-ink",
+  ghost: "text-ink hover:bg-mist",
+  inverted: "bg-paper text-ink hover:bg-white",
+  "outline-inverted": "border border-white/60 text-white hover:bg-white hover:text-ink",
 };
 const sizes: Record<Size, string> = {
   sm: "h-9 px-4 text-sm",
-  md: "h-11 px-6 text-[15px]",
-  lg: "h-14 px-8 text-base",
+  md: "h-10 px-5 text-[15px]",
+  lg: "h-12 px-7 text-[17px]",
 };
 
 export function buttonClass(variant: Variant = "primary", size: Size = "md", className?: string) {

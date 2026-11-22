@@ -40,7 +40,7 @@ export function GrassCourt() {
   );
 
   return (
-    <section ref={root} className="bg-night text-cream" aria-labelledby="gc-title">
+    <section ref={root} className="bg-night text-white" aria-labelledby="gc-title">
       <div data-ivy-wrap className="relative h-[92svh] overflow-hidden md:h-[110svh]">
         <Image
           data-ivy
@@ -51,41 +51,41 @@ export function GrassCourt() {
           sizes="100vw"
           className="object-cover object-[50%_30%]"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(13,34,25,0.92)_0%,rgba(13,34,25,0.4)_40%,rgba(13,34,25,0.05)_70%)]" />
-        <h2 id="gc-title" className="absolute inset-x-0 bottom-0 px-5 pb-[10svh] font-serif text-[clamp(3rem,9vw,9.5rem)] font-medium leading-[0.88] tracking-[-0.03em] md:px-[6vw]">
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(0,0,0,0.85)_0%,rgba(0,0,0,0.35)_40%,rgba(0,0,0,0)_70%)]" />
+        <h2 id="gc-title" className="absolute inset-x-0 bottom-0 px-5 pb-[10svh] text-center text-[clamp(2.8rem,8vw,7.5rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-white md:px-[6vw]">
           <span className="block overflow-hidden pb-[0.08em]">
             <span data-ivy-line className="block">
               Sobre hierba,
             </span>
           </span>
           <span className="block overflow-hidden pb-[0.08em]">
-            <span data-ivy-line className="block italic text-gold">
+            <span data-ivy-line className="block text-white/60">
               el tiempo no espera.
             </span>
           </span>
         </h2>
-        <p className="absolute right-5 top-24 max-w-[14rem] text-right text-[11px] text-cream/55 md:right-[6vw]">
+        <p className="absolute right-5 top-24 max-w-[14rem] text-right text-[11px] text-white/55 md:right-[6vw]">
           Centre Court, fachada de hiedra. Foto: Gabinho, CC BY-SA 4.0, vía Wikimedia Commons.
         </p>
       </div>
 
       <div className="grid gap-14 px-5 py-24 md:grid-cols-12 md:gap-8 md:px-[6vw] md:py-36">
         <div className="md:col-span-4 md:pt-6">
-          <p className="text-[19px] leading-relaxed text-cream/85">
+          <p className="text-[21px] font-semibold leading-snug tracking-[-0.01em] text-white">
             La hierba es la superficie más rápida del circuito. La bola bota bajo y patina, y premia el saque, la volea y el golpe
             cortado.
           </p>
-          <p className="mt-6 text-[17px] leading-relaxed text-cream/60">
+          <p className="mt-6 text-[17px] leading-relaxed text-[#a1a1a6]">
             Ahí se nota un balance hacia el puño para reaccionar en la red, algo más de masa para sostener el resto y un patrón
             más cerrado para controlar bolas que llegan bajas. Es orientación general: el Racket Finder lo pondera con tu nivel y tu
             forma de jugar.
           </p>
-          <Link href="/racket-finder" className="group mt-10 inline-flex items-center gap-0.5 text-[17px] font-medium text-cream hover:text-gold">
+          <Link href="/racket-finder" className="group mt-10 inline-flex items-center gap-0.5 text-[17px] text-accent-dark hover:underline">
             Encontrar la mía <ChevronRight size={18} className="transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
         <figure className="md:col-span-7 md:col-start-6">
-          <div data-gc-photo className="relative aspect-[4/3] overflow-hidden">
+          <div data-gc-photo className="relative aspect-[4/3] overflow-hidden rounded-[28px]">
             <Image
               data-gc-img
               src="/media/photos/centre-court-match.webp"
@@ -96,7 +96,7 @@ export function GrassCourt() {
               className="object-cover"
             />
           </div>
-          <figcaption className="mt-4 text-[11px] text-cream/50">Centre Court, 2026. Foto: Daniel Cooper, CC BY-SA 4.0, vía Wikimedia Commons.</figcaption>
+          <figcaption className="mt-4 text-[11px] text-[#86868b]">Centre Court, 2026. Foto: Daniel Cooper, CC BY-SA 4.0, vía Wikimedia Commons.</figcaption>
         </figure>
       </div>
     </section>

@@ -1,103 +1,78 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { Racket } from "@/types/product";
-import { getAllRackets, getFeaturedRackets } from "@/lib/catalog";
+import { getAllRackets, getFeaturedRackets, getSpecRanges } from "@/lib/catalog";
 import { brands } from "@/data/brands";
-import { cn, formatPrice, levelRange, typeLabels } from "@/lib/format";
+import { cn, formatPrice, typeLabels } from "@/lib/format";
+import { SpecVisual } from "@/components/product/SpecVisual";
+import { ProductCard } from "@/components/product/ProductCard";
 import { ShowcasePhoto } from "./ShowcasePhoto";
 
-function specLine(r: Racket) {
-  const s = r.specs;
-  return [s.weightUnstrungG && `${s.weightUnstrungG} g`, s.headSizeSqIn && `${s.headSizeSqIn} in²`, s.balanceUnstrungMm && `${s.balanceUnstrungMm} mm`]
-    .filter(Boolean)
-    .join("  ·  ");
+function firstSentence(t: string) {
+  const i = t.indexOf(". ");
+  return i > 0 ? t.slice(0, i + 1) : t;
 }
 
-function Links({ r, dark }: { r: Racket; dark?: boolean }) {
+/** A magazine spread for one racket: the frame huge on one page, the data on the facing page. */
+function Spread({ r, flip, n, priority }: { r: Racket; flip?: boolean; n: number; priority?: boolean }) {
+  const ranges = getSpecRanges();
   return (
-    <div className="flex flex-wrap items-center gap-x-7 gap-y-2 text-[17px]">
-      <Link
-        href={`/raquetas/${r.slug}`}
-        className={cn("group/l inline-flex items-center gap-0.5 font-medium", dark ? "text-cream hover:text-gold" : "text-club hover:text-accent-ink")}
-      >
-        Ver detalles <ChevronRight size={18} className="transition-transform group-hover/l:translate-x-0.5" />
-      </Link>
-      <Link
-        href={`/raquetas?brand=${r.brand}`}
-        className={cn("group/l inline-flex items-center gap-0.5", dark ? "text-cream/70 hover:text-gold" : "text-ink/60 hover:text-club")}
-      >
-        Más {brands[r.brand].name} <ChevronRight size={18} className="transition-transform group-hover/l:translate-x-0.5" />
-      </Link>
-    </div>
-  );
-}
-
-/** A full-width stage for one racket. Alternates sides; text never boxed in a card. */
-function Stage({ r, flip, tone, priority }: { r: Racket; flip?: boolean; tone: "mist" | "cream"; priority?: boolean }) {
-  return (
-    <article className={cn("group relative overflow-hidden", tone === "mist" ? "bg-mist" : "bg-cream")}>
-      <div className={cn("grid min-h-[88svh] items-center gap-6 px-5 py-20 md:grid-cols-2 md:px-[6vw] md:py-0", flip && "md:[&>*:first-child]:order-2")}>
-        <div className={cn("relative z-10", flip && "md:pl-[8%]")}>
-          <p className="text-sm text-accent-ink">{brands[r.brand].name}</p>
-          <h3 className="mt-3 font-serif text-[clamp(3.4rem,8.4vw,8.5rem)] font-medium leading-[0.86] tracking-[-0.03em] text-club">
-            {r.model}
-            <span className="block text-[0.42em] italic leading-tight tracking-normal text-club/55">{r.generation}</span>
-          </h3>
-          <p className="mt-8 max-w-sm text-[17px] leading-relaxed text-ink/70">
-            {typeLabels[r.type]} para nivel {levelRange(r.levels).toLowerCase()}.
-          </p>
-          <p className="mt-2 font-mono text-[13px] tracking-wide text-ink/50">{specLine(r)}</p>
-          <p className="mt-6 text-[17px] text-ink">{formatPrice(r.price.amount)}</p>
-          <div className="mt-6">
-            <Links r={r} />
-          </div>
+    <article className="group grid min-h-[100svh] items-stretch md:grid-cols-12">
+      <div className={cn("relative min-h-[70svh] overflow-clip bg-mist md:col-span-7", flip && "md:order-2")}>
+        <span className="absolute left-5 top-5 z-10 hidden text-[11px] md:block uppercase tracking-[0.2em] text-stone md:left-8 md:top-8">
+          {String(n).padStart(2, "0")} / {typeLabels[r.type]}
+        </span>
+        <div className="h-[70svh] bg-mist p-[3%] md:sticky md:top-0 md:h-[100svh]">
+          <ShowcasePhoto racket={r} priority={priority} sizes="(min-width: 768px) 58vw, 100vw" tilt={flip ? 14 : -14} className="h-full w-full" />
         </div>
-        <ShowcasePhoto racket={r} priority={priority} sizes="(min-width: 768px) 50vw, 100vw" tilt={flip ? 9 : -9} className="h-[58svh] md:h-[80svh]" />
+      </div>
+      <div className={cn("flex flex-col justify-center px-5 py-16 md:col-span-5 md:px-[4vw] md:py-24", flip && "md:order-1")}>
+        <p className="text-[12px] uppercase tracking-[0.2em] text-stone">{brands[r.brand].name}</p>
+        <h3 className="mt-3 text-[clamp(3rem,6.2vw,6.4rem)] font-semibold leading-[0.88] tracking-[-0.05em]">
+          {r.model}
+          <span className="block font-serif text-[0.62em] font-normal italic leading-tight tracking-[-0.01em] text-muted">{r.generation}</span>
+        </h3>
+        <p className="mt-6 max-w-md text-[17px] leading-relaxed text-ink-soft">{firstSentence(r.description)}</p>
+        <SpecVisual racket={r} ranges={ranges} className="mt-8" />
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Link href={`/raquetas/${r.slug}`} className="inline-flex h-12 items-center rounded-full bg-ink px-7 text-[16px] text-paper transition-colors hover:bg-club">
+            Ver la {r.model}
+          </Link>
+          <span className={r.price.amount == null ? "text-[15px] text-muted" : "text-[17px] font-semibold tabular-nums"}>{formatPrice(r.price.amount)}</span>
+        </div>
       </div>
     </article>
   );
 }
 
-function Tile({ r, tone }: { r: Racket; tone: "paper" | "mist" }) {
-  return (
-    <article className={cn("group relative flex min-h-[76svh] flex-col items-center overflow-hidden px-6 pt-14 text-center", tone === "paper" ? "bg-paper" : "bg-mist")}>
-      <p className="text-sm text-accent-ink">{brands[r.brand].name}</p>
-      <h3 className="mt-2 font-serif text-[clamp(2.6rem,4.4vw,4.2rem)] font-medium leading-[0.95] tracking-[-0.02em] text-club">
-        {r.model} <span className="italic text-club/55">{r.generation}</span>
-      </h3>
-      <p className="mt-3 font-mono text-[13px] tracking-wide text-ink/50">{specLine(r)}</p>
-      <div className="mt-5 flex justify-center">
-        <Links r={r} />
-      </div>
-      <ShowcasePhoto racket={r} sizes="(min-width: 768px) 50vw, 100vw" tilt={-6} className="mt-4 w-full flex-1 min-h-[42svh]" />
-    </article>
-  );
-}
-
-/**
- * Product first: the line-up shown the way a flagship store would — each
- * racket on its own stage, no repeated card grid.
- */
+/** Product first, presented as an editorial: two spreads, then an asymmetric grid. */
 export function Showcase() {
   const featured = getFeaturedRackets();
   const total = getAllRackets().length;
   const [a, b, ...rest] = featured;
   return (
-    <section aria-labelledby="showcase-title">
-      <div className="flex items-end justify-between gap-6 bg-paper px-5 pb-10 md:px-[6vw]">
-        <h2 id="showcase-title" className="font-serif text-[clamp(2rem,3.6vw,3.2rem)] font-medium leading-none tracking-[-0.02em] text-club">
-          La selección.
+    <section id="seleccion" aria-labelledby="showcase-title" className="scroll-mt-12 bg-paper">
+      <header className="grid gap-6 px-5 pb-14 pt-10 md:grid-cols-12 md:px-[5vw] md:pb-20">
+        <h2 id="showcase-title" className="text-[clamp(2.6rem,6vw,6rem)] font-semibold leading-[0.9] tracking-[-0.05em] md:col-span-8">
+          La selección <span className="font-serif font-normal italic tracking-[-0.02em] text-muted">de la temporada.</span>
         </h2>
-        <Link href="/raquetas" className="group inline-flex shrink-0 items-center gap-0.5 text-[17px] text-club hover:text-accent-ink">
-          Ver las {total} <ChevronRight size={18} className="transition-transform group-hover:translate-x-0.5" />
-        </Link>
-      </div>
-      {a && <Stage r={a} tone="mist" priority />}
-      {b && <Stage r={b} tone="cream" flip />}
+        <div className="flex flex-col justify-end gap-4 md:col-span-4">
+          <p className="text-[17px] leading-relaxed text-muted">
+            {featured.length} raquetas que cubren todos los perfiles: potencia, efecto, control y equilibrio.
+          </p>
+          <Link href="/raquetas" className="group inline-flex items-center gap-0.5 text-[17px] text-club hover:underline">
+            Ver las {total} raquetas <ChevronRight size={18} className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      </header>
+      {a && <Spread r={a} n={1} priority />}
+      {b && <Spread r={b} n={2} flip />}
       {rest.length > 0 && (
-        <div className="grid gap-px bg-line md:grid-cols-2">
+        <div className="grid gap-4 px-3 py-4 md:grid-cols-12 md:px-4">
           {rest.map((r, i) => (
-            <Tile key={r.id} r={r} tone={i % 3 === 0 ? "paper" : "mist"} />
+            <div key={r.id} className={cn(i % 4 === 0 || i % 4 === 3 ? "md:col-span-7" : "md:col-span-5", i % 2 === 1 && "md:mt-24")}>
+              <ProductCard racket={r} index={i} />
+            </div>
           ))}
         </div>
       )}

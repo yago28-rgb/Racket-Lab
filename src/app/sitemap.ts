@@ -1,16 +1,28 @@
 import type { MetadataRoute } from "next";
 import { getAllRackets } from "@/lib/catalog";
+import { brandList } from "@/data/brands";
 import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/raquetas", "/racket-finder", "/comparar", "/marcas", "/contacto", "/envios", "/privacidad", "/creditos"];
+  const rackets = getAllRackets();
+  const latest = rackets.map((r) => r.verifiedAt).sort().at(-1);
+  const page = (path: string, priority: number, changeFrequency: "weekly" | "monthly" | "yearly" = "weekly") => ({
+    url: `${site.url}${path}`,
+    lastModified: latest,
+    changeFrequency,
+    priority,
+  });
   return [
-    ...staticRoutes.map((p) => ({ url: `${site.url}${p}`, changeFrequency: "weekly" as const, priority: p === "" ? 1 : 0.7 })),
-    ...getAllRackets().map((r) => ({
-      url: `${site.url}/raquetas/${r.slug}`,
-      lastModified: r.verifiedAt,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
+    page("", 1),
+    page("/raquetas", 0.9),
+    page("/marcas", 0.7),
+    ...brandList.map((b) => page(`/marcas/${b.id}`, 0.8)),
+    page("/racket-finder", 0.8),
+    page("/comparar", 0.5),
+    ...rackets.map((r) => ({ url: `${site.url}/raquetas/${r.slug}`, lastModified: r.verifiedAt, changeFrequency: "monthly" as const, priority: 0.8 })),
+    page("/contacto", 0.3, "yearly"),
+    page("/envios", 0.3, "yearly"),
+    page("/privacidad", 0.1, "yearly"),
+    page("/creditos", 0.1, "yearly"),
   ];
 }

@@ -146,7 +146,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
     }
     return (
       <div className="space-y-6">
-        <p className="text-[13px] text-cream/50">Patrones en el catálogo</p>
+        <p className="text-[13px] text-[#86868b]">Patrones en el catálogo</p>
         {[...groups.entries()]
           .sort((a, b) => b[1].length - a[1].length)
           .map(([k, list]) => (
@@ -174,7 +174,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
     const withTech = all.filter((r) => r.technologies.length);
     return (
       <div>
-        <p className="text-[13px] text-cream/50">Tecnologías verificadas</p>
+        <p className="text-[13px] text-[#86868b]">Tecnologías verificadas</p>
         <ul className="mt-5 space-y-3">
           {withTech.map((r) => (
             <li key={r.id} className="flex items-center gap-3">
@@ -202,7 +202,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
   const m = chapter.metric!;
   return (
     <div>
-      <p className="text-[13px] text-cream/50">
+      <p className="text-[13px] text-[#86868b]">
         {m.label} · {rows.length} de {all.length} modelos con dato verificado
       </p>
       <ul className="mt-5 space-y-2">
@@ -220,7 +220,7 @@ function Panel({ chapter }: { chapter: Chapter }) {
             </Link>
             <span className="h-1.5 overflow-hidden rounded-full bg-paper/10">
               <motion.span
-                className="block h-full rounded-full bg-accent"
+                className="block h-full rounded-full bg-accent-dark"
                 initial={{ width: 0 }}
                 animate={{ width: `${Math.max(4, Math.min(100, ((v - m.min) / (m.max - m.min)) * 100))}%` }}
                 transition={{ delay: 0.1 + i * 0.025, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -268,17 +268,17 @@ export function Technology() {
   const chapter = chapters.find((c) => c.id === current)!;
 
   return (
-    <section ref={section} id="tecnologia" className="relative scroll-mt-14 bg-club text-cream" aria-labelledby="tech-title">
+    <section ref={section} id="tecnologia" className="relative scroll-mt-12 bg-night text-white" aria-labelledby="tech-title">
       <div className="container-rl pt-24 md:pt-32">
-        <h2 id="tech-title" className="max-w-4xl font-serif text-[clamp(2.8rem,6.4vw,6.2rem)] font-medium leading-[0.92] tracking-[-0.025em]">
-          Cómo se lee <em className="text-gold">una raqueta.</em>
+        <h2 id="tech-title" className="mx-auto max-w-4xl text-center text-[clamp(2.6rem,6vw,5.5rem)] font-semibold leading-[1] tracking-[-0.04em]">
+          Cómo se lee <span className="text-[#86868b]">una raqueta.</span>
         </h2>
-        <p className="mt-8 max-w-xl text-[17px] leading-relaxed text-cream/60">Siete números, con los datos reales del catálogo raqueta por raqueta.</p>
+        <p className="mx-auto mt-6 max-w-xl text-center text-[clamp(1.1rem,1.6vw,1.4rem)] leading-snug text-[#a1a1a6]">Siete números, con los datos reales del catálogo raqueta por raqueta.</p>
       </div>
 
       <div className="container-rl grid pb-24 lg:grid-cols-2 lg:gap-16">
         <div className="sticky top-14 z-20 order-first -mx-5 h-[46svh] md:-mx-10 lg:order-last lg:mx-0 lg:top-[12svh] lg:z-0 lg:h-[76svh]">
-          <div className="relative h-full overflow-y-auto overscroll-contain bg-night p-6 lg:rounded-[4px] lg:p-10">
+          <div className="relative h-full overflow-y-auto overscroll-contain bg-[#1d1d1f] p-6 lg:rounded-[28px] lg:p-10">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current}
@@ -293,28 +293,28 @@ export function Technology() {
           </div>
           <ol className="pointer-events-none absolute right-5 top-5 flex gap-1.5" aria-hidden>
             {chapters.map((c) => (
-              <li key={c.id} className={cn("h-1 rounded-full transition-all duration-500", c.id === current ? "w-6 bg-gold" : "w-1.5 bg-cream/25")} />
+              <li key={c.id} className={cn("h-1 rounded-full transition-all duration-500", c.id === current ? "w-6 bg-white" : "w-1.5 bg-white/25")} />
             ))}
           </ol>
         </div>
 
         <div className="relative">
-          {chapters.map((c, i) => (
+          {chapters.map((c) => (
             <article key={c.id} data-chapter={c.id} className="flex min-h-[60svh] flex-col justify-center py-10 lg:min-h-[70svh]">
-              <p data-reveal className="font-serif text-xl italic text-gold">
-                {["I", "II", "III", "IV", "V", "VI", "VII", "VIII"][i]}. <span className="text-cream/60">{c.kicker}</span>
+              <p data-reveal className="text-[17px] font-semibold text-accent-dark">
+                {c.kicker}
               </p>
-              <h3 data-reveal className="display mt-4 text-4xl md:text-6xl">
+              <h3 data-reveal className="mt-2 text-4xl font-semibold tracking-[-0.035em] md:text-6xl">
                 {c.title}
               </h3>
-              <p data-reveal className="mt-6 max-w-lg text-lg leading-relaxed text-cream/65">
+              <p data-reveal className="mt-6 max-w-lg text-lg leading-relaxed text-[#a1a1a6]">
                 {c.body}
               </p>
               <dl data-reveal className="mt-8 flex gap-10">
                 {c.facts.map(([k, v]) => (
                   <div key={k}>
-                    <dt className="font-serif text-3xl font-medium">{k}</dt>
-                    <dd className="text-sm text-cream/50">{v}</dd>
+                    <dt className="text-3xl font-semibold tracking-tight">{k}</dt>
+                    <dd className="text-sm text-[#86868b]">{v}</dd>
                   </div>
                 ))}
               </dl>

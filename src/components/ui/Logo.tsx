@@ -5,7 +5,7 @@ import { cn } from "@/lib/format";
  * frame — a racket face reduced to its essence, read as "lab grid".
  */
 export function Logo({ className, inverted = false }: { className?: string; inverted?: boolean }) {
-  const fg = inverted ? "#efe6d2" : "currentColor";
+  const fg = inverted ? "#f5f5f7" : "currentColor";
   return (
     <span className={cn("inline-flex items-center gap-2.5 select-none", className)}>
       <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden>

@@ -149,7 +149,7 @@ export function SpotlightTilt({ children, className, tilt = 6 }: { children: Rea
         className="pointer-events-none absolute inset-0 z-20 rounded-[inherit] transition-opacity duration-300"
         style={{
           opacity: spot ? 1 : 0,
-          background: spot ? `radial-gradient(420px circle at ${spot.x}% ${spot.y}%, rgba(196,162,101,0.18), transparent 45%)` : undefined,
+          background: spot ? `radial-gradient(420px circle at ${spot.x}% ${spot.y}%, rgba(255,255,255,0.4), transparent 45%)` : undefined,
         }}
       />
     </motion.div>

@@ -2,6 +2,7 @@ import { Hero } from "@/sections/home/Hero";
 import { Statement } from "@/sections/home/Statement";
 import { Showcase } from "@/sections/home/Showcase";
 import { GrassCourt } from "@/sections/home/GrassCourt";
+import { CentreCourt } from "@/sections/home/CentreCourt";
 import { FinderTeaser } from "@/sections/home/FinderTeaser";
 import { Technology } from "@/sections/home/Technology";
 import { getAllRackets } from "@/lib/catalog";
@@ -13,6 +14,7 @@ export default function HomePage() {
       <Hero />
       <Statement models={getAllRackets().length} brands={brandList.length} />
       <Showcase />
+      <CentreCourt />
       <GrassCourt />
       <Technology />
       <FinderTeaser />

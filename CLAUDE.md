@@ -44,14 +44,29 @@ Antes de terminar cualquier tarea: `grep -rn "<svg" src` y verificar que solo ap
 - Animaciones sobre material real: GSAP + ScrollTrigger para secuencias de scroll (p. ej. el vídeo del hero que se convierte en tarjeta);
   Motion (Framer Motion) para interfaz, reveals y transiciones.
 - Visualizaciones de datos en HTML/CSS con datos reales del catálogo (sin SVG).
-- Hero de inicio: escena WebGL en tiempo real (`src/components/hero/court-scene.ts`, Three.js) construida con una fotografía real
-  del Centre Court a 3840 px con licencia CC (Wikimedia Commons, créditos en `/creditos` y en el propio hero), proyectada sobre una
-  malla desplazada por un mapa de profundidad propio; sombras de nubes procedurales, desenfoque solo durante el movimiento (el plano
-  final es nítido), partículas de luz. Sin imágenes generadas.
-- Estructura editorial, no de plantilla: sin etiquetas en mayúsculas monoespaciadas sobre cada título, sin filas de cifras, sin listas
-  01/02/03 ni carruseles de marcas; enlaces de texto con chevron en lugar de botones de píldora repetidos; productos en escaparates
-  a toda anchura.
-  Paleta y tipografía: verde club, verde hierba, crema, blanco roto y detalles dorados; serif Cormorant Garamond para titulares.
+- Hero de inicio: historia en tres planos de vídeo real (Mixkit, licencia libre verificada clip a clip, gradación propia):
+  saque cenital → derecha a contraluz → saque en estadio. Transiciones distintas (iris, cortinilla), deriva de cámara continua,
+  parallax con el puntero y titulares letra a letra; al final el encuadre se pliega en tarjeta. Solo decodifica el plano visible.
+- Capítulo «El templo de la hierba»: escena WebGL (`src/components/hero/court-scene.ts`, Three.js) sobre una foto real del
+  Centre Court a 3840 px (CC BY-SA), malla con mapa de profundidad propio; la cámara avanza con el scroll. Sin imágenes generadas.
+- Identidad: blanco roto (#f6f5f1), negro carbón (#1c1c1a / #121211), verde oscuro (#1f4a36), gris piedra (#8f8a80) y plata
+  (#b9bcbf). Sin grises azulados ni lavanda. Titulares Geist seminegrita con acentos en Instrument Serif cursiva.
+- Producto con protagonismo absoluto: raqueta en diagonal ocupando la tarjeta, fondo piedra, inclinación 3D al pasar el ratón,
+  detalle de material con otra foto real del mismo modelo. Dobles páginas editoriales en la home.
+- Especificaciones con `SpecVisual` (HTML/CSS, escalas = mínimo y máximo reales del catálogo): peso, balance sobre la longitud,
+  cabeza, patrón, nivel, rigidez y swingweight.
+- Mezcla `multiply` de las fotos de producto: cualquier capa con transform, sticky o filter aísla la mezcla; poner el color de
+  fondo dentro de esa capa.
+- Cada sección con su propia animación (no un fade-in genérico); navegación que se oculta al bajar y vuelve al subir.
+
+## 4b. SEO
+
+- H1 con palabra clave en cada página indexable («Raquetas de tenis», «Raquetas {Marca}», «Comparador de raquetas»…).
+- Páginas de marca estáticas `/marcas/[brand]` (no filtros con query) enlazadas desde home, footer y fichas.
+- Datos estructurados con `src/lib/seo.tsx`: Organization y WebSite (SearchAction) en el layout; Product + BreadcrumbList en
+  la ficha; ItemList en catálogo y marcas. Solo datos verificados (sin precio si está pendiente).
+- Migas de pan visibles con `Breadcrumbs`; imagen OG estática a partir de la foto real del hero (sin `ImageResponse`).
+- Carrito, checkout y pedidos con `noindex`; sitemap con marcas y fichas.
 
 ## 5. Accesibilidad del movimiento
 
