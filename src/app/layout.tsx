@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/layout/CartDrawer";
 import { CompareBar } from "@/components/layout/CompareBar";
+import { Toaster } from "@/components/feedback/Toaster";
 import { ScrollProgress } from "@/components/ui/motion-kit";
 import { site } from "@/lib/site";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <CartDrawer />
         <CompareBar />
+        <Toaster />
       </body>
     </html>
   );

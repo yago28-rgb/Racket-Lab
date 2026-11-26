@@ -93,13 +93,11 @@ body {
   }
 
   .studio-bg {
-    background:
-      #f5f5f7;
+    background: var(--color-mist);
   }
 
   .noir-bg {
-    background:
-      #000;
+    background: var(--color-night);
   }
 
 }

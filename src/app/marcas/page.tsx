@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { brandList } from "@/data/brands";
 import { getAllRackets } from "@/lib/catalog";
-import { ProductMedia } from "@/components/product/ProductMedia";
 import { mainPhoto } from "@/lib/media";
-import { Reveal } from "@/components/ui/Reveal";
+import { BrandIndex } from "@/components/brands/BrandIndex";
 
 export const metadata: Metadata = {
   title: "Marcas de raquetas de tenis: Wilson, Babolat, HEAD, Yonex y más",
@@ -15,42 +12,30 @@ export const metadata: Metadata = {
 
 export default function BrandsPage() {
   const all = getAllRackets();
+  const rows = brandList.map((b) => {
+    const items = all.filter((r) => r.brand === b.id);
+    const cover = items.find((r) => mainPhoto(r));
+    return {
+      id: b.id,
+      name: b.name,
+      country: b.country,
+      families: [...new Set(items.map((r) => r.family))],
+      count: items.length,
+      photo: cover ? mainPhoto(cover) : null,
+    };
+  });
   return (
     <>
-      <section className="container-rl pb-14 pt-32 md:pt-40">
-        <p className="eyebrow">Marcas</p>
-        <h1 className="display mt-5 text-[clamp(2.6rem,7vw,6rem)]">Marcas de raquetas.</h1>
-        <p className="mt-5 max-w-xl text-lg text-ink/60">Las familias que mejor representan cada filosofía de juego, con datos verificados.</p>
+      <section className="container-rl grid gap-6 pb-14 pt-28 md:grid-cols-12 md:pb-20 md:pt-36">
+        <h1 className="text-[clamp(2.8rem,7vw,6.5rem)] font-semibold leading-[0.9] tracking-[-0.05em] md:col-span-8">
+          Marcas de <span className="font-serif font-normal italic tracking-[-0.02em] text-muted">raquetas.</span>
+        </h1>
+        <p className="self-end text-[17px] leading-relaxed text-muted md:col-span-4">
+          Siete fabricantes y las familias que mejor representan cada filosofía de juego. Todas con especificaciones verificadas.
+        </p>
       </section>
-      <section className="container-rl pb-28">
-        <ul className="grid gap-5 md:grid-cols-2">
-          {brandList.map((b, i) => {
-            const items = all.filter((r) => r.brand === b.id);
-            const cover = items.find((r) => mainPhoto(r)) ?? items[0];
-            const families = [...new Set(items.map((r) => r.family))];
-            return (
-              <Reveal as="li" key={b.id} delay={(i % 2) * 0.08}>
-                <Link
-                  href={`/marcas/${b.id}`}
-                  className="group studio-bg relative flex h-72 overflow-hidden rounded-[var(--radius-card)] border border-line p-8 transition-shadow hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]"
-                >
-                  <div className="relative z-10 flex flex-col">
-                    <p className="text-xs text-muted">{b.country}</p>
-                    <h2 className="display mt-1 text-4xl">{b.name}</h2>
-                    <p className="mt-3 max-w-[16rem] text-sm text-ink/60">{families.join(" · ")}</p>
-                    <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium">
-                      {items.length} {items.length === 1 ? "modelo" : "modelos"}
-                      <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </span>
-                  </div>
-                  <div className="absolute -bottom-4 right-0 h-[112%] w-1/2 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-2 group-hover:scale-105">
-                    {cover && <ProductMedia racket={cover} sizes="(min-width: 768px) 25vw, 50vw" />}
-                  </div>
-                </Link>
-              </Reveal>
-            );
-          })}
-        </ul>
+      <section className="container-rl pb-28" aria-label="Índice de marcas">
+        <BrandIndex rows={rows} />
       </section>
     </>
   );

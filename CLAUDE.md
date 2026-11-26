@@ -57,7 +57,11 @@ Antes de terminar cualquier tarea: `grep -rn "<svg" src` y verificar que solo ap
   cabeza, patrón, nivel, rigidez y swingweight.
 - Mezcla `multiply` de las fotos de producto: cualquier capa con transform, sticky o filter aísla la mezcla; poner el color de
   fondo dentro de esa capa.
-- Cada sección con su propia animación (no un fade-in genérico); navegación que se oculta al bajar y vuelve al subir.
+- Cada sección con su propia animación (no un fade-in genérico); navegación que se oculta al bajar y vuelve al subir
+  (expone `--header-h` para que las barras fijas, como la del catálogo, la sigan).
+- Estados vacíos con `EmptyState` (titular, acción y foto real que se descubre), nunca un icono suelto.
+- Microinteracciones: avisos (`useToast` + `Toaster`) al añadir o quitar del comparador; el carrito abre su panel;
+  índice de marcas con foto real que sigue al cursor; buscador con la selección y miniaturas reales.
 
 ## 4b. SEO
 

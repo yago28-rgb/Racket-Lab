@@ -1,5 +1,6 @@
 "use client";
 
+import { EmptyState } from "@/components/ui/EmptyState";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,7 +10,7 @@ import { useOrders } from "@/store/orders";
 import { priceCart } from "@/lib/pricing";
 import { formatEUR } from "@/lib/format";
 import { shippingConfig } from "@/lib/shipping";
-import { Button, ButtonLink } from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 import { useHydrated } from "@/hooks/useHydrated";
 
 type PaymentMode = "demo" | "test" | "live" | null;
@@ -44,12 +45,15 @@ export function CheckoutView() {
 
   if (totals.lines.length === 0) {
     return (
-      <div className="container-rl py-24 text-center">
-        <p className="text-lg font-medium">No hay nada que pagar.</p>
-        <div className="mt-6">
-          <ButtonLink href="/raquetas">Ver raquetas</ButtonLink>
-        </div>
-      </div>
+      <EmptyState
+        title="No hay nada"
+        accent="que pagar todavía."
+        text="Añade una raqueta al carrito y vuelve aquí para completar el pedido."
+        primary={{ href: "/raquetas", label: "Ver raquetas" }}
+        secondary={{ href: "/racket-finder", label: "Encontrar la mía" }}
+        image="/media/video/hero-aerial-poster.webp"
+        alt="Vista cenital de un jugador sacando"
+      />
     );
   }
 

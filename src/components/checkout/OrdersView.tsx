@@ -1,9 +1,9 @@
 "use client";
 
+import { EmptyState } from "@/components/ui/EmptyState";
 import Link from "next/link";
 import { useOrders, type OrderStatus } from "@/store/orders";
 import { formatEUR } from "@/lib/format";
-import { ButtonLink } from "@/components/ui/Button";
 import { useHydrated } from "@/hooks/useHydrated";
 
 const statusLabel: Record<OrderStatus, string> = {
@@ -18,12 +18,14 @@ export function OrdersView() {
   if (!hydrated) return <div className="container-rl h-64" />;
   if (orders.length === 0) {
     return (
-      <div className="container-rl pb-28">
-        <p className="text-muted">Todavía no hay pedidos en este navegador.</p>
-        <div className="mt-6">
-          <ButtonLink href="/raquetas">Ver raquetas</ButtonLink>
-        </div>
-      </div>
+      <EmptyState
+        title="Aún no hay pedidos"
+        accent="en este navegador."
+        text="Cuando completes una compra aparecerá aquí con su estado y su resumen."
+        primary={{ href: "/raquetas", label: "Ver raquetas" }}
+        image="/media/video/hero-forehand-poster.webp"
+        alt="Primer plano de una derecha a contraluz"
+      />
     );
   }
   return (

@@ -1,12 +1,12 @@
 "use client";
 
+import { EmptyState } from "@/components/ui/EmptyState";
 import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/store/cart";
 import { priceCart } from "@/lib/pricing";
 import { formatEUR, cn } from "@/lib/format";
 import { shippingConfig, type ShippingZone } from "@/lib/shipping";
-import { ButtonLink, buttonClass } from "@/components/ui/Button";
+import { buttonClass } from "@/components/ui/Button";
 import { CartLineItem } from "./CartLineItem";
 import { useHydrated } from "@/hooks/useHydrated";
 
@@ -19,17 +19,13 @@ export function CartView() {
 
   if (totals.lines.length === 0) {
     return (
-      <div className="container-rl flex flex-col items-center py-24 text-center">
-        <ShoppingBag size={36} className="text-muted" />
-        <p className="mt-6 text-lg font-medium">Tu carrito está vacío.</p>
-        <p className="mt-2 text-sm text-muted">Explora el catálogo o deja que el Racket Finder elija por ti.</p>
-        <div className="mt-8 flex gap-3">
-          <ButtonLink href="/raquetas">Ver raquetas</ButtonLink>
-          <ButtonLink href="/racket-finder" variant="secondary">
-            Racket Finder
-          </ButtonLink>
-        </div>
-      </div>
+      <EmptyState
+        title="Tu carrito"
+        accent="está vacío."
+        text="Explora el catálogo o deja que el Racket Finder elija por ti a partir de tu forma de jugar."
+        primary={{ href: "/raquetas", label: "Ver raquetas" }}
+        secondary={{ href: "/racket-finder", label: "Probar el Racket Finder" }}
+      />
     );
   }
 

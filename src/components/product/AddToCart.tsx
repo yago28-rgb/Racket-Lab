@@ -68,7 +68,7 @@ export function AddToCart({ racket }: { racket: Racket }) {
       </fieldset>
 
       <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-line p-4 transition-colors has-[:checked]:border-ink">
-        <input type="checkbox" checked={stringing} onChange={(e) => setStringing(e.target.checked)} className="mt-1 accent-[#111]" />
+        <input type="checkbox" checked={stringing} onChange={(e) => setStringing(e.target.checked)} className="mt-1 accent-[#1f4a36]" />
         <span className="text-sm">
           <span className="font-medium">
             {shippingConfig.stringingService.label} (+{formatEUR(shippingConfig.stringingService.price)})

@@ -53,6 +53,11 @@ export function Header() {
     };
   }, [pathname]);
   const dark = onDark && !menu;
+  const tucked = hidden && !menu && !search;
+  // Lets sticky sub-bars (catalogue toolbar) follow the navigation as it hides and returns.
+  useEffect(() => {
+    document.documentElement.style.setProperty("--header-h", tucked ? "0px" : "3rem");
+  }, [tucked]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -78,7 +83,7 @@ export function Header() {
         data-dark={dark || undefined}
         className={cn(
           "group/header fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter,color,transform] duration-700 ease-[var(--ease-out-expo)]",
-          hidden && !menu && !search ? "-translate-y-full" : "translate-y-0",
+          tucked ? "-translate-y-full" : "translate-y-0",
           dark
             ? scrolled
               ? "border-white/10 bg-night/70 text-paper backdrop-blur-xl backdrop-saturate-150"
@@ -130,9 +135,15 @@ export function Header() {
             >
               <ShoppingBag size={18} />
               {hydrated && count > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-club px-1 text-[10px] font-semibold text-white">
+                <motion.span
+                  key={count}
+                  initial={{ scale: 0.4 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 520, damping: 14 }}
+                  className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-club px-1 text-[10px] font-semibold text-white"
+                >
                   {count}
-                </span>
+                </motion.span>
               )}
             </button>
             <button

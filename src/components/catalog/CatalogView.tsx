@@ -125,7 +125,7 @@ export function CatalogView() {
   return (
     <div className="container-rl pb-28">
       {/* Toolbar */}
-      <div className="sticky top-14 z-30 -mx-5 mb-8 flex flex-wrap items-center gap-3 border-b border-line bg-paper/85 px-5 py-3 backdrop-blur-xl md:-mx-10 md:px-10">
+      <div className="sticky top-[var(--header-h,3rem)] z-30 -mx-5 transition-[top] duration-700 ease-[var(--ease-out-expo)] mb-8 flex flex-wrap items-center gap-3 border-b border-line bg-paper/85 px-5 py-3 backdrop-blur-xl md:-mx-10 md:px-10">
         <label className="relative flex min-w-0 flex-1 items-center">
           <Search size={16} className="pointer-events-none absolute left-3.5 text-muted" />
           <input
@@ -171,7 +171,7 @@ export function CatalogView() {
 
       <div className="grid gap-10 lg:grid-cols-[260px_1fr]">
         <aside className="hidden lg:block" aria-label="Filtros">
-          <div className="sticky top-36 max-h-[calc(100vh-10rem)] overflow-y-auto pb-10 pr-2">
+          <div className="sticky top-[calc(var(--header-h,3rem)+5.5rem)] max-h-[calc(100vh-10rem)] transition-[top] duration-700 ease-[var(--ease-out-expo)] overflow-y-auto pb-10 pr-2">
             {panel}
             {activeCount > 0 && (
               <button onClick={() => update(emptyFilters)} className="mt-8 text-sm underline underline-offset-4">
